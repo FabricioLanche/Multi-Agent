@@ -48,7 +48,7 @@ source .env
 ok ".env cargado correctamente"
 
 # =====================================================
-# VALIDAR VARIABLES DE ENTORNO
+# VALIDATE ENV
 # =====================================================
 validate_env() {
     log "Validando variables de entorno..."
@@ -71,7 +71,7 @@ validate_env() {
 }
 
 # =====================================================
-# CONFIGURAR AWS ACCOUNT ID
+# CONFIGURE AWS ACCOUNT ID
 # =====================================================
 configure_aws_account() {
     if [ -z "${AWS_ACCOUNT_ID:-}" ]; then
@@ -87,7 +87,6 @@ configure_aws_account() {
             exit 1
         fi
 
-        # Añadir a .env (si no existe ya)
         if ! grep -q '^AWS_ACCOUNT_ID=' .env; then
             echo "AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID" >> .env
         fi
@@ -99,109 +98,62 @@ configure_aws_account() {
     EXPECTED_BUCKET="recetas-medicas-data-${AWS_ACCOUNT_ID}"
     if [ "${S3_BUCKET_RECETAS:-}" != "$EXPECTED_BUCKET" ]; then
         warn "Actualizando S3_BUCKET_RECETAS en .env → $EXPECTED_BUCKET"
-        # Eliminar línea existente y añadir nueva (crea backup .env.bak)
         sed -i.bak '/^S3_BUCKET_RECETAS=/d' .env || true
         echo "S3_BUCKET_RECETAS=$EXPECTED_BUCKET" >> .env
         ok "S3_BUCKET_RECETAS actualizado: $EXPECTED_BUCKET"
-        # reload
         # shellcheck disable=SC1090
         source .env
     fi
 }
 
 # =====================================================
-# CREAR TABLAS + POBLAR
+# INSTALL PYTHON REQUIREMENTS (helper)
 # =====================================================
-setup_database() {
-    echo ""
-    echo "════════════ DATABASE SETUP (DynamoDB) ════════════"
-
-    # Cambiar a directorio DataGenerator
-    if [ ! -d "DataGenerator" ]; then
-        err "No se encontró carpeta DataGenerator/ (conteniendo scripts Python)"
-        exit 1
+install_python_requirements() {
+    local req_dir="$1"   # directory containing requirements.txt
+    if [ ! -d "$req_dir" ]; then
+        warn "Directorio no existe: $req_dir"
+        return 0
     fi
-    cd DataGenerator || exit 1
 
-    # Instalar dependencias Python con pip del intérprete actual
+    local req_file="$req_dir/requirements.txt"
+    if [ ! -f "$req_file" ]; then
+        warn "No existe requirements.txt en $req_dir"
+        return 0
+    fi
+
+    # Select python executable
     if command -v python3 >/dev/null 2>&1; then
         PY=python3
     elif command -v python >/dev/null 2>&1; then
         PY=python
     else
-        err "Python no encontrado"
+        err "Python no encontrado. Instala Python antes de continuar."
         exit 1
     fi
 
-    if [ -f requirements.txt ]; then
-        log "Instalando dependencias Python (requirements.txt)..."
-        "$PY" -m pip install -r requirements.txt --quiet
-    else
-        warn "No existe requirements.txt en DataGenerator/"
-    fi
-
-    log "Creando tablas DynamoDB..."
-    # Asegúrate de que el nombre del script coincide (create_tables.py o CreateTables.py)
-    if [ -f create_tables.py ]; then
-        "$PY" create_tables.py || { err "Error creando tablas"; exit 1; }
-    elif [ -f CreateTables.py ]; then
-        "$PY" CreateTables.py || { err "Error creando tablas"; exit 1; }
-    else
-        err "No se encontró create_tables.py o CreateTables.py en DataGenerator/"
-        exit 1
-    fi
-
-    ok "Tablas listas"
-
-    log "Verificando existencia de datos en tablas (si existe check_tables.py)..."
-    HAS_DATA="NO"
-    if [ -f check_tables.py ]; then
-        HAS_DATA=$("$PY" check_tables.py) || HAS_DATA="NO"
-    else
-        warn "check_tables.py no encontrado; se preguntará si poblar manualmente"
-    fi
-
-    if [ "$HAS_DATA" = "YES" ]; then
-        warn "Tablas ya contienen datos."
-        read -r -p "¿Limpiar y poblar de nuevo? (s/n): " R
-        if [ "$R" = "s" ]; then
-            if [ -f populate_tables.py ]; then
-                "$PY" populate_tables.py
-            elif [ -f DataPoblator.py ]; then
-                "$PY" DataPoblator.py
-            else
-                err "No se encontró script de población (populate_tables.py / DataPoblator.py)"
-                exit 1
-            fi
-        fi
-    else
-        read -r -p "¿Poblar tablas con datos demo? (s/n): " R
-        if [ "$R" = "s" ]; then
-            if [ -f populate_tables.py ]; then
-                "$PY" populate_tables.py
-            elif [ -f DataPoblator.py ]; then
-                "$PY" DataPoblator.py
-            else
-                err "No se encontró script de población (populate_tables.py / DataPoblator.py)"
-                exit 1
-            fi
-        fi
-    fi
-
-    cd "$SCRIPT_DIR" || exit 1
+    log "Instalando dependencias Python en $req_dir usando $PY -m pip ..."
+    "$PY" -m pip install --upgrade pip setuptools wheel --quiet
+    "$PY" -m pip install -r "$req_file" --quiet
+    ok "Dependencies instaladas para $req_dir"
 }
 
 # =====================================================
-# SETUP BUCKET S3
+# SETUP BUCKET S3 (instala requirements primero)
 # ===================================================== 
 setup_bucket() {
     echo ""
     echo "════════════ SETUP BUCKET S3 ════════════"
 
-    # Usar el script creado (create_s3_bucket_for_tareas.py) si existe
-    if [ -d "DataGenerator" ] && [ -f "DataGenerator/create_s3_bucket_for_tareas.py" ]; then
+    # Asegurarse de instalar requirements del DataGenerator antes de ejecutar el script de bucket
+    if [ -d "DataGenerator" ]; then
+        install_python_requirements "DataGenerator"
+    fi
+
+    # Ejecutar script de creación de bucket (buscar variantes de nombre)
+    if [ -f "DataGenerator/create_s3_bucket_for_tareas.py" ]; then
         python3 DataGenerator/create_s3_bucket_for_tareas.py create-bucket || {
-            err "Error en creación bucket S3"
+            err "Error en creación bucket S3 (create_s3_bucket_for_tareas.py)"
             exit 1
         }
     elif [ -f "DataGenerator/CreateBucket.py" ]; then
@@ -217,17 +169,82 @@ setup_bucket() {
 }
 
 # =====================================================
-# DEPLOY SERVICIOS (OPTIMIZADO)
+# CREAR TABLAS + POBLAR
+# =====================================================
+setup_database() {
+    echo ""
+    echo "════════════ DATABASE SETUP (DynamoDB) ════════════"
+
+    if [ ! -d "DataGenerator" ]; then
+        err "No se encontró carpeta DataGenerator/ (conteniendo scripts Python)"
+        exit 1
+    fi
+
+    cd DataGenerator || exit 1
+
+    # Instalar dependencias Python (ya instaladas antes por setup_bucket, pero repetimos por seguridad)
+    install_python_requirements "DataGenerator"
+
+    log "Creando tablas DynamoDB..."
+    if [ -f create_tables.py ]; then
+        python3 create_tables.py || { err "Error creando tablas"; exit 1; }
+    elif [ -f CreateTables.py ]; then
+        python3 CreateTables.py || { err "Error creando tablas"; exit 1; }
+    else
+        err "No se encontró create_tables.py o CreateTables.py en DataGenerator/"
+        exit 1
+    fi
+
+    ok "Tablas listas"
+
+    log "Verificando existencia de datos en tablas (si existe check_tables.py)..."
+    HAS_DATA="NO"
+    if [ -f check_tables.py ]; then
+        HAS_DATA=$(python3 check_tables.py) || HAS_DATA="NO"
+    else
+        warn "check_tables.py no encontrado; se preguntará si poblar manualmente"
+    fi
+
+    if [ "$HAS_DATA" = "YES" ]; then
+        warn "Tablas ya contienen datos."
+        read -r -p "¿Limpiar y poblar de nuevo? (s/n): " R
+        if [ "$R" = "s" ]; then
+            if [ -f populate_tables.py ]; then
+                python3 populate_tables.py
+            elif [ -f DataPoblator.py ]; then
+                python3 DataPoblator.py
+            else
+                err "No se encontró script de población (populate_tables.py / DataPoblator.py)"
+                exit 1
+            fi
+        fi
+    else
+        read -r -p "¿Poblar tablas con datos demo? (s/n): " R
+        if [ "$R" = "s" ]; then
+            if [ -f populate_tables.py ]; then
+                python3 populate_tables.py
+            elif [ -f DataPoblator.py ]; then
+                python3 DataPoblator.py
+            else
+                err "No se encontró script de población (populate_tables.py / DataPoblator.py)"
+                exit 1
+            fi
+        fi
+    fi
+
+    cd "$SCRIPT_DIR" || exit 1
+}
+
+# =====================================================
+# DEPLOY SERVICES
 # =====================================================
 deploy_services() {
     echo ""
     echo "════════════ DEPLOY SERVERLESS COMPOSE ════════════"
 
-    # Limpiar solo caches python
     log "Limpieza suave (solo __pycache__)..."
     find API-*/ -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
 
-    # Instalar dependencias node si faltan
     if [ ! -d node_modules ]; then
         warn "Instalando dependencias Node (serverless/plugins)..."
         if [ -f package-lock.json ]; then
@@ -239,13 +256,11 @@ deploy_services() {
 
     ok "Entorno Node listo"
 
-    # Verificar serverless
     if ! command -v serverless >/dev/null 2>&1; then
         err "Serverless CLI no encontrado. Instala 'serverless' antes de continuar."
         exit 1
     fi
 
-    # Ejecutar deploy (usa variable STAGE o dev por defecto)
     STG="${STAGE:-dev}"
     log "Ejecutando serverless deploy --stage ${STG} ..."
     serverless deploy --stage "${STG}" || {
@@ -257,7 +272,7 @@ deploy_services() {
 }
 
 # =====================================================
-# MENÚ
+# MENU
 # =====================================================
 echo ""
 echo "══════════════════════════════════════"
