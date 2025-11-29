@@ -17,7 +17,7 @@ services:
     params:
       stage: ${self:stage}
 
-  # api-analisis:
-  #   path: API-Analisis/
-  #   params:
-  #     stage: ${self:stage}
+  api-analisis:
+    path: API-Analisis/
+    params:
+      stage: ${self:stage}
