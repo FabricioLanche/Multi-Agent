@@ -1,1 +1,91 @@
+# ───────────────────────────────
+# IDEs y configuración local
+# ───────────────────────────────
 .idea/
+.vscode/
+*.code-workspace
+
+# ───────────────────────────────
+# Entornos virtuales
+# ───────────────────────────────
+venv/
+env/
+.venv/
+.env/
+
+# ───────────────────────────────
+# Archivos de entorno y llaves
+# ───────────────────────────────
+*.env
+*.env.*
+!.env.example
+*.key
+*.pem
+
+# ───────────────────────────────
+# Python
+# ───────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.pkl
+*.pyo
+*.pyd
+*.so
+
+# Compilación
+build/
+dist/
+*.egg-info/
+*.egg
+
+# ───────────────────────────────
+# Logs
+# ───────────────────────────────
+*.log
+logs/
+*.out
+
+# ───────────────────────────────
+# Cache
+# ───────────────────────────────
+.cache/
+pytest_cache/
+.coverage
+htmlcov/
+
+# ───────────────────────────────
+# Base de datos local / desarrollo
+# ───────────────────────────────
+*.sqlite
+*.db
+
+# ───────────────────────────────
+# AWS (SAM / Lambda / Terraform)
+# ───────────────────────────────
+.aws-sam/
+**/.terraform/*
+terraform.tfstate
+terraform.tfstate.backup
+
+# ───────────────────────────────
+# Docker
+# ───────────────────────────────
+docker-compose.override.yml
+*.dockerfile.swp
+
+# ───────────────────────────────
+# Node (si hay frontend)
+# ───────────────────────────────
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# ───────────────────────────────
+# Otros
+# ───────────────────────────────
+.DS_Store
+Thumbs.db

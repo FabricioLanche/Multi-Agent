@@ -1,0 +1,210 @@
+[
+  {
+    "id": "b2050ef7-3d00-4f8f-b16f-771e814e5543",
+    "usuarioId": "58931b77-38bb-427d-be3e-e44fb9cf6dc2",
+    "tipo_financiamiento": "BECA",
+    "situacion_laboral": "TRABAJA_Y_ESTUDIA",
+    "ingreso_estimado": 1371.85,
+    "dependencia_economica": false
+  },
+  {
+    "id": "765686ef-4aec-4bc0-bb36-cdd4b9d7f140",
+    "usuarioId": "1fcee0ab-e0a9-4c2b-bd3f-3cfe8eafa51d",
+    "tipo_financiamiento": "CREDITO",
+    "situacion_laboral": "TRABAJA",
+    "ingreso_estimado": 3167.78,
+    "dependencia_economica": false
+  },
+  {
+    "id": "30acdad0-cd91-4f51-9403-6d9183dcdd86",
+    "usuarioId": "a0c06a21-57da-4577-b59d-97e94d2f20b8",
+    "tipo_financiamiento": "PROPIO",
+    "situacion_laboral": "TRABAJA",
+    "ingreso_estimado": 4138.14,
+    "dependencia_economica": false
+  },
+  {
+    "id": "ef7ee12c-62a4-42ec-a49e-caceec0a5de0",
+    "usuarioId": "947d8506-9f0f-4f99-9c45-a49ad25a181d",
+    "tipo_financiamiento": "BECA",
+    "situacion_laboral": "TRABAJA",
+    "ingreso_estimado": 189.09,
+    "dependencia_economica": true
+  },
+  {
+    "id": "8cefb1ae-4fae-4ba7-b09a-11eab7a4d3b2",
+    "usuarioId": "4a8ebe49-fca0-43fd-ba27-978ee6273ec8",
+    "tipo_financiamiento": "OTRO",
+    "situacion_laboral": "TRABAJA",
+    "ingreso_estimado": 651.37,
+    "dependencia_economica": false
+  },
+  {
+    "id": "8037afb2-a27f-4559-9908-541b51c4e113",
+    "usuarioId": "679fe297-323f-4840-bda1-236a926d1a96",
+    "tipo_financiamiento": "BECA",
+    "situacion_laboral": "NO_TRABAJA",
+    "ingreso_estimado": 1068.02,
+    "dependencia_economica": false
+  },
+  {
+    "id": "5ea56108-0010-438e-9565-f2d37e044804",
+    "usuarioId": "bf8429e7-b26d-493b-af84-11aac485d8be",
+    "tipo_financiamiento": "PROPIO",
+    "situacion_laboral": "TRABAJA",
+    "ingreso_estimado": 1247.56,
+    "dependencia_economica": true
+  },
+  {
+    "id": "54a8b072-cd05-4119-8348-6778eabb0257",
+    "usuarioId": "fe7e9b69-5f9e-4088-a431-5916564b1dc9",
+    "tipo_financiamiento": "FAMILIAR",
+    "situacion_laboral": "TRABAJA_Y_ESTUDIA",
+    "ingreso_estimado": 1663.1,
+    "dependencia_economica": false
+  },
+  {
+    "id": "20aa02c4-34bf-4917-9df4-935155c3d725",
+    "usuarioId": "8424088a-e93d-41f4-88cb-7017f47f0dc2",
+    "tipo_financiamiento": "CREDITO",
+    "situacion_laboral": "NO_TRABAJA",
+    "ingreso_estimado": 1135.21,
+    "dependencia_economica": false
+  },
+  {
+    "id": "f91d5729-e750-43ed-9ea4-3a7bbe887e19",
+    "usuarioId": "8a8a588b-f1c3-4e72-8dab-e0b5cc76e72f",
+    "tipo_financiamiento": "PROPIO",
+    "situacion_laboral": "TRABAJA_Y_ESTUDIA",
+    "ingreso_estimado": 4567.82,
+    "dependencia_economica": false
+  },
+  {
+    "id": "4c305f96-f078-4802-9fe3-1e1ec756f2d5",
+    "usuarioId": "3201b0ad-45f6-4970-9631-0851569c6eca",
+    "tipo_financiamiento": "CREDITO",
+    "situacion_laboral": "TRABAJA",
+    "ingreso_estimado": 3363.26,
+    "dependencia_economica": true
+  },
+  {
+    "id": "614dc860-6e16-40ba-9457-3f38f25bbd1c",
+    "usuarioId": "8126d790-601d-4db4-bb6d-9d7971098a1b",
+    "tipo_financiamiento": "CREDITO",
+    "situacion_laboral": "TRABAJA",
+    "ingreso_estimado": 1794.92,
+    "dependencia_economica": true
+  },
+  {
+    "id": "d0c75e3b-f94d-4cb4-8588-c8dda36171b4",
+    "usuarioId": "b6ea0f92-6250-4f2b-ab7d-31842b646f5d",
+    "tipo_financiamiento": "OTRO",
+    "situacion_laboral": "TRABAJA",
+    "ingreso_estimado": 842.77,
+    "dependencia_economica": false
+  },
+  {
+    "id": "44f68290-519a-4a24-b335-b4a535282b95",
+    "usuarioId": "a03495c9-8b2a-4c22-80ce-4a3e44299dc8",
+    "tipo_financiamiento": "BECA",
+    "situacion_laboral": "TRABAJA",
+    "ingreso_estimado": 4248.08,
+    "dependencia_economica": true
+  },
+  {
+    "id": "06565406-c11a-4687-96dd-fd446c77ac66",
+    "usuarioId": "8ed8dfce-4f81-4b90-b021-38fe7b9370e0",
+    "tipo_financiamiento": "FAMILIAR",
+    "situacion_laboral": "NO_TRABAJA",
+    "ingreso_estimado": 4527.17,
+    "dependencia_economica": false
+  },
+  {
+    "id": "95ac84c3-40c0-41d4-9c27-17fd01d3740d",
+    "usuarioId": "9eeccad3-aa30-41e8-99d2-dc26a0356afd",
+    "tipo_financiamiento": "BECA",
+    "situacion_laboral": "NO_TRABAJA",
+    "ingreso_estimado": 2525.95,
+    "dependencia_economica": true
+  },
+  {
+    "id": "c650b379-7d8a-4925-b373-20e39d4a26aa",
+    "usuarioId": "01499e50-5382-4c63-b18d-06c679511872",
+    "tipo_financiamiento": "PROPIO",
+    "situacion_laboral": "TRABAJA_Y_ESTUDIA",
+    "ingreso_estimado": 1886.43,
+    "dependencia_economica": false
+  },
+  {
+    "id": "b2a7fff6-7fe8-403c-9aa6-830f074d4d3c",
+    "usuarioId": "f1e38222-21d7-4493-9681-2d7015ecfbb1",
+    "tipo_financiamiento": "CREDITO",
+    "situacion_laboral": "TRABAJA",
+    "ingreso_estimado": 2340.06,
+    "dependencia_economica": false
+  },
+  {
+    "id": "08e71a52-98b8-4eab-b92a-2b3d5a102735",
+    "usuarioId": "cf848ac5-1d9b-4d18-8972-f0e2cc6d7fb9",
+    "tipo_financiamiento": "BECA",
+    "situacion_laboral": "TRABAJA_Y_ESTUDIA",
+    "ingreso_estimado": 3018.9,
+    "dependencia_economica": true
+  },
+  {
+    "id": "b69e00a7-a0d1-4593-8dd0-1b632ceb523f",
+    "usuarioId": "8582030d-efb8-4caa-8b67-c685149253e7",
+    "tipo_financiamiento": "BECA",
+    "situacion_laboral": "TRABAJA_Y_ESTUDIA",
+    "ingreso_estimado": 2658.99,
+    "dependencia_economica": false
+  },
+  {
+    "id": "a9477db6-0496-43a5-bfb2-13bb561c6e34",
+    "usuarioId": "0e6934e3-9241-4fd6-bb68-d660039a88b0",
+    "tipo_financiamiento": "PROPIO",
+    "situacion_laboral": "NO_TRABAJA",
+    "ingreso_estimado": 445.78,
+    "dependencia_economica": true
+  },
+  {
+    "id": "d3e531ad-ddd7-4c76-8b74-db630087d769",
+    "usuarioId": "cc9c588a-481e-4129-abb4-c171878e7b62",
+    "tipo_financiamiento": "FAMILIAR",
+    "situacion_laboral": "TRABAJA_Y_ESTUDIA",
+    "ingreso_estimado": 4596.84,
+    "dependencia_economica": false
+  },
+  {
+    "id": "e04ecd5e-8e75-4d96-be2c-a77c77f8ac15",
+    "usuarioId": "d412bff9-9a63-44a0-b7d8-aa042c58a1c1",
+    "tipo_financiamiento": "FAMILIAR",
+    "situacion_laboral": "TRABAJA",
+    "ingreso_estimado": 158.91,
+    "dependencia_economica": true
+  },
+  {
+    "id": "cdaab13e-7dec-43da-819e-c57231778e9b",
+    "usuarioId": "a7d5b1f4-cc9a-4128-9abe-e83090c9c4e7",
+    "tipo_financiamiento": "FAMILIAR",
+    "situacion_laboral": "TRABAJA",
+    "ingreso_estimado": 122.81,
+    "dependencia_economica": true
+  },
+  {
+    "id": "eaeca165-12fb-4041-9490-05860a190a48",
+    "usuarioId": "71903b6c-2b88-4555-8b7f-5c1ad0715786",
+    "tipo_financiamiento": "OTRO",
+    "situacion_laboral": "NO_TRABAJA",
+    "ingreso_estimado": 1511.18,
+    "dependencia_economica": true
+  },
+  {
+    "id": "d1aa23a0-99f6-432a-a998-3c11995a6888",
+    "usuarioId": "b91670c0-5584-412a-bf62-23b3dfae488a",
+    "tipo_financiamiento": "PROPIO",
+    "situacion_laboral": "NO_TRABAJA",
+    "ingreso_estimado": 1326.36,
+    "dependencia_economica": false
+  }
+]

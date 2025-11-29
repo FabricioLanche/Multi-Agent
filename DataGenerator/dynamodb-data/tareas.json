@@ -1,0 +1,424 @@
+[
+  {
+    "id": "eaa73d6e-ed78-4cb9-8a0c-eec54e958050",
+    "usuarioId": "58931b77-38bb-427d-be3e-e44fb9cf6dc2",
+    "imagenUrl": "https://cdn.example.com/b928b2a0f73d4463873b8b302122eb3c.jpg",
+    "texto": "Subir archivo de proyecto"
+  },
+  {
+    "id": "4b3de8d8-bb5f-4094-9163-ca5c8b94168d",
+    "usuarioId": "1fcee0ab-e0a9-4c2b-bd3f-3cfe8eafa51d",
+    "imagenUrl": "https://cdn.example.com/0aba03b6047e42bf8d696406a58d00f6.jpg",
+    "texto": "Entregar práctica 1"
+  },
+  {
+    "id": "c0f3d9f5-8c12-4f68-bb5e-9a9b19a56628",
+    "usuarioId": "947d8506-9f0f-4f99-9c45-a49ad25a181d",
+    "texto": "Preparar presentación"
+  },
+  {
+    "id": "6b2f07a6-8184-4c6a-9136-b59c766104fb",
+    "usuarioId": "947d8506-9f0f-4f99-9c45-a49ad25a181d",
+    "texto": "Entregar práctica 1"
+  },
+  {
+    "id": "09d05873-9c09-48e8-9ea1-7dc1036cd4a8",
+    "usuarioId": "947d8506-9f0f-4f99-9c45-a49ad25a181d",
+    "texto": "Entregar práctica 1"
+  },
+  {
+    "id": "803cc551-a2a4-4c2d-a28b-12620e3e1dea",
+    "usuarioId": "4a8ebe49-fca0-43fd-ba27-978ee6273ec8",
+    "texto": "Preparar presentación"
+  },
+  {
+    "id": "18bb5c55-c0a0-41a4-9fde-292c3bdf6b83",
+    "usuarioId": "4a8ebe49-fca0-43fd-ba27-978ee6273ec8",
+    "texto": "Resolver ejercicio adicional"
+  },
+  {
+    "id": "328e42d5-c2ec-47b3-88bc-dd58fefbc4e3",
+    "usuarioId": "679fe297-323f-4840-bda1-236a926d1a96",
+    "texto": "Subir archivo de proyecto"
+  },
+  {
+    "id": "e90bb489-a428-4407-9ec2-66c46db3b89f",
+    "usuarioId": "bf8429e7-b26d-493b-af84-11aac485d8be",
+    "imagenUrl": "https://cdn.example.com/81435f6e07f64cc88824c835f99c2c4c.jpg",
+    "texto": "Leer capítulo 3"
+  },
+  {
+    "id": "45df895c-b34b-48aa-95a0-fa6accdb5e22",
+    "usuarioId": "bf8429e7-b26d-493b-af84-11aac485d8be",
+    "texto": "Preparar presentación"
+  },
+  {
+    "id": "c639cdd2-bcec-49db-9fa6-6bfbbbbefaae",
+    "usuarioId": "fe7e9b69-5f9e-4088-a431-5916564b1dc9",
+    "imagenUrl": "https://cdn.example.com/29106fd1edf447a69ee3559726bbe663.jpg",
+    "texto": "Resolver ejercicio adicional"
+  },
+  {
+    "id": "9862b4d9-31af-4de0-9ddc-76a0743842d6",
+    "usuarioId": "fe7e9b69-5f9e-4088-a431-5916564b1dc9",
+    "imagenUrl": "https://cdn.example.com/2a68b3fc5cfd4c7e847131809dba9778.jpg",
+    "texto": "Subir archivo de proyecto"
+  },
+  {
+    "id": "aaf1ef7a-9ab4-4a7e-acd0-11f0d7ba0d31",
+    "usuarioId": "fe7e9b69-5f9e-4088-a431-5916564b1dc9",
+    "texto": "Subir archivo de proyecto"
+  },
+  {
+    "id": "7d74fe47-ea03-4927-a104-3f60bfdf3d00",
+    "usuarioId": "fe7e9b69-5f9e-4088-a431-5916564b1dc9",
+    "texto": "Preparar presentación"
+  },
+  {
+    "id": "6667e5ed-f413-4ed4-9478-7afc198a30f4",
+    "usuarioId": "fe7e9b69-5f9e-4088-a431-5916564b1dc9",
+    "imagenUrl": "https://cdn.example.com/508b7894d6a44a9e86c1afedb5363704.jpg",
+    "texto": "Resolver ejercicio adicional"
+  },
+  {
+    "id": "1074034b-3cb4-403a-9d0f-9145b2e4c544",
+    "usuarioId": "fffd4034-1d40-4011-8d45-f8f356a6ad38",
+    "texto": "Resolver ejercicio adicional"
+  },
+  {
+    "id": "ea3c2b16-7933-41c8-a8e1-6449d96941db",
+    "usuarioId": "fffd4034-1d40-4011-8d45-f8f356a6ad38",
+    "imagenUrl": "https://cdn.example.com/1de695578c7f41c18f162748e87f6b6f.jpg",
+    "texto": "Leer capítulo 3"
+  },
+  {
+    "id": "fd23fbe7-6f97-4789-bfdd-c77f94ef8ec1",
+    "usuarioId": "8424088a-e93d-41f4-88cb-7017f47f0dc2",
+    "imagenUrl": "https://cdn.example.com/b8a712570a574ec19fc0dde525912f93.jpg",
+    "texto": "Resolver ejercicio adicional"
+  },
+  {
+    "id": "865f61d4-c5cf-4847-a5d5-5a9929c32fd3",
+    "usuarioId": "8424088a-e93d-41f4-88cb-7017f47f0dc2",
+    "texto": "Subir archivo de proyecto"
+  },
+  {
+    "id": "f16bf21e-99b4-4fff-836d-646cd395adc4",
+    "usuarioId": "8a8a588b-f1c3-4e72-8dab-e0b5cc76e72f",
+    "imagenUrl": "https://cdn.example.com/d621f8c35230405b9fd49241649203a8.jpg",
+    "texto": "Subir archivo de proyecto"
+  },
+  {
+    "id": "d6ad6edc-db8b-4d5a-9c41-b823bc43726a",
+    "usuarioId": "8a8a588b-f1c3-4e72-8dab-e0b5cc76e72f",
+    "imagenUrl": "https://cdn.example.com/6e81912e9fd44e4b9527a57cd38ee9a2.jpg",
+    "texto": "Resolver ejercicio adicional"
+  },
+  {
+    "id": "a95360be-1fe3-4f53-8133-bc021e32d1d6",
+    "usuarioId": "8a8a588b-f1c3-4e72-8dab-e0b5cc76e72f",
+    "imagenUrl": "https://cdn.example.com/e0e8d8c1dab24b29abce3ab36f975f79.jpg",
+    "texto": "Subir archivo de proyecto"
+  },
+  {
+    "id": "72020e40-d444-4869-8ebb-b46f85b2782a",
+    "usuarioId": "8a8a588b-f1c3-4e72-8dab-e0b5cc76e72f",
+    "imagenUrl": "https://cdn.example.com/f2aedd964f4349d9830e89a1f5799421.jpg",
+    "texto": "Entregar práctica 1"
+  },
+  {
+    "id": "4855bd62-6b5d-424d-aa33-7e8df86c9fef",
+    "usuarioId": "3201b0ad-45f6-4970-9631-0851569c6eca",
+    "imagenUrl": "https://cdn.example.com/cc76c491c0454a19b1f0eea1f543c9b9.jpg",
+    "texto": "Entregar práctica 1"
+  },
+  {
+    "id": "28d4c0fa-11ad-49ac-ab07-f99761526674",
+    "usuarioId": "3201b0ad-45f6-4970-9631-0851569c6eca",
+    "imagenUrl": "https://cdn.example.com/63818be7657d4af7b79c2ebeda8c9467.jpg",
+    "texto": "Subir archivo de proyecto"
+  },
+  {
+    "id": "f64edcf0-379c-4bbd-9b66-34a9f4d483f6",
+    "usuarioId": "b6ea0f92-6250-4f2b-ab7d-31842b646f5d",
+    "imagenUrl": "https://cdn.example.com/117d9df606e9409090d99989b62403e6.jpg",
+    "texto": "Entregar práctica 1"
+  },
+  {
+    "id": "d4c48482-b44f-4154-aa74-1db8c4bdd3cf",
+    "usuarioId": "b6ea0f92-6250-4f2b-ab7d-31842b646f5d",
+    "imagenUrl": "https://cdn.example.com/1fb8a06b8a704b58a057ae03bed4fabc.jpg",
+    "texto": "Leer capítulo 3"
+  },
+  {
+    "id": "1839b48f-66ba-48f5-a297-59278e5fa319",
+    "usuarioId": "b6ea0f92-6250-4f2b-ab7d-31842b646f5d",
+    "texto": "Entregar práctica 1"
+  },
+  {
+    "id": "b054fd24-bab7-412b-891c-a93d4376d43f",
+    "usuarioId": "b6ea0f92-6250-4f2b-ab7d-31842b646f5d",
+    "imagenUrl": "https://cdn.example.com/f8e59585ed7d41fd8cbb41bddbe0302c.jpg",
+    "texto": "Resolver ejercicio adicional"
+  },
+  {
+    "id": "33d701de-32e7-4ce3-a730-f12cb634186a",
+    "usuarioId": "b6ea0f92-6250-4f2b-ab7d-31842b646f5d",
+    "texto": "Preparar presentación"
+  },
+  {
+    "id": "2427e7cd-279b-485f-b4ab-f7c4f475df73",
+    "usuarioId": "a03495c9-8b2a-4c22-80ce-4a3e44299dc8",
+    "texto": "Resolver ejercicio adicional"
+  },
+  {
+    "id": "e1dc75e2-e52f-4ce8-9c75-69f9a9c7fc15",
+    "usuarioId": "a03495c9-8b2a-4c22-80ce-4a3e44299dc8",
+    "imagenUrl": "https://cdn.example.com/2e9430c1965a4d47b950b75ba671d844.jpg",
+    "texto": "Entregar práctica 1"
+  },
+  {
+    "id": "1432ac42-9798-4948-8300-fe625e04aed5",
+    "usuarioId": "a03495c9-8b2a-4c22-80ce-4a3e44299dc8",
+    "imagenUrl": "https://cdn.example.com/24a49b09a250448e84c00e08c8bfe971.jpg",
+    "texto": "Entregar práctica 1"
+  },
+  {
+    "id": "d8dee3cc-0f61-44b4-a8fc-598d66886bc8",
+    "usuarioId": "a03495c9-8b2a-4c22-80ce-4a3e44299dc8",
+    "imagenUrl": "https://cdn.example.com/8d9816ccf9424f7282d7ad1e73800d9d.jpg",
+    "texto": "Preparar presentación"
+  },
+  {
+    "id": "ee7910c0-616d-4b93-ad61-aee1ac467dd6",
+    "usuarioId": "a03495c9-8b2a-4c22-80ce-4a3e44299dc8",
+    "texto": "Preparar presentación"
+  },
+  {
+    "id": "1c917af9-270f-4642-b705-02c5713fd23d",
+    "usuarioId": "8ed8dfce-4f81-4b90-b021-38fe7b9370e0",
+    "imagenUrl": "https://cdn.example.com/c257f4f4bb754d799548c0661fae2f11.jpg",
+    "texto": "Entregar práctica 1"
+  },
+  {
+    "id": "c3b427f2-aaf0-4f92-9cee-642347d63500",
+    "usuarioId": "8ed8dfce-4f81-4b90-b021-38fe7b9370e0",
+    "texto": "Entregar práctica 1"
+  },
+  {
+    "id": "896310bd-7340-404e-b7a9-531f350b728d",
+    "usuarioId": "8ed8dfce-4f81-4b90-b021-38fe7b9370e0",
+    "texto": "Leer capítulo 3"
+  },
+  {
+    "id": "96185ff1-6e9a-4f57-9d2f-c58682ac22ab",
+    "usuarioId": "8ed8dfce-4f81-4b90-b021-38fe7b9370e0",
+    "imagenUrl": "https://cdn.example.com/04a45a3a9c9f49269a1fab14380099d6.jpg",
+    "texto": "Entregar práctica 1"
+  },
+  {
+    "id": "fe94b53e-977f-44a4-96a0-9528569c0cf9",
+    "usuarioId": "9eeccad3-aa30-41e8-99d2-dc26a0356afd",
+    "texto": "Preparar presentación"
+  },
+  {
+    "id": "cd622d00-4a36-41c2-b646-fc63f31cacee",
+    "usuarioId": "9eeccad3-aa30-41e8-99d2-dc26a0356afd",
+    "imagenUrl": "https://cdn.example.com/e3de3f10dbf64fa59140276a524fa3de.jpg",
+    "texto": "Preparar presentación"
+  },
+  {
+    "id": "ec19d840-f0b0-44db-be9b-5a8c0f5f0aed",
+    "usuarioId": "01499e50-5382-4c63-b18d-06c679511872",
+    "texto": "Entregar práctica 1"
+  },
+  {
+    "id": "5d8b09ac-290f-4c0d-a17c-7429c5d05c21",
+    "usuarioId": "01499e50-5382-4c63-b18d-06c679511872",
+    "texto": "Entregar práctica 1"
+  },
+  {
+    "id": "a84537c7-5132-4009-8a7c-0062a29f4653",
+    "usuarioId": "cf848ac5-1d9b-4d18-8972-f0e2cc6d7fb9",
+    "imagenUrl": "https://cdn.example.com/647342e61eb74186b8bbf107912b1989.jpg",
+    "texto": "Leer capítulo 3"
+  },
+  {
+    "id": "3837866c-f953-405c-a0bf-65495df90510",
+    "usuarioId": "cf848ac5-1d9b-4d18-8972-f0e2cc6d7fb9",
+    "imagenUrl": "https://cdn.example.com/c8ea2ef08fe741209bbe855b455e86c0.jpg",
+    "texto": "Leer capítulo 3"
+  },
+  {
+    "id": "e825735c-bd1c-496c-8893-6eea609770ec",
+    "usuarioId": "cf848ac5-1d9b-4d18-8972-f0e2cc6d7fb9",
+    "texto": "Preparar presentación"
+  },
+  {
+    "id": "3759dae0-71fe-4dc1-9681-a4329c7e66b0",
+    "usuarioId": "cf848ac5-1d9b-4d18-8972-f0e2cc6d7fb9",
+    "texto": "Leer capítulo 3"
+  },
+  {
+    "id": "6ce09731-c65e-4fe3-b932-0db6bf88ccdd",
+    "usuarioId": "cf848ac5-1d9b-4d18-8972-f0e2cc6d7fb9",
+    "imagenUrl": "https://cdn.example.com/3907d6e29bbc4e66afbfeb1053217a2c.jpg",
+    "texto": "Subir archivo de proyecto"
+  },
+  {
+    "id": "c0377c73-bd17-4e80-ba54-c451814f1e8a",
+    "usuarioId": "8582030d-efb8-4caa-8b67-c685149253e7",
+    "imagenUrl": "https://cdn.example.com/529e9dd7f0fa45619de7066da33d919b.jpg",
+    "texto": "Preparar presentación"
+  },
+  {
+    "id": "f193bf39-e39e-465e-9d6e-767561a0fc0f",
+    "usuarioId": "8582030d-efb8-4caa-8b67-c685149253e7",
+    "texto": "Preparar presentación"
+  },
+  {
+    "id": "b18c5f99-1702-4984-bd1d-ef7cb250ec9a",
+    "usuarioId": "8582030d-efb8-4caa-8b67-c685149253e7",
+    "texto": "Preparar presentación"
+  },
+  {
+    "id": "012a1e9f-3f0e-4534-bb10-bd44bf359a13",
+    "usuarioId": "8582030d-efb8-4caa-8b67-c685149253e7",
+    "texto": "Leer capítulo 3"
+  },
+  {
+    "id": "1811109e-422d-4fe7-bc6d-ec6d1b448a11",
+    "usuarioId": "0e6934e3-9241-4fd6-bb68-d660039a88b0",
+    "imagenUrl": "https://cdn.example.com/373ab3f3378647aaba1afcbbccc4ebdf.jpg",
+    "texto": "Preparar presentación"
+  },
+  {
+    "id": "175bcc6d-f0ff-4e91-bc1d-6fefc21cef69",
+    "usuarioId": "0e6934e3-9241-4fd6-bb68-d660039a88b0",
+    "texto": "Subir archivo de proyecto"
+  },
+  {
+    "id": "f7ff9fa1-4f69-4c7e-a026-9d346ad51f31",
+    "usuarioId": "d6c33f62-e640-4687-8885-149d4a4c9f70",
+    "texto": "Resolver ejercicio adicional"
+  },
+  {
+    "id": "c09e4ad2-7fbf-41b3-9e2a-593f67d413c5",
+    "usuarioId": "d6c33f62-e640-4687-8885-149d4a4c9f70",
+    "texto": "Preparar presentación"
+  },
+  {
+    "id": "1f808562-d341-480f-8ce3-42f4bdb7dc88",
+    "usuarioId": "d6c33f62-e640-4687-8885-149d4a4c9f70",
+    "texto": "Resolver ejercicio adicional"
+  },
+  {
+    "id": "21fedc2d-de39-4f12-8cb1-61a4e25e3156",
+    "usuarioId": "0cdbdb54-61c3-4ddc-bfdd-b397f16faa76",
+    "texto": "Preparar presentación"
+  },
+  {
+    "id": "c4257f75-4d3e-4126-aeee-37496a8190dc",
+    "usuarioId": "0cdbdb54-61c3-4ddc-bfdd-b397f16faa76",
+    "imagenUrl": "https://cdn.example.com/78e071f1db62400499867a17c4c0f1fd.jpg",
+    "texto": "Preparar presentación"
+  },
+  {
+    "id": "b92c5af5-9163-446c-887f-6ed572c56027",
+    "usuarioId": "cc9c588a-481e-4129-abb4-c171878e7b62",
+    "texto": "Preparar presentación"
+  },
+  {
+    "id": "2b4687fe-10af-4256-b35f-cf62d5d7fc91",
+    "usuarioId": "cc9c588a-481e-4129-abb4-c171878e7b62",
+    "imagenUrl": "https://cdn.example.com/0711ed5e1b2643bea43d4daf73689b67.jpg",
+    "texto": "Entregar práctica 1"
+  },
+  {
+    "id": "794dae73-8569-4188-ae4a-8fa332da27db",
+    "usuarioId": "cc9c588a-481e-4129-abb4-c171878e7b62",
+    "texto": "Entregar práctica 1"
+  },
+  {
+    "id": "1547d928-2579-446c-a85f-3f84ef33c228",
+    "usuarioId": "cc9c588a-481e-4129-abb4-c171878e7b62",
+    "imagenUrl": "https://cdn.example.com/46da70b97d284839852006a6e06ec56c.jpg",
+    "texto": "Resolver ejercicio adicional"
+  },
+  {
+    "id": "bb47b550-6267-4cdb-b5f8-0a630e25c89a",
+    "usuarioId": "cc9c588a-481e-4129-abb4-c171878e7b62",
+    "texto": "Leer capítulo 3"
+  },
+  {
+    "id": "d8bdafe0-cd4f-4f28-be80-14e63fd31f08",
+    "usuarioId": "d412bff9-9a63-44a0-b7d8-aa042c58a1c1",
+    "texto": "Resolver ejercicio adicional"
+  },
+  {
+    "id": "3ef0dd35-c0cf-40ff-bfa0-9eb3cd39ebe0",
+    "usuarioId": "d412bff9-9a63-44a0-b7d8-aa042c58a1c1",
+    "imagenUrl": "https://cdn.example.com/f2ae7955d6574e9392c4c87dd0e96024.jpg",
+    "texto": "Entregar práctica 1"
+  },
+  {
+    "id": "e27d6963-e744-4155-b9cd-856eccf97026",
+    "usuarioId": "d412bff9-9a63-44a0-b7d8-aa042c58a1c1",
+    "imagenUrl": "https://cdn.example.com/b123e6666ad140b19771511e688fa716.jpg",
+    "texto": "Entregar práctica 1"
+  },
+  {
+    "id": "5d22b00e-d3b8-4dac-839e-83327081a757",
+    "usuarioId": "d412bff9-9a63-44a0-b7d8-aa042c58a1c1",
+    "imagenUrl": "https://cdn.example.com/f216bf75532044c19720690d8a2ec43c.jpg",
+    "texto": "Leer capítulo 3"
+  },
+  {
+    "id": "ea050523-e120-46fe-b3a4-0a42bef15f28",
+    "usuarioId": "d412bff9-9a63-44a0-b7d8-aa042c58a1c1",
+    "imagenUrl": "https://cdn.example.com/7a8b0a0dd8704b71a8a59a95d6a120f8.jpg",
+    "texto": "Subir archivo de proyecto"
+  },
+  {
+    "id": "1e7c1841-426f-44dc-9907-9b92011b853f",
+    "usuarioId": "a7d5b1f4-cc9a-4128-9abe-e83090c9c4e7",
+    "texto": "Subir archivo de proyecto"
+  },
+  {
+    "id": "15fdbc3c-b24f-4cdf-a263-bbf0029b5870",
+    "usuarioId": "a7d5b1f4-cc9a-4128-9abe-e83090c9c4e7",
+    "imagenUrl": "https://cdn.example.com/c1a8e13cfc694095be1bb6b41100380d.jpg",
+    "texto": "Subir archivo de proyecto"
+  },
+  {
+    "id": "25f1d49c-ca31-413b-aa09-d03a55cec958",
+    "usuarioId": "a7d5b1f4-cc9a-4128-9abe-e83090c9c4e7",
+    "imagenUrl": "https://cdn.example.com/e27bd6b3138a4c5781cd5d95215475bf.jpg",
+    "texto": "Entregar práctica 1"
+  },
+  {
+    "id": "e1fcb9c2-67af-488a-8462-9086e86946f1",
+    "usuarioId": "a7d5b1f4-cc9a-4128-9abe-e83090c9c4e7",
+    "texto": "Resolver ejercicio adicional"
+  },
+  {
+    "id": "ba9bcadf-04d3-48d8-95b9-3c10e427a98b",
+    "usuarioId": "71903b6c-2b88-4555-8b7f-5c1ad0715786",
+    "texto": "Preparar presentación"
+  },
+  {
+    "id": "83bd73e1-3837-433a-8729-c5586c384430",
+    "usuarioId": "71903b6c-2b88-4555-8b7f-5c1ad0715786",
+    "texto": "Leer capítulo 3"
+  },
+  {
+    "id": "5fe0e25c-81aa-48fb-84ee-7a0bf98a8889",
+    "usuarioId": "b91670c0-5584-412a-bf62-23b3dfae488a",
+    "texto": "Preparar presentación"
+  },
+  {
+    "id": "105400ee-4809-47bb-aa1d-1b72a0b63caf",
+    "usuarioId": "b91670c0-5584-412a-bf62-23b3dfae488a",
+    "texto": "Entregar práctica 1"
+  }
+]

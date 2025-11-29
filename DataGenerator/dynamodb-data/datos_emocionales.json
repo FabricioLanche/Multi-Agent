@@ -1,0 +1,218 @@
+[
+  {
+    "id": "90357fd5-c80f-4552-b718-bc4efdee4170",
+    "usuarioId": "58931b77-38bb-427d-be3e-e44fb9cf6dc2",
+    "frecuencia_acceso_plataforma": "MENSUAL",
+    "horas_estudio_estimadas": 39.5,
+    "uso_servicios_tutoria": "NUNCA",
+    "uso_servicios_psicologia": "OCASIONAL",
+    "actividades_extracurriculares": false
+  },
+  {
+    "id": "1ac31aa6-a4de-4acf-b7c7-a6213ce79170",
+    "usuarioId": "1fcee0ab-e0a9-4c2b-bd3f-3cfe8eafa51d",
+    "frecuencia_acceso_plataforma": "SEMANAL",
+    "horas_estudio_estimadas": 19.4,
+    "uso_servicios_tutoria": "FRECUENTE",
+    "uso_servicios_psicologia": "REGULAR",
+    "actividades_extracurriculares": false
+  },
+  {
+    "id": "28366137-9bd8-4a57-93a4-2100b2a6cf1e",
+    "usuarioId": "a0c06a21-57da-4577-b59d-97e94d2f20b8",
+    "frecuencia_acceso_plataforma": "MENSUAL",
+    "horas_estudio_estimadas": 21.6,
+    "uso_servicios_tutoria": "REGULAR",
+    "uso_servicios_psicologia": "NUNCA",
+    "actividades_extracurriculares": true
+  },
+  {
+    "id": "38059187-9188-45c8-910d-9547090fc41e",
+    "usuarioId": "947d8506-9f0f-4f99-9c45-a49ad25a181d",
+    "frecuencia_acceso_plataforma": "SEMANAL",
+    "horas_estudio_estimadas": 2.7,
+    "uso_servicios_tutoria": "FRECUENTE",
+    "uso_servicios_psicologia": "FRECUENTE",
+    "actividades_extracurriculares": false
+  },
+  {
+    "id": "8b9c6e72-a92b-4ccb-909e-50360d59230b",
+    "usuarioId": "4a8ebe49-fca0-43fd-ba27-978ee6273ec8",
+    "frecuencia_acceso_plataforma": "MENSUAL",
+    "horas_estudio_estimadas": 34.4,
+    "uso_servicios_tutoria": "FRECUENTE",
+    "uso_servicios_psicologia": "REGULAR",
+    "actividades_extracurriculares": true
+  },
+  {
+    "id": "dce42389-6eaf-47d5-b148-f959ed242677",
+    "usuarioId": "679fe297-323f-4840-bda1-236a926d1a96",
+    "frecuencia_acceso_plataforma": "MENSUAL",
+    "horas_estudio_estimadas": 39.0,
+    "uso_servicios_tutoria": "OCASIONAL",
+    "uso_servicios_psicologia": "FRECUENTE",
+    "actividades_extracurriculares": false
+  },
+  {
+    "id": "ef0be3ec-f0ab-4610-9880-3fa5ea3ef901",
+    "usuarioId": "bf8429e7-b26d-493b-af84-11aac485d8be",
+    "frecuencia_acceso_plataforma": "NUNCA",
+    "horas_estudio_estimadas": 33.4,
+    "uso_servicios_tutoria": "NUNCA",
+    "uso_servicios_psicologia": "REGULAR",
+    "actividades_extracurriculares": true
+  },
+  {
+    "id": "1fd598d1-63eb-499c-8ada-628e33de09aa",
+    "usuarioId": "fe7e9b69-5f9e-4088-a431-5916564b1dc9",
+    "frecuencia_acceso_plataforma": "MENSUAL",
+    "horas_estudio_estimadas": 8.3,
+    "uso_servicios_tutoria": "NUNCA",
+    "uso_servicios_psicologia": "FRECUENTE",
+    "actividades_extracurriculares": false
+  },
+  {
+    "id": "66d32bc5-07fe-469e-9760-287856f7aac4",
+    "usuarioId": "8424088a-e93d-41f4-88cb-7017f47f0dc2",
+    "frecuencia_acceso_plataforma": "DIARIO",
+    "horas_estudio_estimadas": 32.1,
+    "uso_servicios_tutoria": "REGULAR",
+    "uso_servicios_psicologia": "NUNCA",
+    "actividades_extracurriculares": true
+  },
+  {
+    "id": "17712ee6-8d22-460d-bb83-646dc32c5f05",
+    "usuarioId": "8a8a588b-f1c3-4e72-8dab-e0b5cc76e72f",
+    "frecuencia_acceso_plataforma": "SEMANAL",
+    "horas_estudio_estimadas": 3.4,
+    "uso_servicios_tutoria": "REGULAR",
+    "uso_servicios_psicologia": "NUNCA",
+    "actividades_extracurriculares": true
+  },
+  {
+    "id": "8c2d77b8-b297-4357-9bf0-df589b81ca84",
+    "usuarioId": "3201b0ad-45f6-4970-9631-0851569c6eca",
+    "frecuencia_acceso_plataforma": "MENSUAL",
+    "horas_estudio_estimadas": 5.0,
+    "uso_servicios_tutoria": "NUNCA",
+    "uso_servicios_psicologia": "FRECUENTE",
+    "actividades_extracurriculares": false
+  },
+  {
+    "id": "4ffc977a-a49e-4d28-8196-73fef31becc0",
+    "usuarioId": "8126d790-601d-4db4-bb6d-9d7971098a1b",
+    "frecuencia_acceso_plataforma": "DIARIO",
+    "horas_estudio_estimadas": 19.4,
+    "uso_servicios_tutoria": "OCASIONAL",
+    "uso_servicios_psicologia": "FRECUENTE",
+    "actividades_extracurriculares": true
+  },
+  {
+    "id": "70d5a898-5575-4929-97e3-f61ff0baddb1",
+    "usuarioId": "0281b583-988c-437b-ae1f-207c8dfd8654",
+    "frecuencia_acceso_plataforma": "SEMANAL",
+    "horas_estudio_estimadas": 14.0,
+    "uso_servicios_tutoria": "FRECUENTE",
+    "uso_servicios_psicologia": "REGULAR",
+    "actividades_extracurriculares": true
+  },
+  {
+    "id": "2415e9bd-6de9-4408-b6b1-2f34b4ee4796",
+    "usuarioId": "8ed8dfce-4f81-4b90-b021-38fe7b9370e0",
+    "frecuencia_acceso_plataforma": "RARA_VEZ",
+    "horas_estudio_estimadas": 17.2,
+    "uso_servicios_tutoria": "FRECUENTE",
+    "uso_servicios_psicologia": "NUNCA",
+    "actividades_extracurriculares": true
+  },
+  {
+    "id": "83b90e71-f03e-4575-8b9e-9f0b27eb13a3",
+    "usuarioId": "9eeccad3-aa30-41e8-99d2-dc26a0356afd",
+    "frecuencia_acceso_plataforma": "DIARIO",
+    "horas_estudio_estimadas": 17.5,
+    "uso_servicios_tutoria": "REGULAR",
+    "uso_servicios_psicologia": "REGULAR",
+    "actividades_extracurriculares": false
+  },
+  {
+    "id": "7b232bf8-d2a6-4bc3-b841-37098172f2d3",
+    "usuarioId": "01499e50-5382-4c63-b18d-06c679511872",
+    "frecuencia_acceso_plataforma": "SEMANAL",
+    "horas_estudio_estimadas": 23.1,
+    "uso_servicios_tutoria": "FRECUENTE",
+    "uso_servicios_psicologia": "OCASIONAL",
+    "actividades_extracurriculares": false
+  },
+  {
+    "id": "c6de6122-05ba-457d-8e1e-70288a813fa2",
+    "usuarioId": "8582030d-efb8-4caa-8b67-c685149253e7",
+    "frecuencia_acceso_plataforma": "MENSUAL",
+    "horas_estudio_estimadas": 7.5,
+    "uso_servicios_tutoria": "NUNCA",
+    "uso_servicios_psicologia": "NUNCA",
+    "actividades_extracurriculares": true
+  },
+  {
+    "id": "5946109e-e7f1-475a-aaed-70caf590c615",
+    "usuarioId": "0e6934e3-9241-4fd6-bb68-d660039a88b0",
+    "frecuencia_acceso_plataforma": "SEMANAL",
+    "horas_estudio_estimadas": 16.9,
+    "uso_servicios_tutoria": "OCASIONAL",
+    "uso_servicios_psicologia": "NUNCA",
+    "actividades_extracurriculares": false
+  },
+  {
+    "id": "74171626-9029-43b8-9ca2-226bb6cbd923",
+    "usuarioId": "d6c33f62-e640-4687-8885-149d4a4c9f70",
+    "frecuencia_acceso_plataforma": "NUNCA",
+    "horas_estudio_estimadas": 16.0,
+    "uso_servicios_tutoria": "FRECUENTE",
+    "uso_servicios_psicologia": "NUNCA",
+    "actividades_extracurriculares": true
+  },
+  {
+    "id": "fff0cc1e-886b-4c74-bdc7-e54fe18bddaa",
+    "usuarioId": "0cdbdb54-61c3-4ddc-bfdd-b397f16faa76",
+    "frecuencia_acceso_plataforma": "RARA_VEZ",
+    "horas_estudio_estimadas": 21.5,
+    "uso_servicios_tutoria": "NUNCA",
+    "uso_servicios_psicologia": "NUNCA",
+    "actividades_extracurriculares": false
+  },
+  {
+    "id": "8f82e81f-697b-426f-a1c7-584c841cb4a1",
+    "usuarioId": "d412bff9-9a63-44a0-b7d8-aa042c58a1c1",
+    "frecuencia_acceso_plataforma": "DIARIO",
+    "horas_estudio_estimadas": 24.2,
+    "uso_servicios_tutoria": "NUNCA",
+    "uso_servicios_psicologia": "REGULAR",
+    "actividades_extracurriculares": false
+  },
+  {
+    "id": "12d52830-27b5-4434-bc2e-dfb66285e2b5",
+    "usuarioId": "a7d5b1f4-cc9a-4128-9abe-e83090c9c4e7",
+    "frecuencia_acceso_plataforma": "DIARIO",
+    "horas_estudio_estimadas": 19.3,
+    "uso_servicios_tutoria": "REGULAR",
+    "uso_servicios_psicologia": "OCASIONAL",
+    "actividades_extracurriculares": false
+  },
+  {
+    "id": "ee0dc2bf-5265-4af8-b0c5-2b8299dde4d0",
+    "usuarioId": "71903b6c-2b88-4555-8b7f-5c1ad0715786",
+    "frecuencia_acceso_plataforma": "NUNCA",
+    "horas_estudio_estimadas": 20.2,
+    "uso_servicios_tutoria": "NUNCA",
+    "uso_servicios_psicologia": "OCASIONAL",
+    "actividades_extracurriculares": false
+  },
+  {
+    "id": "b1043834-b7ec-44f1-ac06-f031ef772573",
+    "usuarioId": "b91670c0-5584-412a-bf62-23b3dfae488a",
+    "frecuencia_acceso_plataforma": "MENSUAL",
+    "horas_estudio_estimadas": 26.5,
+    "uso_servicios_tutoria": "REGULAR",
+    "uso_servicios_psicologia": "OCASIONAL",
+    "actividades_extracurriculares": true
+  }
+]

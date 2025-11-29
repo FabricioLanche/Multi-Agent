@@ -1,0 +1,352 @@
+[
+  {
+    "id": "c74a3a1f-08c2-4c61-adf5-d046090b7228",
+    "usuarioId": "58931b77-38bb-427d-be3e-e44fb9cf6dc2",
+    "texto": "Se inscribió en curso electivo"
+  },
+  {
+    "id": "a22a2354-90a8-4805-ba54-edcd72f2cb47",
+    "usuarioId": "58931b77-38bb-427d-be3e-e44fb9cf6dc2",
+    "texto": "Solicitó revisión de nota"
+  },
+  {
+    "id": "c23ed673-110c-4a6c-bbc4-f6a162cdcae8",
+    "usuarioId": "1fcee0ab-e0a9-4c2b-bd3f-3cfe8eafa51d",
+    "texto": "Asistió a asesoría"
+  },
+  {
+    "id": "7061f9cc-517f-4ebc-bc01-64bb4aaca0c1",
+    "usuarioId": "a0c06a21-57da-4577-b59d-97e94d2f20b8",
+    "texto": "Se inscribió en curso electivo"
+  },
+  {
+    "id": "c755990c-ecaa-476c-bbb3-804fa7742c02",
+    "usuarioId": "a0c06a21-57da-4577-b59d-97e94d2f20b8",
+    "texto": "Solicitó revisión de nota"
+  },
+  {
+    "id": "bf40fb4a-cb3b-4582-8990-4c0bb4e669c7",
+    "usuarioId": "a0c06a21-57da-4577-b59d-97e94d2f20b8",
+    "texto": "Reportó problema de matrícula"
+  },
+  {
+    "id": "e74465e8-b3ae-472d-b661-a562215a2299",
+    "usuarioId": "947d8506-9f0f-4f99-9c45-a49ad25a181d",
+    "texto": "Asistió a asesoría"
+  },
+  {
+    "id": "5eb5717a-b73c-4b14-917b-f65173ea083a",
+    "usuarioId": "947d8506-9f0f-4f99-9c45-a49ad25a181d",
+    "texto": "Se inscribió en curso electivo"
+  },
+  {
+    "id": "4a2cd8b4-9596-49eb-94e0-bdbc7ee408a4",
+    "usuarioId": "947d8506-9f0f-4f99-9c45-a49ad25a181d",
+    "texto": "Reportó problema de matrícula"
+  },
+  {
+    "id": "b36e0634-0aed-4c0d-8bb7-e7a30d90ee06",
+    "usuarioId": "4a8ebe49-fca0-43fd-ba27-978ee6273ec8",
+    "texto": "Solicitó revisión de nota"
+  },
+  {
+    "id": "f4bdc2c9-9580-41e1-825b-68ff5051e937",
+    "usuarioId": "4a8ebe49-fca0-43fd-ba27-978ee6273ec8",
+    "texto": "Registró baja temporal"
+  },
+  {
+    "id": "1b902951-9530-4e5e-b638-233630edb777",
+    "usuarioId": "4a8ebe49-fca0-43fd-ba27-978ee6273ec8",
+    "texto": "Solicitó revisión de nota"
+  },
+  {
+    "id": "527c3bf2-009f-4398-a3e8-86c984f1f364",
+    "usuarioId": "4a8ebe49-fca0-43fd-ba27-978ee6273ec8",
+    "texto": "Reportó problema de matrícula"
+  },
+  {
+    "id": "2cee2855-4916-401d-b794-c2725fdfff82",
+    "usuarioId": "679fe297-323f-4840-bda1-236a926d1a96",
+    "texto": "Se inscribió en curso electivo"
+  },
+  {
+    "id": "2a0ef25a-ccfe-42a6-af1d-443920adb853",
+    "usuarioId": "679fe297-323f-4840-bda1-236a926d1a96",
+    "texto": "Asistió a asesoría"
+  },
+  {
+    "id": "764dd25c-e8d6-4391-9e97-bca6f18cb82d",
+    "usuarioId": "679fe297-323f-4840-bda1-236a926d1a96",
+    "texto": "Solicitó revisión de nota"
+  },
+  {
+    "id": "ce1f76f8-fb0e-4679-87f0-14cdaecb38fc",
+    "usuarioId": "fe7e9b69-5f9e-4088-a431-5916564b1dc9",
+    "texto": "Reportó problema de matrícula"
+  },
+  {
+    "id": "0de2878a-7cbc-46cb-965e-7c6b500f12f0",
+    "usuarioId": "fe7e9b69-5f9e-4088-a431-5916564b1dc9",
+    "texto": "Asistió a asesoría"
+  },
+  {
+    "id": "2a53abc0-0cb0-40ef-a6fa-09f25dd3c05e",
+    "usuarioId": "fffd4034-1d40-4011-8d45-f8f356a6ad38",
+    "texto": "Registró baja temporal"
+  },
+  {
+    "id": "f5cc11a7-4b2c-489f-879a-f19f3bfae7de",
+    "usuarioId": "fffd4034-1d40-4011-8d45-f8f356a6ad38",
+    "texto": "Solicitó revisión de nota"
+  },
+  {
+    "id": "e1d33a26-8aae-4cf2-85dd-0557e14c0ce6",
+    "usuarioId": "fffd4034-1d40-4011-8d45-f8f356a6ad38",
+    "texto": "Registró baja temporal"
+  },
+  {
+    "id": "b666dfa2-bc05-4573-a9b9-5fe0993cce9e",
+    "usuarioId": "8424088a-e93d-41f4-88cb-7017f47f0dc2",
+    "texto": "Asistió a asesoría"
+  },
+  {
+    "id": "b2cb04f5-878c-4461-99ff-dcabb17d97e1",
+    "usuarioId": "8424088a-e93d-41f4-88cb-7017f47f0dc2",
+    "texto": "Registró baja temporal"
+  },
+  {
+    "id": "9bd34d5f-b285-4be1-b509-e4a6b65617d4",
+    "usuarioId": "8424088a-e93d-41f4-88cb-7017f47f0dc2",
+    "texto": "Asistió a asesoría"
+  },
+  {
+    "id": "c4fb4060-8aaa-494a-bd1f-a624c5c5f0db",
+    "usuarioId": "3201b0ad-45f6-4970-9631-0851569c6eca",
+    "texto": "Se inscribió en curso electivo"
+  },
+  {
+    "id": "e96bacdc-c1e4-433a-8d11-c1b1a3a2de31",
+    "usuarioId": "8126d790-601d-4db4-bb6d-9d7971098a1b",
+    "texto": "Registró baja temporal"
+  },
+  {
+    "id": "3665043a-e247-4ddf-831d-78e3e044d6f5",
+    "usuarioId": "8126d790-601d-4db4-bb6d-9d7971098a1b",
+    "texto": "Asistió a asesoría"
+  },
+  {
+    "id": "5c6d1df6-667e-405c-9c1c-e8f8dedc0784",
+    "usuarioId": "8126d790-601d-4db4-bb6d-9d7971098a1b",
+    "texto": "Reportó problema de matrícula"
+  },
+  {
+    "id": "a071f582-ef98-40d9-9002-290c248c586c",
+    "usuarioId": "b6ea0f92-6250-4f2b-ab7d-31842b646f5d",
+    "texto": "Reportó problema de matrícula"
+  },
+  {
+    "id": "a685f7e5-92d4-4678-950f-1f8471ecb48e",
+    "usuarioId": "b6ea0f92-6250-4f2b-ab7d-31842b646f5d",
+    "texto": "Registró baja temporal"
+  },
+  {
+    "id": "304598db-dfe9-49ff-a65e-4ea50294c36c",
+    "usuarioId": "8ed8dfce-4f81-4b90-b021-38fe7b9370e0",
+    "texto": "Se inscribió en curso electivo"
+  },
+  {
+    "id": "4dcfcbf2-4bec-4a94-9bbf-3f3135155926",
+    "usuarioId": "8ed8dfce-4f81-4b90-b021-38fe7b9370e0",
+    "texto": "Reportó problema de matrícula"
+  },
+  {
+    "id": "105bf640-6a10-49de-824e-e8e22272125f",
+    "usuarioId": "8ed8dfce-4f81-4b90-b021-38fe7b9370e0",
+    "texto": "Solicitó revisión de nota"
+  },
+  {
+    "id": "a7420816-ade6-42e3-a36f-f4dd80eb2619",
+    "usuarioId": "9eeccad3-aa30-41e8-99d2-dc26a0356afd",
+    "texto": "Solicitó revisión de nota"
+  },
+  {
+    "id": "11457e9c-33f6-4028-8eb2-f7b54e15df09",
+    "usuarioId": "9eeccad3-aa30-41e8-99d2-dc26a0356afd",
+    "texto": "Reportó problema de matrícula"
+  },
+  {
+    "id": "3c14200d-793d-4061-b17a-ca622d051a7f",
+    "usuarioId": "9eeccad3-aa30-41e8-99d2-dc26a0356afd",
+    "texto": "Solicitó revisión de nota"
+  },
+  {
+    "id": "ad467bfd-da1c-4bde-bb8d-a65b668e7658",
+    "usuarioId": "01499e50-5382-4c63-b18d-06c679511872",
+    "texto": "Se inscribió en curso electivo"
+  },
+  {
+    "id": "fc5b7731-2e9c-4280-bade-b4bae8168d01",
+    "usuarioId": "f1e38222-21d7-4493-9681-2d7015ecfbb1",
+    "texto": "Asistió a asesoría"
+  },
+  {
+    "id": "36b22abb-13f9-4fa6-930f-aad032b5d795",
+    "usuarioId": "f1e38222-21d7-4493-9681-2d7015ecfbb1",
+    "texto": "Asistió a asesoría"
+  },
+  {
+    "id": "b9bb73e8-30a8-4ee0-bbf2-74080a1c2d85",
+    "usuarioId": "f1e38222-21d7-4493-9681-2d7015ecfbb1",
+    "texto": "Se inscribió en curso electivo"
+  },
+  {
+    "id": "8ef0014f-eca1-4cd5-a1a8-a06e01bd1dd5",
+    "usuarioId": "f1e38222-21d7-4493-9681-2d7015ecfbb1",
+    "texto": "Solicitó revisión de nota"
+  },
+  {
+    "id": "09311661-5507-468b-8b15-5ba696c96d0e",
+    "usuarioId": "cf848ac5-1d9b-4d18-8972-f0e2cc6d7fb9",
+    "texto": "Solicitó revisión de nota"
+  },
+  {
+    "id": "92f03739-86c2-47ad-a158-285e2201e152",
+    "usuarioId": "cf848ac5-1d9b-4d18-8972-f0e2cc6d7fb9",
+    "texto": "Reportó problema de matrícula"
+  },
+  {
+    "id": "e48aee72-cad0-4ded-93a4-5a10fb61a001",
+    "usuarioId": "cf848ac5-1d9b-4d18-8972-f0e2cc6d7fb9",
+    "texto": "Se inscribió en curso electivo"
+  },
+  {
+    "id": "82015666-25d7-43f8-b0b8-9e137b3fb24d",
+    "usuarioId": "cf848ac5-1d9b-4d18-8972-f0e2cc6d7fb9",
+    "texto": "Asistió a asesoría"
+  },
+  {
+    "id": "530c6fe1-86ec-4663-a585-b016b1d13df8",
+    "usuarioId": "8582030d-efb8-4caa-8b67-c685149253e7",
+    "texto": "Asistió a asesoría"
+  },
+  {
+    "id": "608d715e-6f68-46ed-8c62-6d1a185342f6",
+    "usuarioId": "0e6934e3-9241-4fd6-bb68-d660039a88b0",
+    "texto": "Reportó problema de matrícula"
+  },
+  {
+    "id": "544fb77f-ad9e-459f-92fb-2582e45914bf",
+    "usuarioId": "0e6934e3-9241-4fd6-bb68-d660039a88b0",
+    "texto": "Solicitó revisión de nota"
+  },
+  {
+    "id": "73faa990-a0e2-4b56-9c3c-73e143f44f83",
+    "usuarioId": "0e6934e3-9241-4fd6-bb68-d660039a88b0",
+    "texto": "Se inscribió en curso electivo"
+  },
+  {
+    "id": "57890b36-ae76-4613-b200-a32000f52d95",
+    "usuarioId": "d6c33f62-e640-4687-8885-149d4a4c9f70",
+    "texto": "Asistió a asesoría"
+  },
+  {
+    "id": "783d5727-e159-490b-aa7c-d689f9682b2f",
+    "usuarioId": "d6c33f62-e640-4687-8885-149d4a4c9f70",
+    "texto": "Asistió a asesoría"
+  },
+  {
+    "id": "14fa7a49-770a-4c53-9da2-cbd4845b647d",
+    "usuarioId": "0cdbdb54-61c3-4ddc-bfdd-b397f16faa76",
+    "texto": "Se inscribió en curso electivo"
+  },
+  {
+    "id": "4cbf6a7b-d3da-4407-ac3b-1f8d12755e35",
+    "usuarioId": "0cdbdb54-61c3-4ddc-bfdd-b397f16faa76",
+    "texto": "Reportó problema de matrícula"
+  },
+  {
+    "id": "2b92ca50-5247-4704-8c87-29bcadc6e288",
+    "usuarioId": "0cdbdb54-61c3-4ddc-bfdd-b397f16faa76",
+    "texto": "Reportó problema de matrícula"
+  },
+  {
+    "id": "4ad045a5-dfe2-4b8d-8e75-b55a0388f1ff",
+    "usuarioId": "0cdbdb54-61c3-4ddc-bfdd-b397f16faa76",
+    "texto": "Asistió a asesoría"
+  },
+  {
+    "id": "cdc8c988-5390-4c94-a343-b7166b8179ce",
+    "usuarioId": "cc9c588a-481e-4129-abb4-c171878e7b62",
+    "texto": "Registró baja temporal"
+  },
+  {
+    "id": "fdb58224-24d6-4b71-903c-4d191a59c12b",
+    "usuarioId": "cc9c588a-481e-4129-abb4-c171878e7b62",
+    "texto": "Asistió a asesoría"
+  },
+  {
+    "id": "2df8e07e-eb53-4f00-9800-812a8e9a3add",
+    "usuarioId": "cc9c588a-481e-4129-abb4-c171878e7b62",
+    "texto": "Solicitó revisión de nota"
+  },
+  {
+    "id": "7eb19815-3e8f-4d65-8442-69b499fa289b",
+    "usuarioId": "cc9c588a-481e-4129-abb4-c171878e7b62",
+    "texto": "Registró baja temporal"
+  },
+  {
+    "id": "829948cf-fa49-4a96-8d3e-bd32744587bb",
+    "usuarioId": "d412bff9-9a63-44a0-b7d8-aa042c58a1c1",
+    "texto": "Registró baja temporal"
+  },
+  {
+    "id": "661c23c1-0d3d-49f6-88ce-50e7b76af21c",
+    "usuarioId": "d412bff9-9a63-44a0-b7d8-aa042c58a1c1",
+    "texto": "Se inscribió en curso electivo"
+  },
+  {
+    "id": "203cb649-6817-45e5-af5e-74e8836ea05b",
+    "usuarioId": "d412bff9-9a63-44a0-b7d8-aa042c58a1c1",
+    "texto": "Se inscribió en curso electivo"
+  },
+  {
+    "id": "308f8704-b162-4382-8f6f-296cac85b7d9",
+    "usuarioId": "a7d5b1f4-cc9a-4128-9abe-e83090c9c4e7",
+    "texto": "Solicitó revisión de nota"
+  },
+  {
+    "id": "9fab8067-f91e-44a0-8169-e2f1943eee58",
+    "usuarioId": "a7d5b1f4-cc9a-4128-9abe-e83090c9c4e7",
+    "texto": "Reportó problema de matrícula"
+  },
+  {
+    "id": "b17c10c8-2c5e-46af-ba85-505c307d2f39",
+    "usuarioId": "a7d5b1f4-cc9a-4128-9abe-e83090c9c4e7",
+    "texto": "Registró baja temporal"
+  },
+  {
+    "id": "b4c540af-3975-4f20-b394-327ab011977b",
+    "usuarioId": "a7d5b1f4-cc9a-4128-9abe-e83090c9c4e7",
+    "texto": "Se inscribió en curso electivo"
+  },
+  {
+    "id": "5b8c3183-d69b-4c33-b636-039fc63bae71",
+    "usuarioId": "b91670c0-5584-412a-bf62-23b3dfae488a",
+    "texto": "Se inscribió en curso electivo"
+  },
+  {
+    "id": "32c009ed-d877-413b-adf5-a50e7739bd60",
+    "usuarioId": "b91670c0-5584-412a-bf62-23b3dfae488a",
+    "texto": "Asistió a asesoría"
+  },
+  {
+    "id": "6a30dcdc-997d-4ea9-9bb8-acce0e597b4a",
+    "usuarioId": "b91670c0-5584-412a-bf62-23b3dfae488a",
+    "texto": "Solicitó revisión de nota"
+  },
+  {
+    "id": "aae98173-5f88-48c1-81e7-4fc75b3cb8c7",
+    "usuarioId": "b91670c0-5584-412a-bf62-23b3dfae488a",
+    "texto": "Registró baja temporal"
+  }
+]

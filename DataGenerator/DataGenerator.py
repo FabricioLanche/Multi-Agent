@@ -18,7 +18,7 @@ from typing import List, Dict, Any, Optional
 OUTPUT_DIR = Path(__file__).parent / "dynamodb-data"
 SCHEMAS_DIR = Path(__file__).parent / "schemas-validation"
 
-USUARIOS_TOTAL = int(os.getenv("USUARIOS_TOTAL", "10"))
+USUARIOS_TOTAL = int(os.getenv("USUARIOS_TOTAL", "30"))
 
 CORREOS_DOMINIOS = ["utec.edu.pe", "gmail.com", "outlook.com"]
 CARRERAS = ["Ingeniería de Software", "Ingeniería Civil", "Arquitectura", "Administración", "Economía", "Psicología"]
