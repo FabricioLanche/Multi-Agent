@@ -102,6 +102,34 @@ install_python_requirements() {
     ok "Dependencies instaladas para $req_dir"
 }
 
+# Check if S3 bucket exists
+bucket_exists() {
+    local bucket_name="$1"
+    if command -v aws >/dev/null 2>&1; then
+        if aws s3api head-bucket --bucket "$bucket_name" 2>/dev/null; then
+            return 0
+        else
+            return 1
+        fi
+    else
+        return 1
+    fi
+}
+
+# Check if DynamoDB table exists
+table_exists() {
+    local table_name="$1"
+    if command -v aws >/dev/null 2>&1; then
+        if aws dynamodb describe-table --table-name "$table_name" --region "$AWS_REGION" 2>/dev/null >/dev/null; then
+            return 0
+        else
+            return 1
+        fi
+    else
+        return 1
+    fi
+}
+
 # =====================================================
 # ENV validation (adjusted to your .env format)
 # =====================================================
@@ -163,9 +191,9 @@ configure_aws_account() {
 
 # =====================================================
 # Robust S3 bucket creation:
-# - Prefer aws cli; if name taken by other account, append short uuid and retry
-# - If aws cli unavailable, fallback to Python scripts in DataGenerator
-# - Persist final bucket name to .env (S3_BUCKET_TAREAS)
+# - Verifica primero si el bucket ya existe
+# - Solo crea si no existe
+# - Si el nombre está tomado, agrega sufijo y reintenta
 # =====================================================
 setup_bucket() {
     echo ""
@@ -180,6 +208,13 @@ setup_bucket() {
     if [ -z "$desired_bucket" ]; then
         err "S3_BUCKET_TAREAS no definido y no se pudo calcular. Ejecuta configure_aws_account primero."
         return 1
+    fi
+
+    # Verificar si el bucket ya existe
+    if bucket_exists "$desired_bucket"; then
+        ok "Bucket S3 ya existe: $desired_bucket (omitiendo creación)"
+        export S3_BUCKET_TAREAS="$desired_bucket"
+        return 0
     fi
 
     local created_bucket=""
@@ -287,6 +322,7 @@ setup_bucket() {
 
 # =====================================================
 # CREATE TABLES + POPULATE (runs DataPoblator or populate_tables)
+# - Verifica primero si las tablas ya existen
 # =====================================================
 setup_database_and_populate() {
     echo ""
@@ -300,16 +336,41 @@ setup_database_and_populate() {
 
     install_python_requirements "DataGenerator"
 
-    log "Creando/verificando tablas DynamoDB..."
-    if [ -f create_tables.py ]; then
-        python3 create_tables.py || { err "Error creando tablas"; exit 1; }
-    elif [ -f CreateTables.py ]; then
-        python3 CreateTables.py || { err "Error creando tablas"; exit 1; }
+    # Verificar si las tablas principales ya existen
+    local tables_exist=true
+    local tables_to_check=(
+        "$TABLE_USUARIOS"
+        "$TABLE_TAREAS"
+        "$TABLE_HISTORIAL"
+        "$TABLE_DATOS_SOCIOECONOMICOS"
+        "$TABLE_DATOS_EMOCIONALES"
+        "$TABLE_DATOS_ACADEMICOS"
+    )
+    
+    log "Verificando existencia de tablas DynamoDB..."
+    for table_name in "${tables_to_check[@]}"; do
+        if ! table_exists "$table_name"; then
+            warn "Tabla no existe: $table_name"
+            tables_exist=false
+        else
+            ok "Tabla ya existe: $table_name"
+        fi
+    done
+
+    if [ "$tables_exist" = false ]; then
+        log "Creando tablas faltantes..."
+        if [ -f create_tables.py ]; then
+            python3 create_tables.py || { err "Error creando tablas"; exit 1; }
+        elif [ -f CreateTables.py ]; then
+            python3 CreateTables.py || { err "Error creando tablas"; exit 1; }
+        else
+            err "No se encontró create_tables.py o CreateTables.py en DataGenerator/"
+            exit 1
+        fi
+        ok "Tablas creadas/verificadas"
     else
-        err "No se encontró create_tables.py o CreateTables.py en DataGenerator/"
-        exit 1
+        ok "Todas las tablas ya existen (omitiendo creación)"
     fi
-    ok "Tablas creadas/verificadas"
 
     # Decide which populador exists
     POPULATOR_SCRIPT=""
@@ -317,8 +378,6 @@ setup_database_and_populate() {
         POPULATOR_SCRIPT="DataPoblator.py"
     elif [ -f populate_tables.py ]; then
         POPULATOR_SCRIPT="populate_tables.py"
-    elif [ -f DataPoblator.py ]; then
-        POPULATOR_SCRIPT="DataPoblator.py"
     fi
 
     if [ -n "$POPULATOR_SCRIPT" ]; then
@@ -338,7 +397,7 @@ setup_database_and_populate() {
 }
 
 # =====================================================
-# Deploy services
+# Deploy services (sin dependencias de Node.js)
 # =====================================================
 deploy_services() {
     echo ""
@@ -346,19 +405,10 @@ deploy_services() {
     log "Limpieza suave (solo __pycache__)..."
     find API-*/ -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
 
-    if [ ! -d node_modules ]; then
-        warn "Instalando dependencias Node (serverless/plugins)..."
-        if [ -f package-lock.json ]; then
-            npm ci
-        else
-            npm install
-        fi
-    fi
-
-    ok "Entorno Node listo"
+    ok "Entorno listo para deploy"
 
     if ! command -v serverless >/dev/null 2>&1; then
-        err "Serverless CLI no encontrado. Instala 'serverless' antes de continuar."
+        err "Serverless CLI no encontrado. Instala 'serverless' globalmente: npm install -g serverless"
         exit 1
     fi
 
