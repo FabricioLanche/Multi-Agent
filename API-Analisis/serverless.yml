@@ -1,0 +1,88 @@
+service: api-analisis
+
+provider:
+  name: aws
+  runtime: python3.12
+  memorySize: 512
+  timeout: 300
+  region: us-east-1
+  stage: ${param:stage, 'dev'}
+  
+  environment:
+    GEMINI_API_KEY: ${env:GEMINI_API_KEY}
+    
+    # Tablas DynamoDB
+    TABLE_USUARIOS: ${env:TABLE_USUARIOS, 'Usuario'}
+    TABLE_DATOS_ACADEMICOS: ${env:TABLE_DATOS_ACADEMICOS, 'DatosAcademicos'}
+    TABLE_DATOS_EMOCIONALES: ${env:TABLE_DATOS_EMOCIONALES, 'DatosEmocionales'}
+    TABLE_DATOS_SOCIOECONOMICOS: ${env:TABLE_DATOS_SOCIOECONOMICOS, 'DatosSocioeconomicos'}
+    
+    # Configuración general
+    AWS_ACCOUNT_ID: ${env:AWS_ACCOUNT_ID}
+  
+  iam:
+    role: arn:aws:iam::${env:AWS_ACCOUNT_ID}:role/LabRole
+
+functions:
+  # Listar todos los usuarios (información básica)
+  listarUsuarios:
+    handler: listarUsuarios.handler
+    description: Lista todos los usuarios con información básica (id, correo, autorizacion)
+    events:
+      - http:
+          path: usuarios
+          method: get
+          cors: true
+  
+  # Obtener usuario completo (4 tablas consolidadas)
+  obtenerUsuario:
+    handler: obtenerUsuario.handler
+    description: Obtiene datos completos de un usuario de 4 tablas DynamoDB
+    events:
+      - http:
+          path: usuario
+          method: get
+          cors: true
+  
+  # Actualizar usuario y datos relacionados
+  actualizarUsuario:
+    handler: actualizarUsuario.handler
+    description: Actualiza usuario y opcionalmente sus datos académicos, emocionales y socioeconómicos
+    events:
+      - http:
+          path: usuario
+          method: put
+          cors: true
+  
+  # Agente de análisis de riesgo de deserción con IA
+  agenteAnalisis:
+    handler: agenteAnalisis.handler
+    description: Analiza riesgo de deserción usando IA (Gemini) y permite conversación sobre datos
+    events:
+      - http:
+          path: analisis/usuario
+          method: post
+          cors: true
+      
+package:
+  patterns:
+    - '!.venv/**'
+    - '!node_modules/**'
+    - '!.serverless/**'
+    - '!__pycache__/**'
+    - '!*.pyc'
+    - '!.pytest_cache/**'
+    - '!tests/**'
+    - '!.git/**'
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    dockerImage: public.ecr.aws/sam/build-python3.12:latest
+    slim: true
+    useDownloadCache: false
+    useStaticCache: false
+    invalidateCaches: true
+    pipCmdExtraArgs:
+      - '--no-cache-dir'
+    layer: false

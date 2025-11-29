@@ -130,7 +130,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"message\": \"Tarea procesada y guardada exitosamente\",\n    \"data\": {\n        \"id\": \"55f5685e-3a0a-4668-b238-07e29da934a6\",\n        \"usuarioId\": \"73f56c3d-4f1b-4453-a47f-5899bf4ef172\",\n        \"texto\": \"In nature, poisonous creatures\\nhave bright coloring to warn\\nabout their toxicity.\\nJS\",\n        \"imagenUrl\": \"https://tareas-bucket-350b2efa.s3.amazonaws.com/tareas/73f56c3d-4f1b-4453-a47f-5899bf4ef172/55f5685e-3a0a-4668-b238-07e29da934a6.jpg?Signature=7q%2BjLsRneP501%2Be%2F2QXt5d7mpRA%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEP7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIQCqoRzLsrBCUweIo%2Blf%2B%2Fn8d6nXk36SEoFYPvcI6%2Fxe%2BQIgIls9iZS1tRfDYmyu6VSv9PIrNLaIeYledNokLWsQfRkqjwMIxv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARABGgw0OTcyNzA0NjQwMjgiDC95k65VNXaXN2LQ9CrjAjyIk1VC3xH9ptVXbrLacehQlo6J8C4bpkgR1LfqQ25uZZXlorE8sCdPLWZt08neemScvCXV%2BZiYzDYErgJ0VJTmrfZ1xgYY8xNLzNrNd65J%2F1ZLkfFuLkBCRtdJZ3kN%2B1eRVyeU%2FWit22l7OibOMAfMvk8lIdjH7muPsKWCSKF16eX7Rq4x6nmspPolKpuu6pmRnKRP5lq2aXQf9wviPf%2FCKeJouEoBG%2FOLIimT%2FkEfMLXqbKGAwyTz5nmf%2BevGpYxTFdgZSM5KoVab%2BPMl64RLv3ULOoTm74LZDUZGymTnf9xMITt5lSirtf68hARU2buiH93YAD1AVS4DhRHjy4khX4yM%2B%2FjWdZzSEQ%2FXv8ODWlPv2nj4FmK9ypZi%2BVNZnppKzdJAIjprBuLRyhm3XEz6t6seg5M4Y2GbYmeZlMZSXYWrFItrd6FWEWU%2FeGzztT59LWiWzAIUaTSIizgxD2d6VoMw4ISqyQY6ngGfL0I9Al0h0505iSdSCMpH8G%2BNln%2FpR%2BP%2FGVkpYl0LNjHZD4EqKx7rQ3kJZnMllXWFfTcEIIbPvg5SGg6PWvHdvQ77gmqKnvu5V6XOjXhwexGlT4fUAlKBWWlIHqNPnVmyYcHm6o4QvNs3I3SLhPXzaNYskcJaK8vN%2FVWomuReKM2vDnN2ZGpESsgrW%2FQu%2BWqj8jGXWFwcpexWkUzNjQ%3D%3D&Expires=1764479972\"\n    }\n}"
+							"body": "{\n    \"message\": \"Tarea procesada y guardada exitosamente\",\n    \"data\": {\n        \"id\": \"55f5685e-3a0a-4668-b238-07e29da934a6\",\n        \"usuarioId\": \"73f56c3d-4f1b-4453-a47f-5899bf4ef172\",\n        \"texto\": \"In nature, poisonous creatures\\nhave bright coloring to warn\\nabout their toxicity.\\nJS\",\n        \"imagenUrl\": \"https://tareas-bucket-350b2efa.s3.amazonaws.com/tareas/73f56c3d-4f1b-4453-a47f-5899bf4ef172/55f5685e-3a0a-4668-b238-07e29da934a6.jpg?&Signature=7q%2BjLsRneP501%2Be%2F2QXt5d7mpRA%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEP7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIQCqoRzLsrBCUweIo%2Blf%2B%2Fn8d6nXk36SEoFYPvcI6%2Fxe%2BQIgIls9iZS1tRfDYmyu6VSv9PIrNLaIeYledNokLWsQfRkqjwMIxv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARABGgw0OTcyNzA0NjQwMjgiDC95k65VNXaXN2LQ9CrjAjyIk1VC3xH9ptVXbrLacehQlo6J8C4bpkgR1LfqQ25uZZXlorE8sCdPLWZt08neemScvCXV%2BZiYzDYErgJ0VJTmrfZ1xgYY8xNLzNrNd65J%2F1ZLkfFuLkBCRtdJZ3kN%2B1eRVyeU%2FWit22l7OibOMAfMvk8lIdjH7muPsKWCSKF16eX7Rq4x6nmspPolKpuu6pmRnKRP5lq2aXQf9wviPf%2FCKeJouEoBG%2FOLIimT%2FkEfMLXqbKGAwyTz5nmf%2BevGpYxTFdgZSM5KoVab%2BPMl64RLv3ULOoTm74LZDUZGymTnf9xMITt5lSirtf68hARU2buiH93YAD1AVS4DhRHjy4khX4yM%2B%2FjWdZzSEQ%2FXv8ODWlPv2nj4FmK9ypZi%2BVNZnppKzdJAIjprBuLRyhm3XEz6t6seg5M4Y2GbYmeZlMZSXYWrFItrd6FWEWU%2FeGzztT59LWiWzAIUaTSIizgxD2d6VoMw4ISqyQY6ngGfL0I9Al0h0505iSdSCMpH8G%2BNln%2FpR%2BP%2FGVkpYl0LNjHZD4EqKx7rQ3kJZnMllXWFfTcEIIbPvg5SGg6PWvHdvQ77gmqKnvu5V6XOjXhwexGlT4fUAlKBWWlIHqNPnVmyYcHm6o4QvNs3I3SLhPXzaNYskcJaK8vN%2FVWomuReKM2vDnN2ZGpESsgrW%2FQu%2BWqj8jGXWFwcpexWkUzNjQ%3D%3D&Expires=1764479972\"\n    }\n}"
 						},
 						{
 							"name": "Response 400 (sin correo)",
@@ -902,7 +902,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n    \"message\": \"Tarea actualizada exitosamente\",\n    \"data\": {\n        \"imagenUrl\": \"https://tareas-bucket-350b2efa.s3.amazonaws.com/tareas/73f56c3d-4f1b-4453-a47f-5899bf4ef172/fa2200fe-bbd8-4b9c-930b-23ae9b4f5ce5.jpg?Signature=14NZVjcD6Th%2BEcCmp3YsAHdHZ%2B0%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEP7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIQCRBwmQp6uU0Z4kr5m5sLTN8F9eOhJSpHvZ1r5PnY8KvAIgEC0bp3mFJwMzFPK5hxqo%2F%2F2TxSpPrIUqSOfxEDtlC%2BcqmgMIx%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARABGgw0OTcyNzA0NjQwMjgiDDYqNCNN3acLvHdneyruAi3xioGXGFoUZRuRx%2FW5Hk%2FBPIXuwRgA27sAAPsMNCDGYS64BMSfhpYqYOt1IQsNy2TL9FzOx6l9X59BsUpWqWdUNWs6BgKFpr0VWF5rYLx0Wafm92ad28ctc%2Bwb1pIGiQO2C4%2FgEFW1AI7AoOdM7xgkCQVcabRnuUEl3JB8yHym07nTMoLa2DQFlynlSrnViJJnA3LpDmrb9%2BaeBmELXu6%2BtfIQQG4dS2zdbdhFY4NEtgy1lkd6i4uvQE%2Bi72DLGdaPcBl7Cl5FaQzMCXIHGvAmpuo87KU5tqa%2BkwTmlJSHuGXVsZdMI%2FfqwPhloLEhCFbycXb%2BmjjDKLm%2BjgnlbLWRK3f19EV%2BljLKFHIKj1dHKQIjnTtN53wseQbCQ4z3zbBQ6s%2FbY1azZEUEqDP6vJW%2BHUfSMBi1%2FzHWebVN0Iau71vBgdEzKJvGyeY8ehH0mcn1V8rnkg5qCJarrSDqU%2Buplw8t4JA4eQi8cYFsQTDkkKrJBjqdARFPv2wUoIEqENcfWgpcuzQXshz4ZdM%2BkoK6GRFX2aSsTJ3jimHDLuXCYNToA7QVgapddgfFC1njqd1jfSpkjwArvACAqjdLsmCzH8%2FVMEq0m0xkQb9%2B3ygSvR2HlMxr7pw4Uj3OYlcziephdxqLXtyzUWyNCusDeHJv1mh6r8O7fJ1JfEkl5bQFuEhThQGCOHTB22JMZyZEce8p8nk%3D&Expires=1764481529\",\n        \"texto\": \"In nature, poisonous creatures\\nhave bright coloring to warn\\nabout their toxicity.\\nJS\",\n        \"usuarioId\": \"73f56c3d-4f1b-4453-a47f-5899bf4ef172\",\n        \"id\": \"fa2200fe-bbd8-4b9c-930b-23ae9b4f5ce5\"\n    }\n}"
+							"body": "{\n    \"message\": \"Tarea actualizada exitosamente\",\n    \"data\": {\n        \"imagenUrl\": \"https://tareas-bucket-350b2efa.s3.amazonaws.com/tareas/73f56c3d-4f1b-4453-a47f-5899bf4ef172/fa2200fe-bbd8-4b9c-930b-23ae9b4f5ce5.jpg?&Signature=14NZVjcD6Th%2BEcCmp3YsAHdHZ%2B0%3D&x-amz-security-token=IQoJb3JpZ2luX2VjEP7%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIQCRBwmQp6uU0Z4kr5m5sLTN8F9eOhJSpHvZ1r5PnY8KvAIgEC0bp3mFJwMzFPK5hxqo%2F%2F2TxSpPrIUqSOfxEDtlC%2BcqmgMIx%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARABGgw0OTcyNzA0NjQwMjgiDDYqNCNN3acLvHdneyruAi3xioGXGFoUZRuRx%2FW5Hk%2FBPIXuwRgA27sAAPsMNCDGYS64BMSfhpYqYOt1IQsNy2TL9FzOx6l9X59BsUpWqWdUNWs6BgKFpr0VWF5rYLx0Wafm92ad28ctc%2Bwb1pIGiQO2C4%2FgEFW1AI7AoOdM7xgkCQVcabRnuUEl3JB8yHym07nTMoLa2DQFlynlSrnViJJnA3LpDmrb9%2BaeBmELXu6%2BtfIQQG4dS2zdbdhFY4NEtgy1lkd6i4uvQE%2Bi72DLGdaPcBl7Cl5FaQzMCXIHGvAmpuo87KU5tqa%2BkwTmlJSHuGXVsZdMI%2FfqwPhloLEhCFbycXb%2BmjjDKLm%2BjgnlbLWRK3f19EV%2BljLKFHIKj1dHKQIjnTtN53wseQbCQ4z3zbBQ6s%2FbY1azZEUEqDP6vJW%2BHUfSMBi1%2FzHWebVN0Iau71vBgdEzKJvGyeY8ehH0mcn1V8rnkg5qCJarrSDqU%2Buplw8t4JA4eQi8cYFsQTDkkKrJBjqdARFPv2wUoIEqENcfWgpcuzQXshz4ZdM%2BkoK6GRFX2aSsTJ3jimHDLuXCYNToA7QVgapddgfFC1njqd1jfSpkjwArvACAqjdLsmCzH8%2FVMEq0m0xkQb9%2B3ygSvR2HlMxr7pw4Uj3OYlcziephdxqLXtyzUWyNCusDeHJv1mh6r8O7fJ1JfEkl5bQFuEhThQGCOHTB22JMZyZEce8p8nk%3D&Expires=1764481529\",\n        \"texto\": \"In nature, poisonous creatures\\nhave bright coloring to warn\\nabout their toxicity.\\nJS\",\n        \"usuarioId\": \"73f56c3d-4f1b-4453-a47f-5899bf4ef172\",\n        \"id\": \"fa2200fe-bbd8-4b9c-930b-23ae9b4f5ce5\"\n    }\n}"
 						},
 						{
 							"name": "Response 400",
@@ -1374,11 +1374,238 @@
 			]
 		},
 		{
-			"name": "API - ANALISIS",
-			"item": []
+			"name": "API - AGENTE",
+			"item": [
+				{
+					"name": "Consultar Agente - Mentor Academico",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"correo\": \"carmen.fernandez@gmail.com\",\r\n  \"contexto\": \"MentorAcademico\",\r\n  \"mensaje\": \"¿Cómo puedo mejorar mi promedio?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl_AGENTES}}/agente/consultar",
+							"host": [
+								"{{baseUrl_AGENTES}}"
+							],
+							"path": [
+								"agente",
+								"consultar"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response 200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"correo\": \"carmen.fernandez@gmail.com\",\r\n  \"contexto\": \"MentorAcademico\",\r\n  \"mensaje\": \"¿Cómo puedo mejorar mi promedio?\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl_AGENTES}}/agente/consultar",
+									"host": [
+										"{{baseUrl_AGENTES}}"
+									],
+									"path": [
+										"agente",
+										"consultar"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2635"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 29 Nov 2025 07:29:47 GMT"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "47aa1112-9c5e-40df-b2f5-a8de1a30bfc3"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "Uy4TjF20oAMEmkQ="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-692aa0e3-05f406f25e03d51469ee2544;Parent=1534426377de0c66;Sampled=0;Lineage=1:242bd069:0"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 94d34b5f3784762378f4530207128fe6.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "LIM50-P2"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "U6OivJw6CINtndGnrmH1WXhBpN7KunYu90FJSWyq9zsCmQIjlec95A=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"respuesta\": \"¡Hola! Entiendo que quieres mejorar tu promedio, ¡excelente objetivo! Veo que tienes un promedio ponderado de 15.86 en Ingeniería de Software. Para subirlo, podemos trabajar en varias estrategias.\\n\\nPrimero, analicemos la situación actual. Tienes 17 créditos desaprobados y has reprobado los cursos CUR424, CUR373 y CUR341. Estos cursos están afectando tu promedio. También veo que tu asistencia promedio es de 53.7%, lo cual podría ser un factor importante.\\n\\nAquí te propongo algunas ideas para mejorar tu promedio:\\n\\n1.  **Identificar las causas de las notas bajas:** ¿Por qué reprobaste esos cursos? ¿Falta de comprensión de los temas? ¿Problemas con la gestión del tiempo? ¿Dificultad con el estilo de enseñanza? Entender las razones te ayudará a evitar repetir los mismos errores.\\n\\n2.  **Priorizar los cursos actuales:** Enfócate en obtener buenas calificaciones en los cursos que estás cursando actualmente. Un buen desempeño en estos cursos tendrá un impacto inmediato en tu promedio.\\n\\n3.  **Recuperar los cursos reprobados:** Averigua si puedes volver a tomar los cursos CUR424, CUR373 y CUR341. Considera reforzarlos con tutorías o grupos de estudio. Aprobar estos cursos eliminará las notas bajas de tu historial y mejorará significativamente tu promedio.\\n\\n4.  **Mejorar la asistencia:** La asistencia a clases es fundamental para comprender los temas y participar activamente en el aprendizaje. Intenta asistir a todas las clases y participa en las discusiones.\\n\\n5.  **Optimizar tu estudio:** ¿Cómo estás estudiando actualmente? ¿Usas técnicas de estudio efectivas? Podríamos explorar diferentes métodos de estudio, como la técnica Pomodoro, mapas mentales, o el estudio espaciado, para encontrar los que mejor se adapten a ti.\\n\\n6.  **Gestionar el tiempo:** Veo que tienes 4 tareas pendientes. Organiza tu tiempo para completar estas tareas y evitar el estrés de último minuto. Utiliza un calendario o una aplicación de gestión de tareas para mantenerte al día.\\n\\n7.  **Buscar ayuda:** No dudes en buscar ayuda de tus profesores, compañeros, o tutores. A veces, una perspectiva diferente puede ayudarte a comprender un tema que te resulta difícil.\\n\\n¿Qué te parecen estas ideas? ¿Cuál de ellas te parece más relevante para empezar a trabajar? Podemos profundizar en cada una de ellas para crear un plan de acción personalizado. ¡Estoy aquí para apoyarte en el proceso!\\n\",\n    \"contexto\": \"MentorAcademico\",\n    \"timestamp\": \"2025-11-29T07:29:47.346290\",\n    \"usuario\": {\n        \"correo\": \"carmen.fernandez@gmail.com\",\n        \"id\": \"73f56c3d-4f1b-4453-a47f-5899bf4ef172\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Tooggle de autorización",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"correo\": \"carmen.fernandez@gmail.com\",\r\n  \"autorizacion\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl_AGENTES}}/usuario/autorizacion",
+							"host": [
+								"{{baseUrl_AGENTES}}"
+							],
+							"path": [
+								"usuario",
+								"autorizacion"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response 200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"correo\": \"carmen.fernandez@gmail.com\",\r\n  \"autorizacion\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl_AGENTES}}/usuario/autorizacion",
+									"host": [
+										"{{baseUrl_AGENTES}}"
+									],
+									"path": [
+										"usuario",
+										"autorizacion"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "285"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 29 Nov 2025 08:26:53 GMT"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "e63cd755-5e5f-4d24-bcc0-202d2f7a5509"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "UzAr8G_yIAMEr6A="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-692aae4c-535c39e629611cb41add216d;Parent=28c7a05826028c07;Sampled=0;Lineage=1:3455a93a:0"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 13bdfe51c955b72c24c041717e9e9508.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "LIM50-P2"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "RhWbKH_xb7xCRaUVElG_LUbsmnBFiyE7KWXOs-FGyVeq9ZDW-hI81Q=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Autorización activada. Ahora puedes usar los agentes académicos.\",\n    \"correo\": \"carmen.fernandez@gmail.com\",\n    \"autorizacion\": true,\n    \"timestamp\": \"2025-11-29T08:26:53.967595\",\n    \"usuario\": {\n        \"id\": \"73f56c3d-4f1b-4453-a47f-5899bf4ef172\",\n        \"correo\": \"carmen.fernandez@gmail.com\"\n    }\n}"
+						}
+					]
+				}
+			]
 		},
 		{
-			"name": "API - AGENTE",
+			"name": "API - ANALISIS",
 			"item": []
 		}
 	],
@@ -1409,6 +1636,10 @@
 	"variable": [
 		{
 			"key": "baseUrl_TAREAS",
+			"value": ""
+		},
+		{
+			"key": "baseUrl_AGENTES",
 			"value": ""
 		}
 	]
