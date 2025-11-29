@@ -19,8 +19,9 @@ def convert_decimal(obj):
     return obj
 
 dynamodb = boto3.resource('dynamodb')
-TABLE_RECETAS = os.environ.get('TABLE_RECETAS', 'Recetas')
-table_recetas = dynamodb.Table(TABLE_RECETAS)
+TABLE_TAREAS = os.environ.get('TABLE_TAREAS', 'Tareas')
+TABLE_USUARIOS = os.environ.get('TABLE_USUARIOS', 'Usuarios')
+table_tareas = dynamodb.Table(TABLE_TAREAS)
 
 def _response(status_code, body):
     return {
@@ -45,48 +46,62 @@ def decode_jwt_payload(token):
     except Exception:
         return None
 
-def get_user_email(event):
-    """Extrae el email del usuario desde el token"""
-    headers = {k.lower(): v for k, v in (event.get('headers') or {}).items()}
-    auth_header = headers.get('authorization')
-    
-    if auth_header and auth_header.startswith("Bearer "):
-        token = auth_header.split(" ")[1]
-        payload = decode_jwt_payload(token)
-        if payload:
-            return payload.get('email') or payload.get('username')
+def get_user_id_from_email(correo):
+    """Obtiene el ID del usuario desde DynamoDB usando su correo"""
+    try:
+        table_usuarios = dynamodb.Table(TABLE_USUARIOS)
+        
+        response = table_usuarios.scan(
+            FilterExpression='correo = :correo',
+            ExpressionAttributeValues={':correo': correo}
+        )
+        
+        items = response.get('Items', [])
+        if items:
+            return items[0].get('id')
+        return None
+    except Exception as e:
+        print(f"Error al obtener usuario: {e}")
+        return None
+
+def get_user_id(event):
+    """Extrae el correo del query string y obtiene el ID del usuario"""
+    if event.get('queryStringParameters'):
+        correo = event['queryStringParameters'].get('correo')
+        if correo:
+            return get_user_id_from_email(correo)
     return None
 
 def lambda_handler(event, context):
     try:
-        # Autenticación
-        user_email = get_user_email(event)
-        if not user_email:
-            return _response(401, {"message": "No autorizado. Token faltante o inválido."})
+        # Obtener correo y validar
+        usuario_id = get_user_id(event)
+        if not usuario_id:
+            return _response(400, {"message": "El parámetro 'correo' es requerido en query string"})
         
-        # Listar todas las recetas del usuario
+        # Listar todas las tareas del usuario
         try:
-            response = table_recetas.query(
-                KeyConditionExpression='correo = :email',
+            response = table_tareas.query(
+                KeyConditionExpression='usuarioId = :uid',
                 ExpressionAttributeValues={
-                    ':email': user_email
+                    ':uid': usuario_id
                 }
             )
             
-            recetas = response.get('Items', [])
-            recetas = convert_decimal(recetas)
+            tareas = response.get('Items', [])
+            tareas = convert_decimal(tareas)
 
             return _response(200, {
-                "message": "Recetas obtenidas exitosamente",
-                "count": len(recetas),
-                "data": recetas
+                "message": "Tareas obtenidas exitosamente",
+                "count": len(tareas),
+                "data": tareas
             })
             
         except ClientError as e:
-            return _response(500, {"message": f"Error al listar recetas: {str(e)}"})
+            return _response(500, {"message": f"Error al listar tareas: {str(e)}"})
     
     except Exception as e:
         return _response(500, {"message": str(e)})
 
-def listarRecetas(event, context):
+def listarTareas(event, context):
     return lambda_handler(event, context)

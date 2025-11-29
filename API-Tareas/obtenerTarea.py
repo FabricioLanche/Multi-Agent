@@ -19,6 +19,7 @@ def convert_decimal(obj):
 
 dynamodb = boto3.resource('dynamodb')
 TABLE_TAREAS = os.environ.get('TABLE_TAREAS', 'Tareas')
+TABLE_USUARIOS = os.environ.get('TABLE_USUARIOS', 'Usuarios')
 table_tareas = dynamodb.Table(TABLE_TAREAS)
 
 def _response(status_code, body):
@@ -44,24 +45,38 @@ def decode_jwt_payload(token):
     except Exception:
         return None
 
+def get_user_id_from_email(correo):
+    """Obtiene el ID del usuario desde DynamoDB usando su correo"""
+    try:
+        table_usuarios = dynamodb.Table(TABLE_USUARIOS)
+        
+        response = table_usuarios.scan(
+            FilterExpression='correo = :correo',
+            ExpressionAttributeValues={':correo': correo}
+        )
+        
+        items = response.get('Items', [])
+        if items:
+            return items[0].get('id')
+        return None
+    except Exception as e:
+        print(f"Error al obtener usuario: {e}")
+        return None
+
 def get_user_id(event):
-    """Extrae el ID del usuario desde el token"""
-    headers = {k.lower(): v for k, v in (event.get('headers') or {}).items()}
-    auth_header = headers.get('authorization')
-    
-    if auth_header and auth_header.startswith("Bearer "):
-        token = auth_header.split(" ")[1]
-        payload = decode_jwt_payload(token)
-        if payload:
-            return payload.get('sub') or payload.get('id') or payload.get('user_id')
+    """Extrae el correo del query string y obtiene el ID del usuario"""
+    if event.get('queryStringParameters'):
+        correo = event['queryStringParameters'].get('correo')
+        if correo:
+            return get_user_id_from_email(correo)
     return None
 
 def lambda_handler(event, context):
     try:
-        # Autenticación
+        # Obtener correo y validar
         usuario_id = get_user_id(event)
         if not usuario_id:
-            return _response(401, {"message": "No autorizado. Token faltante o inválido."})
+            return _response(400, {"message": "El parámetro 'correo' es requerido en query string"})
         
         # Obtener tarea_id de pathParameters o queryStringParameters
         tarea_id = None

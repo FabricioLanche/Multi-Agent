@@ -19,6 +19,7 @@ def convert_decimal(obj):
 
 dynamodb = boto3.resource('dynamodb')
 TABLE_TAREAS = os.environ.get('TABLE_TAREAS', 'Tareas')
+TABLE_USUARIOS = os.environ.get('TABLE_USUARIOS', 'Usuarios')
 table_tareas = dynamodb.Table(TABLE_TAREAS)
 
 def _response(status_code, body):
@@ -44,25 +45,52 @@ def decode_jwt_payload(token):
     except Exception:
         return None
 
+def get_user_id_from_email(correo):
+    """Obtiene el ID del usuario desde DynamoDB usando su correo"""
+    try:
+        table_usuarios = dynamodb.Table(TABLE_USUARIOS)
+        
+        response = table_usuarios.scan(
+            FilterExpression='correo = :correo',
+            ExpressionAttributeValues={':correo': correo}
+        )
+        
+        items = response.get('Items', [])
+        if items:
+            return items[0].get('id')
+        return None
+    except Exception as e:
+        print(f"Error al obtener usuario: {e}")
+        return None
+
 def get_user_id(event):
-    """Extrae el ID del usuario desde el token"""
-    headers = {k.lower(): v for k, v in (event.get('headers') or {}).items()}
-    auth_header = headers.get('authorization')
-    
-    if auth_header and auth_header.startswith("Bearer "):
-        token = auth_header.split(" ")[1]
-        payload = decode_jwt_payload(token)
-        if payload:
-            return payload.get('sub') or payload.get('id') or payload.get('user_id')
+    """Extrae el correo del body y obtiene el ID del usuario"""
+    try:
+        body = json.loads(event.get('body', '{}'))
+        correo = body.get('correo')
+        if correo:
+            return get_user_id_from_email(correo)
+    except:
+        pass
     return None
 
 def lambda_handler(event, context):
     try:
-        # Autenticación
-        usuario_id = get_user_id(event)
-        if not usuario_id:
-            return _response(401, {"message": "No autorizado. Token faltante o inválido."})
+        # Parsear body
+        try:
+            body = json.loads(event.get('body', '{}'))
+        except:
+            return _response(400, {"message": "Body JSON inválido"})
         
+        # Validar correo
+        correo = body.get('correo')
+        if not correo:
+            return _response(400, {"message": "El campo 'correo' es requerido"})
+        
+        # Obtener usuario_id desde DynamoDB
+        usuario_id = get_user_id_from_email(correo)
+        if not usuario_id:
+            return _response(404, {"message": "Usuario no encontrado con ese correo"})
         # Obtener tarea_id de pathParameters
         tarea_id = None
         if event.get('pathParameters'):
@@ -70,12 +98,6 @@ def lambda_handler(event, context):
         
         if not tarea_id:
             return _response(400, {"message": "tarea_id es requerido"})
-        
-        # Parsear body
-        try:
-            body = json.loads(event.get('body', '{}'))
-        except:
-            return _response(400, {"message": "Body JSON inválido"})
         
         # Verificar que la tarea existe
         try:

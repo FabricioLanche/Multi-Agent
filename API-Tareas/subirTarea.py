@@ -14,6 +14,7 @@ dynamodb = boto3.resource('dynamodb')
 s3 = boto3.client('s3')
 
 TABLE_TAREAS = os.environ.get('TABLE_TAREAS', 'Tareas')
+TABLE_USUARIOS = os.environ.get('TABLE_USUARIOS', 'Usuarios')
 S3_BUCKET = os.environ.get('S3_BUCKET_TAREAS')
 
 table_tareas = dynamodb.Table(TABLE_TAREAS)
@@ -71,27 +72,29 @@ def decode_jwt_payload(token):
     except Exception:
         return None
 
-def get_user_id(event, fs=None):
-    """Obtiene el ID del usuario desde el token"""
-    token = None
-    
-    # Buscar en Header Authorization
-    headers = {k.lower(): v for k, v in (event.get('headers') or {}).items()}
-    auth_header = headers.get('authorization')
-    if auth_header and auth_header.startswith("Bearer "):
-        token = auth_header.split(" ")[1]
-    
-    # Buscar en multipart body
-    if not token and fs and 'token' in fs:
-        token = fs['token'].value
+def get_user_id_from_email(correo):
+    """Obtiene el ID del usuario desde DynamoDB usando su correo"""
+    try:
+        table_usuarios = dynamodb.Table(TABLE_USUARIOS)
         
-    if not token:
+        # Como correo es sort key, hacemos un scan con filtro
+        response = table_usuarios.scan(
+            FilterExpression='correo = :correo',
+            ExpressionAttributeValues={':correo': correo}
+        )
+        
+        items = response.get('Items', [])
+        if items:
+            return items[0].get('id')
         return None
-        
-    payload = decode_jwt_payload(token)
-    if payload:
-        # Buscar el campo 'sub' (subject) o 'id' que típicamente contiene el UUID del usuario
-        return payload.get('sub') or payload.get('id') or payload.get('user_id')
+    except Exception as e:
+        print(f"Error al obtener usuario: {e}")
+        return None
+
+def get_email_from_request(fs):
+    """Extrae el correo del usuario desde el multipart form"""
+    if 'correo' in fs:
+        return fs['correo'].value
     return None
 
 # ===============================
@@ -135,11 +138,16 @@ def lambda_handler(event, context):
         image_bytes = file_item.file.read()
         
         # ===============================
-        # 3b. Autenticación
+        # 3b. Extraer correo del usuario
         # ===============================
-        usuario_id = get_user_id(event, fs)
+        user_email = get_email_from_request(fs)
+        if not user_email:
+            return _response(400, {"message": "El campo 'correo' es requerido en el formulario"})
+        
+        # Obtener usuario_id desde DynamoDB
+        usuario_id = get_user_id_from_email(user_email)
         if not usuario_id:
-            return _response(401, {"message": "No autorizado. Token faltante o inválido."})
+            return _response(404, {"message": "Usuario no encontrado con ese correo"})
         
         # ===============================
         # 3c. Generar ID temprano
