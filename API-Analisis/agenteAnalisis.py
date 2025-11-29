@@ -264,7 +264,7 @@ def handler(event, context):
         
         # 3. Crear modelo de Gemini
         model = genai.GenerativeModel(
-            model_name='gemini-2.0-flash-exp',
+            model_name='gemini-2.0-flash',
             generation_config={
                 'temperature': 0.7,
                 'max_output_tokens': 2048,
