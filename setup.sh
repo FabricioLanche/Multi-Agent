@@ -52,7 +52,7 @@ ok ".env cargado correctamente"
 # =====================================================
 validate_env() {
     log "Validando variables de entorno..."
-    REQUIRED_VARS=("GEMINI_API_KEY" "TABLE_RECETAS" "TABLE_SERVICIOS" "TABLE_USUARIOS")
+    REQUIRED_VARS=("GEMINI_API_KEY" "TABLE_TAREAS" "TABLE_HISTORIAL" "TABLE_USUARIOS")
     MISSING=()
 
     for v in "${REQUIRED_VARS[@]}"; do
