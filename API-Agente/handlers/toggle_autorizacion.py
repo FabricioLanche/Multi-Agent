@@ -1,33 +1,37 @@
 """
-Handlers Lambda para los agentes académicos
+Handler para activar/desactivar la autorización de recopilación de datos
 """
 import json
 import traceback
-import uuid
 from datetime import datetime
 
 from dao.base import DAOFactory
 from utils.formatters import formatear_respuesta_exitosa, formatear_respuesta_error
 from utils.validators import validar_email
 
-# ===== HANDLER: AGREGAR AL HISTORIAL =====
-def agregar_historial_handler(event, context):
+
+def handler(event, context):
     """
-    Handler para agregar manualmente una entrada al historial
+    Handler para togglear la autorización de un usuario
     
     Espera un body JSON con:
     {
         "correo": "estudiante@example.com",
-        "texto": "Descripción de la interacción"
+        "autorizacion": true | false
     }
+    
+    Proceso:
+    1. Busca el usuario por correo
+    2. Actualiza el campo autorizacion
+    3. Retorna el nuevo estado
     """
     try:
         # 1. Parsear body
         body = json.loads(event.get('body', '{}'))
         
-        # 2. Validar campos
+        # 2. Validar campos requeridos
         correo = body.get('correo')
-        texto = body.get('texto')
+        autorizacion = body.get('autorizacion')
         
         if not correo or not validar_email(correo):
             return formatear_respuesta_error(
@@ -36,14 +40,14 @@ def agregar_historial_handler(event, context):
                 'Se requiere un email válido'
             )
         
-        if not texto:
+        if autorizacion is None or not isinstance(autorizacion, bool):
             return formatear_respuesta_error(
                 400,
-                'Texto requerido',
-                'Se requiere el campo "texto"'
+                'Campo autorizacion inválido',
+                'El campo "autorizacion" debe ser true o false'
             )
         
-        # 3. Obtener ID del usuario
+        # 3. Obtener usuario por correo
         usuarios_dao = DAOFactory.get_dao('usuarios')
         usuario = usuarios_dao.get_usuario_por_correo(correo)
         
@@ -54,29 +58,34 @@ def agregar_historial_handler(event, context):
                 f'No existe usuario con correo {correo}'
             )
         
-        # 4. Preparar registro
-        historial_dao = DAOFactory.get_dao('historial')
-        registro = {
-            'usuarioId': usuario['id'],
-            'id': str(uuid.uuid4()),
-            'texto': texto
-        }
+        # 4. Actualizar autorización
+        usuario['autorizacion'] = autorizacion
         
-        # 5. Guardar
-        exito = historial_dao.agregar_interaccion(registro)
+        exito = usuarios_dao.actualizar_usuario(usuario)
         
         if not exito:
             return formatear_respuesta_error(
                 500,
-                'Error al guardar',
-                'No se pudo guardar el registro'
+                'Error al actualizar',
+                'No se pudo actualizar el estado de autorización'
             )
         
-        # 6. Retornar éxito
+        # 5. Retornar éxito
+        mensaje = (
+            'Autorización activada. Ahora puedes usar los agentes académicos.'
+            if autorizacion else
+            'Autorización desactivada. No podrás usar los agentes hasta reactivarla.'
+        )
+        
         return formatear_respuesta_exitosa({
-            'message': 'Historial actualizado correctamente',
+            'message': mensaje,
             'correo': correo,
-            'id': registro['id']
+            'autorizacion': autorizacion,
+            'timestamp': datetime.now().isoformat(),
+            'usuario': {
+                'id': usuario['id'],
+                'correo': usuario['correo']
+            }
         })
     
     except json.JSONDecodeError:
@@ -87,10 +96,10 @@ def agregar_historial_handler(event, context):
         )
     
     except Exception as e:
-        print(f"Error agregando historial: {str(e)}")
+        print(f"❌ Error en toggle_autorizacion: {str(e)}")
         print(traceback.format_exc())
         return formatear_respuesta_error(
             500,
-            'Error interno',
+            'Error interno del servidor',
             'Ocurrió un error procesando la solicitud'
         )

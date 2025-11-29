@@ -30,7 +30,7 @@ provider:
 functions:
   # Consultar agente especializado
   agenteConsultar:
-    handler: handlers/agente_consultar.agente_consultar_handler
+    handler: handlers/agente_consultar.handler
     description: Procesa consultas a los agentes especializados (Mentor, Orientador, Psicólogo)
     events:
       - http:
@@ -38,26 +38,16 @@ functions:
           method: post
           cors: true
   
-  # Agregar al historial
-  agregarHistorial:
-    handler: handlers/agregar_historial.agregar_historial_handler
-    description: Agrega una entrada manual al historial de interacciones
+  # Lambda secundaria: Toggle de autorización
+  toggleAutorizacion:
+    handler: handlers/toggle_autorizacion.handler
+    description: Activa o desactiva la autorización de recopilación de datos del usuario
     events:
       - http:
-          path: historial/agregar
+          path: usuario/autorizacion
           method: post
           cors: true
-  
-  # Obtener contextos disponibles
-  obtenerContextos:
-    handler: handlers/obtener_contextos.obtener_contextos_handler
-    description: Lista los agentes especializados disponibles
-    events:
-      - http:
-          path: agente/contextos
-          method: get
-          cors: true
-
+      
 package:
   patterns:
     - '!.venv/**'

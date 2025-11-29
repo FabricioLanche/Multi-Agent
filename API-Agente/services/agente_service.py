@@ -1,5 +1,5 @@
 """
-Servicios principales del sistema de agentes académicos
+Servicio principal del sistema de agentes académicos
 """
 import uuid
 from typing import Dict, List, Optional
@@ -19,6 +19,11 @@ class UsuarioNoEncontradoError(Exception):
 
 class ContextoInvalidoError(Exception):
     """Contexto solicitado no es válido"""
+    pass
+
+
+class AutorizacionRequeridaError(Exception):
+    """Usuario no ha autorizado la recopilación de datos"""
     pass
 
 
@@ -46,7 +51,7 @@ class AgenteService:
             correo: Email del usuario
             contexto: Tipo de contexto (MentorAcademico, OrientadorVocacional, Psicologo)
             mensaje_usuario: Mensaje del usuario
-            historial_conversacion: Historial previo de la conversación
+            historial_conversacion: Historial previo de conversaciones (ya cargado)
         
         Returns:
             Diccionario con la respuesta del agente
@@ -54,6 +59,7 @@ class AgenteService:
         Raises:
             UsuarioNoEncontradoError: Si el usuario no existe
             ContextoInvalidoError: Si el contexto no es válido
+            AutorizacionRequeridaError: Si el usuario no ha autorizado
         """
         # 1. Validar contexto
         if contexto not in Config.CONTEXTOS_DISPONIBLES:
@@ -69,13 +75,19 @@ class AgenteService:
                 f"Usuario con correo '{correo}' no encontrado"
             )
         
-        # 3. Obtener procesador de contexto
+        # 3. Verificar autorización
+        if not usuario.get('autorizacion', False):
+            raise AutorizacionRequeridaError(
+                f"Usuario {correo} no ha autorizado la recopilación de datos"
+            )
+        
+        # 4. Obtener procesador de contexto
         procesador = ContextoFactory.get_contexto(contexto)
         
-        # 4. Construir datos del contexto
+        # 5. Construir datos del contexto
         datos_contexto = procesador.build_context_data(correo)
         
-        # 5. Construir prompt completo
+        # 6. Construir prompt completo
         usuario_data = datos_contexto.get('usuario', usuario)
         historial_data = datos_contexto.get('historial', [])
         
@@ -85,16 +97,17 @@ class AgenteService:
             datos_contexto=datos_contexto
         )
         
-        # 6. Construir mensajes para Gemini
+        # 7. Construir mensajes para Gemini
         mensajes = [
             {'role': 'system', 'content': prompt_sistema}
         ]
         
-        # Agregar historial de la conversación actual si existe
+        # Agregar historial de conversaciones previas si existe
         if historial_conversacion:
-            for msg in historial_conversacion[-5:]:  # Últimos 5 mensajes
+            # Limitar a las últimas 5-10 interacciones para no saturar el contexto
+            for msg in historial_conversacion[-5:]:
                 mensajes.append({
-                    'role': msg.get('role', 'user'),
+                    'role': msg.get('role', 'assistant'),
                     'content': msg.get('content', '')
                 })
         
@@ -104,10 +117,10 @@ class AgenteService:
             'content': mensaje_usuario
         })
         
-        # 7. Generar respuesta con Gemini
+        # 8. Generar respuesta con Gemini
         respuesta_agente = self.gemini_service.generar_respuesta(mensajes)
         
-        # 8. Retornar resultado
+        # 9. Retornar resultado
         return {
             'respuesta': respuesta_agente,
             'contexto': contexto,
@@ -118,40 +131,67 @@ class AgenteService:
             }
         }
     
-    def guardar_interaccion(
+    def generar_resumen_interaccion(
         self,
-        correo: str,
-        texto: str
-    ) -> bool:
+        mensaje_usuario: str,
+        respuesta_agente: str,
+        contexto: str
+    ) -> str:
         """
-        Guarda una interacción en el historial del usuario
+        Genera un resumen conciso de la interacción para guardar en historial
         
         Args:
-            correo: Email del usuario
-            texto: Texto de la interacción a guardar
+            mensaje_usuario: Mensaje original del usuario
+            respuesta_agente: Respuesta generada por el agente
+            contexto: Contexto del agente utilizado
         
         Returns:
-            True si se guardó exitosamente
+            String con el resumen de la interacción
         """
         try:
-            # Obtener usuario
-            usuario = self.usuarios_dao.get_usuario_por_correo(correo)
-            if not usuario:
-                print(f"Usuario {correo} no encontrado para guardar historial")
-                return False
+            # Construir prompt para generar resumen
+            prompt_resumen = f"""
+Genera un resumen muy conciso (máximo 150 caracteres) de esta interacción:
+
+Contexto del agente: {contexto}
+Usuario preguntó: {mensaje_usuario[:200]}
+Agente respondió: {respuesta_agente[:300]}
+
+Resumen debe capturar:
+1. La intención principal del usuario
+2. El tipo de orientación o ayuda brindada
+3. Ser breve y claro
+
+Formato del resumen: "[{contexto}] Usuario consultó sobre X. Se orientó sobre Y."
+
+Resumen:
+"""
             
-            # Preparar registro
-            registro = {
-                'usuarioId': usuario['id'],
-                'id': str(uuid.uuid4()),
-                'texto': texto
-            }
+            # Generar resumen con Gemini
+            mensajes_resumen = [
+                {'role': 'user', 'content': prompt_resumen}
+            ]
             
-            return self.historial_dao.agregar_interaccion(registro)
+            resumen = self.gemini_service.generar_respuesta(mensajes_resumen)
+            
+            # Limpiar y limitar longitud
+            resumen = resumen.strip().replace('\n', ' ')
+            if len(resumen) > 250:
+                resumen = resumen[:247] + "..."
+            
+            return resumen
         
         except Exception as e:
-            print(f"Error guardando interacción: {str(e)}")
-            return False
+            print(f"⚠️ Error generando resumen: {str(e)}")
+            # Fallback: crear resumen manual simple
+            contexto_emoji = {
+                'MentorAcademico': '🎓',
+                'OrientadorVocacional': '🧭',
+                'Psicologo': '🧠'
+            }.get(contexto, '💬')
+            
+            mensaje_corto = mensaje_usuario[:50].strip()
+            return f"{contexto_emoji} [{contexto}] Usuario: {mensaje_corto}..."
     
     def obtener_historial_usuario(
         self,
@@ -171,7 +211,7 @@ class AgenteService:
         try:
             return self.historial_dao.get_historial_usuario(
                 correo,
-                limit=limite
+                limit=limite or Config.LIMITE_HISTORIAL
             )
         except Exception as e:
             print(f"Error obteniendo historial: {str(e)}")
