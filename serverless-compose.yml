@@ -12,10 +12,10 @@ services:
     params:
       stage: ${self:stage}
 
-  # api-agente:
-  #   path: API-Agente/
-  #   params:
-  #     stage: ${self:stage}
+  api-agente:
+    path: API-Agente/
+    params:
+      stage: ${self:stage}
 
   # api-analisis:
   #   path: API-Analisis/

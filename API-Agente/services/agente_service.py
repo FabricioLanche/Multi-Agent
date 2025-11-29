@@ -1,5 +1,5 @@
 """
-Servicio principal del agente - Orquestador
+Servicios principales del sistema de agentes académicos
 """
 import uuid
 from typing import Dict, List, Optional
@@ -8,18 +8,29 @@ from datetime import datetime
 from dao.base import DAOFactory
 from contextos.base_contexto import ContextoFactory
 from services.gemini_service import GeminiService
-from utils.exceptions import UsuarioNoEncontradoError, ContextoInvalidoError
 from config import Config
 
 
+# ===== EXCEPCIONES PERSONALIZADAS =====
+class UsuarioNoEncontradoError(Exception):
+    """Usuario no existe en la base de datos"""
+    pass
+
+
+class ContextoInvalidoError(Exception):
+    """Contexto solicitado no es válido"""
+    pass
+
+
+# ===== SERVICIO PRINCIPAL DEL AGENTE =====
 class AgenteService:
-    """Servicio principal que orquesta la lógica del agente"""
+    """Servicio principal que orquesta la lógica del agente académico"""
     
     def __init__(self):
         """Inicializa el servicio y sus dependencias"""
         self.gemini_service = GeminiService()
         self.usuarios_dao = DAOFactory.get_dao('usuarios')
-        self.memoria_dao = DAOFactory.get_dao('memoria')
+        self.historial_dao = DAOFactory.get_dao('historial')
     
     def procesar_consulta(
         self,
@@ -29,11 +40,11 @@ class AgenteService:
         historial_conversacion: Optional[List[Dict]] = None
     ) -> Dict:
         """
-        Procesa una consulta del usuario
+        Procesa una consulta del usuario con el agente especializado
         
         Args:
             correo: Email del usuario
-            contexto: Tipo de contexto (General, Servicios, etc.)
+            contexto: Tipo de contexto (MentorAcademico, OrientadorVocacional, Psicologo)
             mensaje_usuario: Mensaje del usuario
             historial_conversacion: Historial previo de la conversación
         
@@ -51,10 +62,12 @@ class AgenteService:
                 f"Disponibles: {Config.CONTEXTOS_DISPONIBLES}"
             )
         
-        # 2. Validar usuario existe
-        usuario = self.usuarios_dao.get_usuario(correo)
+        # 2. Validar que usuario existe
+        usuario = self.usuarios_dao.get_usuario_por_correo(correo)
         if not usuario:
-            raise UsuarioNoEncontradoError(f"Usuario con correo '{correo}' no encontrado")
+            raise UsuarioNoEncontradoError(
+                f"Usuario con correo '{correo}' no encontrado"
+            )
         
         # 3. Obtener procesador de contexto
         procesador = ContextoFactory.get_contexto(contexto)
@@ -64,11 +77,11 @@ class AgenteService:
         
         # 5. Construir prompt completo
         usuario_data = datos_contexto.get('usuario', usuario)
-        memoria_data = datos_contexto.get('memoria', [])
+        historial_data = datos_contexto.get('historial', [])
         
         prompt_sistema = procesador.get_prompt_instructions(
             usuario=usuario_data,
-            memoria=memoria_data,
+            historial=historial_data,
             datos_contexto=datos_contexto
         )
         
@@ -77,7 +90,7 @@ class AgenteService:
             {'role': 'system', 'content': prompt_sistema}
         ]
         
-        # Agregar historial si existe
+        # Agregar historial de la conversación actual si existe
         if historial_conversacion:
             for msg in historial_conversacion[-5:]:  # Últimos 5 mensajes
                 mensajes.append({
@@ -101,127 +114,65 @@ class AgenteService:
             'timestamp': datetime.now().isoformat(),
             'usuario': {
                 'correo': correo,
-                'nombre': usuario.get('nombre', 'Usuario')
+                'id': usuario.get('id')
             }
         }
     
-    def guardar_memoria_conversacion(
+    def guardar_interaccion(
         self,
         correo: str,
-        mensaje_usuario: str,
-        respuesta_agente: str,
-        intencion_detectada: Optional[str] = None
+        texto: str
     ) -> bool:
         """
-        Guarda el registro de una conversación en la memoria contextual
+        Guarda una interacción en el historial del usuario
         
         Args:
             correo: Email del usuario
-            mensaje_usuario: Mensaje original del usuario
-            respuesta_agente: Respuesta generada
-            intencion_detectada: Intención detectada (opcional)
+            texto: Texto de la interacción a guardar
         
         Returns:
             True si se guardó exitosamente
         """
         try:
-            memoria = {
-                'correo': correo,
-                'context_id': f"ctx-{uuid.uuid4().hex[:8]}",
-                'fecha': datetime.now().isoformat(),
-                'resumen_conversacion': f"Usuario: {mensaje_usuario[:100]}... | Agente: {respuesta_agente[:100]}...",
-                'intencion_detectada': intencion_detectada or 'consulta_general',
-                'datos_extraidos': {
-                    'mensaje_usuario': mensaje_usuario,
-                    'respuesta_agente': respuesta_agente
-                }
+            # Obtener usuario
+            usuario = self.usuarios_dao.get_usuario_por_correo(correo)
+            if not usuario:
+                print(f"Usuario {correo} no encontrado para guardar historial")
+                return False
+            
+            # Preparar registro
+            registro = {
+                'usuarioId': usuario['id'],
+                'id': str(uuid.uuid4()),
+                'texto': texto
             }
             
-            return self.memoria_dao.guardar_memoria(memoria)
+            return self.historial_dao.agregar_interaccion(registro)
         
         except Exception as e:
-            print(f"Error guardando memoria: {str(e)}")
+            print(f"Error guardando interacción: {str(e)}")
             return False
     
-    def obtener_sugerencias_contexto(
+    def obtener_historial_usuario(
         self,
         correo: str,
-        contexto: str
-    ) -> Dict:
+        limite: Optional[int] = None
+    ) -> List[Dict]:
         """
-        Genera sugerencias proactivas basadas en el contexto
+        Obtiene el historial de interacciones de un usuario
         
         Args:
             correo: Email del usuario
-            contexto: Tipo de contexto
+            limite: Número máximo de registros a retornar
         
         Returns:
-            Diccionario con sugerencias
+            Lista de interacciones
         """
         try:
-            # Validar usuario
-            usuario = self.usuarios_dao.get_usuario(correo)
-            if not usuario:
-                return {'sugerencias': []}
-            
-            # Obtener procesador de contexto
-            procesador = ContextoFactory.get_contexto(contexto)
-            datos_contexto = procesador.build_context_data(correo)
-            
-            # Generar sugerencias según el contexto
-            sugerencias = self._generar_sugerencias_para_contexto(
-                contexto, 
-                datos_contexto
+            return self.historial_dao.get_historial_usuario(
+                correo,
+                limit=limite
             )
-            
-            return {
-                'sugerencias': sugerencias,
-                'contexto': contexto,
-                'timestamp': datetime.now().isoformat()
-            }
-        
         except Exception as e:
-            print(f"Error obteniendo sugerencias: {str(e)}")
-            return {'sugerencias': []}
-    
-    def _generar_sugerencias_para_contexto(
-        self,
-        contexto: str,
-        datos: Dict
-    ) -> List[str]:
-        """
-        Genera sugerencias específicas por contexto
-        
-        Args:
-            contexto: Nombre del contexto
-            datos: Datos del contexto
-        
-        Returns:
-            Lista de sugerencias
-        """
-        sugerencias = []
-        
-        if contexto == 'General':
-            # Sugerencias basadas en actividad reciente
-            historial = datos.get('historial_reciente', [])
-            if historial:
-                sugerencias.append("¿Cómo te has sentido últimamente?")
-                sugerencias.append("¿Quieres revisar tu progreso de la semana?")
-        
-        elif contexto == 'Recetas':
-            recetas = datos.get('recetas', [])
-            if recetas:
-                sugerencias.append("¿Necesitas ayuda con tus medicamentos?")
-                sugerencias.append("¿Quieres que revise tus recetas activas?")
-        
-        elif contexto == 'Servicios':
-            sugerencias.append("¿Te gustaría conocer servicios disponibles?")
-            sugerencias.append("¿Hay algún evento o taller que te interese?")
-        
-        elif contexto == 'Estadisticas':
-            historial = datos.get('historial', [])
-            if historial:
-                sugerencias.append("¿Quieres ver tu resumen del mes?")
-                sugerencias.append("¿Te interesa conocer tus tendencias de actividad?")
-        
-        return sugerencias
+            print(f"Error obteniendo historial: {str(e)}")
+            return []

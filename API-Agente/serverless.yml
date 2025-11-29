@@ -4,63 +4,61 @@ provider:
   name: aws
   runtime: python3.12
   memorySize: 512
-  timeout: 60
+  timeout: 300
   region: us-east-1
-  stage: ${param:stage}
-
+  stage: ${param:stage, 'dev'}
+  
   environment:
     GEMINI_API_KEY: ${env:GEMINI_API_KEY}
-    TABLE_USUARIOS: ${env:TABLE_USUARIOS}
-    TABLE_SERVICIOS: ${env:TABLE_SERVICIOS}
-    TABLE_RECETAS: ${env:TABLE_RECETAS}
-    TABLE_MEMORIA_CONTEXTUAL: ${env:TABLE_MEMORIA_CONTEXTUAL}
-    TABLE_HISTORIAL_MEDICO: ${env:TABLE_HISTORIAL_MEDICO}
-    USER_POOL_ID: ${env:USER_POOL_ID, 'us-east-1_CbDyhAcqE'}
-    CLIENT_ID: ${env:CLIENT_ID, '3srpb1h5s3o6d2a5qu4bvoomq9'}
-    ORG_NAME: ${env:ORG_NAME}
+    
+    # Tablas DynamoDB
+    TABLE_USUARIOS: ${env:TABLE_USUARIOS, 'Usuario'}
+    TABLE_DATOS_ACADEMICOS: ${env:TABLE_DATOS_ACADEMICOS, 'DatosAcademicos'}
+    TABLE_DATOS_EMOCIONALES: ${env:TABLE_DATOS_EMOCIONALES, 'DatosEmocionales'}
+    TABLE_DATOS_SOCIOECONOMICOS: ${env:TABLE_DATOS_SOCIOECONOMICOS, 'DatosSocioeconomicos'}
+    TABLE_HISTORIAL: ${env:TABLE_HISTORIAL, 'Historial'}
+    TABLE_TAREAS: ${env:TABLE_TAREAS, 'Tarea'}
+    
+    # Configuración general
+    AWS_ACCOUNT_ID: ${env:AWS_ACCOUNT_ID}
+    LIMITE_HISTORIAL: ${env:LIMITE_HISTORIAL, '10'}
+    LIMITE_TAREAS: ${env:LIMITE_TAREAS, '20'}
   
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:DescribeTable
-      Resource:
-        - "arn:aws:dynamodb:us-east-1:*:table/${env:TABLE_USUARIOS}"
-        - "arn:aws:dynamodb:us-east-1:*:table/${env:TABLE_SERVICIOS}"
-        - "arn:aws:dynamodb:us-east-1:*:table/${env:TABLE_RECETAS}"
-        - "arn:aws:dynamodb:us-east-1:*:table/${env:TABLE_MEMORIA_CONTEXTUAL}"
-        - "arn:aws:dynamodb:us-east-1:*:table/${env:TABLE_HISTORIAL_MEDICO}"
+  iam:
+    role: arn:aws:iam::${env:AWS_ACCOUNT_ID}:role/LabRole
 
 plugins:
   - serverless-python-requirements
 
 functions:
-  agenteIniciar:
-    handler: handlers.agente_iniciar.handler
+  # Consultar agente especializado
+  agenteConsultar:
+    handler: handlers.agente_consultar.handler
+    description: Procesa consultas a los agentes especializados (Mentor, Orientador, Psicólogo)
     events:
       - http:
           path: agente/consultar
           method: post
           cors: true
   
+  # Agregar al historial
   agregarHistorial:
     handler: handlers.agregar_historial.handler
+    description: Agrega una entrada manual al historial de interacciones
     events:
       - http:
           path: historial/agregar
           method: post
           cors: true
-
-  agregarMemoria:
-    handler: handlers.agregar_memoria.handler
+  
+  # Obtener contextos disponibles
+  obtenerContextos:
+    handler: handlers.obtener_contextos.handler
+    description: Lista los agentes especializados disponibles
     events:
       - http:
-          path: memoria/agregar
-          method: post
+          path: agente/contextos
+          method: get
           cors: true
 
 package:
@@ -70,6 +68,9 @@ package:
     - '!.serverless/**'
     - '!__pycache__/**'
     - '!*.pyc'
+    - '!.pytest_cache/**'
+    - '!tests/**'
+    - '!.git/**'
 
 custom:
   pythonRequirements:
@@ -81,3 +82,4 @@ custom:
     invalidateCaches: true
     pipCmdExtraArgs:
       - '--no-cache-dir'
+    layer: false

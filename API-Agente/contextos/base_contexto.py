@@ -1,5 +1,5 @@
 """
-Clase base abstracta para todos los contextos del agente
+Clase base abstracta para todos los contextos del agente académico
 """
 from abc import ABC, abstractmethod
 from typing import Dict, List, Optional
@@ -7,12 +7,12 @@ from dao.base import DAOFactory
 
 
 class BaseContexto(ABC):
-    """Clase base para procesadores de contexto"""
+    """Clase base para procesadores de contexto académico"""
     
     def __init__(self):
         # Inicializar DAOs necesarios
         self.usuarios_dao = DAOFactory.get_dao('usuarios')
-        self.memoria_dao = DAOFactory.get_dao('memoria')
+        self.historial_dao = DAOFactory.get_dao('historial')
     
     @abstractmethod
     def get_tablas_requeridas(self) -> List[str]:
@@ -50,7 +50,7 @@ class BaseContexto(ABC):
     def get_prompt_instructions(
         self, 
         usuario: Dict, 
-        memoria: List[Dict], 
+        historial: List[Dict], 
         datos_contexto: Dict
     ) -> str:
         """
@@ -58,7 +58,7 @@ class BaseContexto(ABC):
         
         Args:
             usuario: Datos del usuario
-            memoria: Historial de conversaciones
+            historial: Historial de interacciones
             datos_contexto: Datos específicos del contexto
         
         Returns:
@@ -69,8 +69,8 @@ class BaseContexto(ABC):
         # Construir contexto del usuario
         contexto_usuario = self._formatear_contexto_usuario(usuario)
         
-        # Construir memoria contextual
-        contexto_memoria = self._formatear_memoria(memoria)
+        # Construir historial
+        contexto_historial = self._formatear_historial(historial)
         
         # Construir datos específicos del contexto  
         contexto_datos = self._formatear_datos_contexto(datos_contexto)
@@ -82,14 +82,14 @@ class BaseContexto(ABC):
 --- INFORMACIÓN DEL USUARIO ---
 {contexto_usuario}
 
---- MEMORIA DE CONVERSACIONES ANTERIORES ---
-{contexto_memoria}
+--- HISTORIAL DE INTERACCIONES PREVIAS ---
+{contexto_historial}
 
 --- DATOS DEL CONTEXTO ACTUAL ---
 {contexto_datos}
 
-Recuerda: Eres un asistente de acompañamiento médico. NO hagas diagnósticos ni prescripciones.
-Analiza los datos disponibles y ofrece información contextual, apoyo emocional y orientación general.
+Recuerda: Eres un asistente de acompañamiento académico. NO tomes decisiones por el estudiante.
+Analiza los datos disponibles y ofrece orientación, apoyo y sugerencias basadas en información objetiva.
 """
         return prompt_completo
     
@@ -99,27 +99,22 @@ Analiza los datos disponibles y ofrece información contextual, apoyo emocional 
             return "No hay información del usuario disponible."
         
         return f"""
-Nombre: {usuario.get('nombre', 'No especificado')}
-Sexo: {usuario.get('sexo', 'No especificado')}
-Rol: {usuario.get('role', 'USER')}
+ID: {usuario.get('id', 'No especificado')}
+Correo: {usuario.get('correo', 'No especificado')}
+Autorización de datos: {usuario.get('autorizacion', False)}
 """
     
-    def _formatear_memoria(self, memoria: List[Dict]) -> str:
-        """Formatea el historial de memoria contextual"""
-        if not memoria:
-            return "No hay conversaciones previas registradas."
+    def _formatear_historial(self, historial: List[Dict]) -> str:
+        """Formatea el historial de interacciones"""
+        if not historial:
+            return "No hay interacciones previas registradas."
         
-        memorias_formateadas = []
-        for idx, mem in enumerate(memoria[:5], 1):  # Últimas 5 conversaciones
-            fecha = mem.get('fecha', 'Fecha desconocida')
-            resumen = mem.get('resumen_conversacion', 'Sin resumen')
-            intencion = mem.get('intencion_detectada', 'No detectada')
-            
-            memorias_formateadas.append(
-                f"{idx}. [{fecha}] - Intención: {intencion}\n   Resumen: {resumen}"
-            )
+        historial_formateado = []
+        for idx, item in enumerate(historial[:5], 1):  # Últimas 5 interacciones
+            texto = item.get('texto', 'Sin contenido')
+            historial_formateado.append(f"{idx}. {texto[:150]}...")
         
-        return "\n".join(memorias_formateadas)
+        return "\n".join(historial_formateado)
     
     @abstractmethod
     def _formatear_datos_contexto(self, datos: Dict) -> str:
@@ -143,14 +138,14 @@ Rol: {usuario.get('role', 'USER')}
             correo: Email del usuario
         
         Returns:
-            Diccionario con usuario y memoria
+            Diccionario con usuario e historial
         """
-        usuario = self.usuarios_dao.get_usuario(correo)
-        memoria = self.memoria_dao.get_memoria_reciente(correo)
+        usuario = self.usuarios_dao.get_usuario_por_correo(correo)
+        historial = self.historial_dao.get_historial_usuario(correo) if usuario else []
         
         return {
             'usuario': usuario,
-            'memoria': memoria
+            'historial': historial
         }
     
     def validar_usuario(self, correo: str) -> bool:
@@ -176,16 +171,14 @@ class ContextoFactory:
     def _lazy_load_contextos(cls):
         """Lazy load contexto classes to avoid circular imports"""
         if not cls._contextos:
-            from .general_contexto import GeneralContexto
-            from .servicios_contexto import ServiciosContexto
-            from .estadisticas_contexto import EstadisticasContexto
-            from .recetas_contexto import RecetasContexto
+            from .mentor_academico_contexto import MentorAcademicoContexto
+            from .orientador_vocacional_contexto import OrientadorVocacionalContexto
+            from .psicologo_contexto import PsicologoContexto
             
             cls._contextos = {
-                'General': GeneralContexto,
-                'Servicios': ServiciosContexto,
-                'Estadisticas': EstadisticasContexto,
-                'Recetas': RecetasContexto
+                'MentorAcademico': MentorAcademicoContexto,
+                'OrientadorVocacional': OrientadorVocacionalContexto,
+                'Psicologo': PsicologoContexto
             }
     
     @classmethod
@@ -199,7 +192,7 @@ class ContextoFactory:
         Returns:
             Instancia del contexto
         
-       Raises:
+        Raises:
             ValueError: Si el contexto no existe
         """
         cls._lazy_load_contextos()

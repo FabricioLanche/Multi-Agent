@@ -7,6 +7,7 @@ from boto3.dynamodb.conditions import Key, Attr
 from decimal import Decimal
 import json
 
+
 class BaseDAO:
     """Clase base para acceso a datos en DynamoDB"""
     
@@ -27,10 +28,14 @@ class BaseDAO:
             Diccionario con el registro o None si no existe
         """
         try:
-            key = {'correo': partition_key} if 'correo' in self._get_key_schema() else {self._get_partition_key_name(): partition_key}
+            key_schema = self._get_key_schema()
+            partition_name = self._get_partition_key_name()
+            
+            key = {partition_name: partition_key}
             
             if sort_key and self._has_sort_key():
-                key[self._get_sort_key_name()] = sort_key
+                sort_name = self._get_sort_key_name()
+                key[sort_name] = sort_key
             
             response = self.table.get_item(Key=key)
             return self._decimal_to_float(response.get('Item'))
@@ -43,7 +48,7 @@ class BaseDAO:
         partition_value: str, 
         limit: Optional[int] = None,
         sort_key_condition: Optional[Any] = None,
-        scan_index_forward: bool = False
+        scan_index_forward: bool = True
     ) -> List[Dict]:
         """
         Query por partition key con opciones adicionales
@@ -99,7 +104,15 @@ class BaseDAO:
                 scan_params['FilterExpression'] = filter_expression
             
             response = self.table.scan(**scan_params)
-            return [self._decimal_to_float(item) for item in response.get('Items', [])]
+            items = response.get('Items', [])
+            
+            # Manejar paginación si hay más items
+            while 'LastEvaluatedKey' in response and (not limit or len(items) < limit):
+                scan_params['ExclusiveStartKey'] = response['LastEvaluatedKey']
+                response = self.table.scan(**scan_params)
+                items.extend(response.get('Items', []))
+            
+            return [self._decimal_to_float(item) for item in items]
         except Exception as e:
             print(f"Error en scan_all: {str(e)}")
             return []
@@ -133,10 +146,12 @@ class BaseDAO:
             True si fue exitoso, False en caso contrario
         """
         try:
-            key = {self._get_partition_key_name(): partition_key}
+            partition_name = self._get_partition_key_name()
+            key = {partition_name: partition_key}
             
             if sort_key and self._has_sort_key():
-                key[self._get_sort_key_name()] = sort_key
+                sort_name = self._get_sort_key_name()
+                key[sort_name] = sort_key
             
             self.table.delete_item(Key=key)
             return True
@@ -151,7 +166,7 @@ class BaseDAO:
         for key in key_schema:
             if key['KeyType'] == 'HASH':
                 return key['AttributeName']
-        return 'correo'  # Default
+        return 'id'  # Default
     
     def _get_sort_key_name(self) -> Optional[str]:
         """Obtiene el nombre de la sort key si existe"""
@@ -204,17 +219,24 @@ class DAOFactory:
         Obtiene una instancia singleton de un DAO
         
         Args:
-            dao_type: Tipo de DAO ('usuarios', 'recetas', 'servicios', 'historial', 'memoria')
+            dao_type: Tipo de DAO ('usuarios', 'datos_academicos', 'datos_emocionales', 
+                                   'datos_socioeconomicos', 'historial', 'tareas')
         
         Returns:
             Instancia del DAO solicitado
+        
+        Raises:
+            ValueError: Si el tipo de DAO no existe
         """
         if dao_type not in cls._instances:
             # Lazy import para evitar circular dependencies
             dao_map = cls._get_dao_map()
             
             if dao_type not in dao_map:
-                raise ValueError(f"DAO tipo '{dao_type}' no existe")
+                raise ValueError(
+                    f"DAO tipo '{dao_type}' no existe. "
+                    f"DAOs disponibles: {list(dao_map.keys())}"
+                )
             
             cls._instances[dao_type] = dao_map[dao_type]()
         
@@ -227,15 +249,27 @@ class DAOFactory:
         """
         # Import here to avoid circular dependency
         from dao.usuarios_dao import UsuariosDAO
-        from dao.recetas_dao import RecetasDAO
-        from dao.servicios_dao import ServiciosDAO
+        from dao.datos_academicos_dao import DatosAcademicosDAO
+        from dao.datos_emocionales_dao import DatosEmocionalesDAO
+        from dao.datos_socioeconomicos_dao import DatosSocioeconomicosDAO
         from dao.historial_dao import HistorialDAO
-        from dao.memoria_dao import MemoriaDAO
+        from dao.tareas_dao import TareasDAO
         
         return {
             'usuarios': UsuariosDAO,
-            'recetas': RecetasDAO,
-            'servicios': ServiciosDAO,
+            'datos_academicos': DatosAcademicosDAO,
+            'datos_emocionales': DatosEmocionalesDAO,
+            'datos_socioeconomicos': DatosSocioeconomicosDAO,
             'historial': HistorialDAO,
-            'memoria': MemoriaDAO
+            'tareas': TareasDAO
         }
+    
+    @classmethod
+    def clear_cache(cls):
+        """Limpia el caché de instancias (útil para testing)"""
+        cls._instances = {}
+    
+    @classmethod
+    def get_available_daos(cls) -> List[str]:
+        """Retorna lista de DAOs disponibles"""
+        return list(cls._get_dao_map().keys())

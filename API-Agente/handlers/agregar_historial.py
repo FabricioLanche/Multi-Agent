@@ -1,70 +1,69 @@
 """
-Handler para actualizar historial médico
+Handlers Lambda para los agentes académicos
 """
 import json
 import traceback
+import uuid
 from datetime import datetime
 
 from dao.base import DAOFactory
-from services.auth_service import AuthService
 from utils.formatters import formatear_respuesta_exitosa, formatear_respuesta_error
 from utils.validators import validar_email
 
-
-def handler(event, context):
+# ===== HANDLER: AGREGAR AL HISTORIAL =====
+def agregar_historial_handler(event, context):
     """
-    Handler Lambda para actualizar el historial médico del usuario
+    Handler para agregar manualmente una entrada al historial
     
     Espera un body JSON con:
     {
-        "correo": "usuario@example.com",
-        "fecha": "2024-11-23",  # Opcional
-        "sensores": {...},
-        "wearables": {...}
+        "correo": "estudiante@example.com",
+        "texto": "Descripción de la interacción"
     }
-    
-    O alternativamente puede obtener el correo del token si no viene en body
     """
     try:
         # 1. Parsear body
         body = json.loads(event.get('body', '{}'))
         
-        # 2. Obtener correo (de body o de token)
+        # 2. Validar campos
         correo = body.get('correo')
-        if not correo:
-            correo = AuthService.get_user_email_from_event(event)
+        texto = body.get('texto')
         
         if not correo or not validar_email(correo):
             return formatear_respuesta_error(
                 400,
                 'Email inválido',
-                'Se require un email válido'
+                'Se requiere un email válido'
             )
         
-        # 3. Obtener DAO
-        historial_dao = DAOFactory.get_dao('historial')
-        
-        # 4. Preparar registro
-        fecha = body.get('fecha', datetime.now().strftime('%Y-%m-%d'))
-        sensores = body.get('sensores', {})
-        wearables = body.get('wearables', {})
-        
-        if not sensores and not wearables:
+        if not texto:
             return formatear_respuesta_error(
                 400,
-                'Datos faltantes',
-                'Se requiere al menos "sensores" o "wearables"'
+                'Texto requerido',
+                'Se requiere el campo "texto"'
             )
         
+        # 3. Obtener ID del usuario
+        usuarios_dao = DAOFactory.get_dao('usuarios')
+        usuario = usuarios_dao.get_usuario_por_correo(correo)
+        
+        if not usuario:
+            return formatear_respuesta_error(
+                404,
+                'Usuario no encontrado',
+                f'No existe usuario con correo {correo}'
+            )
+        
+        # 4. Preparar registro
+        historial_dao = DAOFactory.get_dao('historial')
         registro = {
-            'correo': correo,
-            'fecha': fecha,
-            'sensores': sensores,
-            'wearables': wearables
+            'usuarioId': usuario['id'],
+            'id': str(uuid.uuid4()),
+            'texto': texto
         }
         
-        # 5. Guardar en DynamoDB
-        exito = historial_dao.agregar_registro(registro)
+        # 5. Guardar
+        exito = historial_dao.agregar_interaccion(registro)
         
         if not exito:
             return formatear_respuesta_error(
@@ -77,7 +76,7 @@ def handler(event, context):
         return formatear_respuesta_exitosa({
             'message': 'Historial actualizado correctamente',
             'correo': correo,
-            'fecha': fecha
+            'id': registro['id']
         })
     
     except json.JSONDecodeError:
@@ -88,7 +87,7 @@ def handler(event, context):
         )
     
     except Exception as e:
-        print(f"Error actualizando historial: {str(e)}")
+        print(f"Error agregando historial: {str(e)}")
         print(traceback.format_exc())
         return formatear_respuesta_error(
             500,

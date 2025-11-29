@@ -1,58 +1,63 @@
 """
-DAOs específicos para cada tabla
+DAOs específicos para cada tabla del sistema académico
 """
 from typing import Dict, List, Optional
-from datetime import datetime, timedelta
-from boto3.dynamodb.conditions import Key
+from datetime import datetime
+from boto3.dynamodb.conditions import Key, Attr
 from .base import BaseDAO
 from config import Config
 
-# ===== HISTORIAL MÉDICO DAO =====
+# ===== HISTORIAL DAO =====
 class HistorialDAO(BaseDAO):
-    """DAO para la tabla de historial médico"""
+    """DAO para la tabla de historial de interacciones"""
     
     def __init__(self):
         super().__init__(Config.TABLE_HISTORIAL)
     
-    def get_historial_reciente(self, correo: str, dias: int = 30) -> List[Dict]:
+    def get_historial_usuario(
+        self, 
+        correo: str,
+        limit: Optional[int] = None
+    ) -> List[Dict]:
         """
-        Obtiene el historial médico reciente del usuario
+        Obtiene el historial de interacciones de un usuario
+        Primero busca el usuarioId por correo, luego hace query
         
         Args:
             correo: Email del usuario
-            dias: Número de días hacia atrás
+            limit: Límite de registros
         
         Returns:
-            Lista de registros ordenados por fecha descendente
+            Lista de registros del historial
         """
-        fecha_limite = (datetime.now() - timedelta(days=dias)).isoformat()
+        try:
+            # Primero obtener el usuario para conseguir su ID
+            from .usuarios_dao import UsuariosDAO
+            usuarios_dao = UsuariosDAO()
+            usuario = usuarios_dao.get_usuario_por_correo(correo)
+            
+            if not usuario:
+                return []
+            
+            usuario_id = usuario.get('id')
+            
+            return self.query_by_partition(
+                usuario_id,
+                limit=limit or Config.LIMITE_HISTORIAL,
+                scan_index_forward=False  # Más recientes primero
+            )
+        except Exception as e:
+            print(f"Error obteniendo historial: {str(e)}")
+            return []
+    
+    def agregar_interaccion(self, registro: Dict) -> bool:
+        """
+        Agrega una nueva interacción al historial
         
-        return self.query_by_partition(
-            correo,
-            sort_key_condition=Key('fecha').gte(fecha_limite),
-            scan_index_forward=False,
-            limit=Config.LIMITE_HISTORIAL
-        )
-    
-    def get_historial_rango(self, correo: str, fecha_inicio: str, fecha_fin: str) -> List[Dict]:
-        """Obtiene historial en un rango de fechas específico"""
-        return self.query_by_partition(
-            correo,
-            sort_key_condition=Key('fecha').between(fecha_inicio, fecha_fin),
-            scan_index_forward=False
-        )
-    
-    def get_ultimo_registro(self, correo: str) -> Optional[Dict]:
-        """Obtiene el registro más reciente"""
-        registros = self.query_by_partition(
-            correo,
-            limit=1,
-            scan_index_forward=False
-        )
-        return registros[0] if registros else None
-    
-    def agregar_registro(self, registro: Dict) -> bool:
-        """Agrega un nuevo registro de historial"""
-        if 'fecha' not in registro:
-            registro['fecha'] = datetime.now().isoformat()
+        Args:
+            registro: Diccionario con usuarioId, id, texto
+        
+        Returns:
+            True si fue exitoso
+        """
         return self.put_item(registro)
