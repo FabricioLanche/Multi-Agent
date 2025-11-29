@@ -1,0 +1,61 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "DatosEmocionales",
+    "type": "object",
+    "x-dynamodb": {
+        "partition_key": "usuarioId",
+        "sort_key": "id"
+    },
+    "properties": {
+        "id": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F\\-]{36}$"
+        },
+        "usuarioId": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F\\-]{36}$"
+        },
+        "frecuencia_acceso_plataforma": {
+            "type": "string",
+            "enum": [
+                "DIARIO",
+                "SEMANAL",
+                "MENSUAL",
+                "RARA_VEZ",
+                "NUNCA"
+            ]
+        },
+        "horas_estudio_estimadas": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Horas de estudio estimadas por semana"
+        },
+        "uso_servicios_tutoria": {
+            "type": "string",
+            "enum": [
+                "NUNCA",
+                "OCASIONAL",
+                "REGULAR",
+                "FRECUENTE"
+            ]
+        },
+        "uso_servicios_psicologia": {
+            "type": "string",
+            "enum": [
+                "NUNCA",
+                "OCASIONAL",
+                "REGULAR",
+                "FRECUENTE"
+            ]
+        },
+        "actividades_extracurriculares": {
+            "type": "boolean",
+            "description": "Participa en actividades extracurriculares (true/false)"
+        }
+    },
+    "required": [
+        "id",
+        "usuarioId"
+    ],
+    "additionalProperties": false
+}

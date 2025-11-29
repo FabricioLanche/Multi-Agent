@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Historial",
+    "type": "object",
+    "x-dynamodb": {
+        "partition_key": "usuarioId",
+        "sort_key": "id"
+    },
+    "properties": {
+        "id": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F\\-]{36}$"
+        },
+        "usuarioId": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F\\-]{36}$"
+        },
+        "texto": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "id",
+        "usuarioId",
+        "texto"
+    ],
+    "additionalProperties": false
+}

@@ -1,0 +1,111 @@
+service: api-recetas
+
+provider:
+  name: aws
+  runtime: python3.12
+  memorySize: 512
+  timeout: 300
+  region: us-east-1
+  stage: ${param:stage}
+
+  environment:
+    GEMINI_API_KEY: ${env:GEMINI_API_KEY}
+    TABLE_RECETAS: ${env:TABLE_RECETAS}
+    S3_BUCKET_RECETAS: recetas-medicas-data-${env:AWS_ACCOUNT_ID}
+
+  iamRoleStatements:
+    # DynamoDB permisos
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:Query
+        - dynamodb:Scan
+      Resource:
+        - "arn:aws:dynamodb:us-east-1:${env:AWS_ACCOUNT_ID}:table/${env:TABLE_RECETAS}"
+
+    # S3 permisos para subir y leer recetas
+    - Effect: Allow
+      Action:
+        - s3:PutObject
+        - s3:GetObject
+        - s3:DeleteObject
+      Resource:
+        - "arn:aws:s3:::recetas-medicas-data-${env:AWS_ACCOUNT_ID}/*"
+
+    # Permitir generar URL firmada (GetObject)
+    - Effect: Allow
+      Action:
+        - s3:GetObject
+      Resource:
+        - "arn:aws:s3:::recetas-medicas-data-${env:AWS_ACCOUNT_ID}/*"
+
+  apiGateway:
+    binaryMediaTypes:
+      - 'multipart/form-data'
+      - 'image/*'
+
+functions:
+  subirReceta:
+    handler: subirReceta.subirReceta
+    events:
+      - http:
+          path: recetas
+          method: post
+          cors: true
+  
+  listarRecetas:
+    handler: listarRecetas.listarRecetas
+    events:
+      - http:
+          path: recetas
+          method: get
+          cors: true
+  
+  obtenerReceta:
+    handler: obtenerReceta.obtenerReceta
+    events:
+      - http:
+          path: recetas/{id}
+          method: get
+          cors: true
+  
+  actualizarReceta:
+    handler: actualizarReceta.actualizarReceta
+    events:
+      - http:
+          path: recetas/{id}
+          method: put
+          cors: true
+  
+  eliminarReceta:
+    handler: eliminarReceta.eliminarReceta
+    events:
+      - http:
+          path: recetas/{id}
+          method: delete
+          cors: true
+
+package:
+  patterns:
+    - '!.venv/**'
+    - '!node_modules/**'
+    - '!.serverless/**'
+    - '!__pycache__/**'
+    - '!*.pyc'
+    - '!.pytest_cache/**'
+    - '!.git/**'
+    - '!tests/**'
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    dockerImage: public.ecr.aws/sam/build-python3.12:latest
+    slim: true
+    useDownloadCache: false
+    useStaticCache: false
+    invalidateCaches: true
+    pipCmdExtraArgs:
+      - '--no-cache-dir'

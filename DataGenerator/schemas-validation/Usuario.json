@@ -1,0 +1,36 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Usuario",
+    "type": "object",
+    "x-dynamodb": {
+        "partition_key": "id",
+        "sort_key": "correo"
+    },
+    "properties": {
+        "id": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F\\-]{36}$",
+            "description": "UUID v4 recomendado"
+        },
+        "correo": {
+            "type": "string",
+            "format": "email"
+        },
+        "contrasena": {
+            "type": "string",
+            "minLength": 8,
+            "description": "Hash de contraseña o contraseña con mínimo 8 caracteres (se recomienda almacenar hash)"
+        },
+        "autorizacion": {
+            "type": "boolean",
+            "description": "Confirmacion de recopilacion de datos"
+        }
+    },
+    "required": [
+        "id",
+        "correo",
+        "contrasena",
+        "autorizacion"
+    ],
+    "additionalProperties": false
+}

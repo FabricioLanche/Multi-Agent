@@ -1,0 +1,4 @@
+google-genai==1.52.0
+pydantic-core
+python-dotenv==1.0.0  # Para manejar variables de entorno en local/testing
+requests==2.31.0      # Dependencia auxiliar que google-genai podría usar

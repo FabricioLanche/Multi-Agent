@@ -1,0 +1,83 @@
+service: api-agente
+
+provider:
+  name: aws
+  runtime: python3.12
+  memorySize: 512
+  timeout: 60
+  region: us-east-1
+  stage: ${param:stage}
+
+  environment:
+    GEMINI_API_KEY: ${env:GEMINI_API_KEY}
+    TABLE_USUARIOS: ${env:TABLE_USUARIOS}
+    TABLE_SERVICIOS: ${env:TABLE_SERVICIOS}
+    TABLE_RECETAS: ${env:TABLE_RECETAS}
+    TABLE_MEMORIA_CONTEXTUAL: ${env:TABLE_MEMORIA_CONTEXTUAL}
+    TABLE_HISTORIAL_MEDICO: ${env:TABLE_HISTORIAL_MEDICO}
+    USER_POOL_ID: ${env:USER_POOL_ID, 'us-east-1_CbDyhAcqE'}
+    CLIENT_ID: ${env:CLIENT_ID, '3srpb1h5s3o6d2a5qu4bvoomq9'}
+    ORG_NAME: ${env:ORG_NAME}
+  
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:DescribeTable
+      Resource:
+        - "arn:aws:dynamodb:us-east-1:*:table/${env:TABLE_USUARIOS}"
+        - "arn:aws:dynamodb:us-east-1:*:table/${env:TABLE_SERVICIOS}"
+        - "arn:aws:dynamodb:us-east-1:*:table/${env:TABLE_RECETAS}"
+        - "arn:aws:dynamodb:us-east-1:*:table/${env:TABLE_MEMORIA_CONTEXTUAL}"
+        - "arn:aws:dynamodb:us-east-1:*:table/${env:TABLE_HISTORIAL_MEDICO}"
+
+plugins:
+  - serverless-python-requirements
+
+functions:
+  agenteIniciar:
+    handler: handlers.agente_iniciar.handler
+    events:
+      - http:
+          path: agente/consultar
+          method: post
+          cors: true
+  
+  agregarHistorial:
+    handler: handlers.agregar_historial.handler
+    events:
+      - http:
+          path: historial/agregar
+          method: post
+          cors: true
+
+  agregarMemoria:
+    handler: handlers.agregar_memoria.handler
+    events:
+      - http:
+          path: memoria/agregar
+          method: post
+          cors: true
+
+package:
+  patterns:
+    - '!.venv/**'
+    - '!node_modules/**'
+    - '!.serverless/**'
+    - '!__pycache__/**'
+    - '!*.pyc'
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    dockerImage: public.ecr.aws/sam/build-python3.12:latest
+    slim: true
+    useDownloadCache: false
+    useStaticCache: false
+    invalidateCaches: true
+    pipCmdExtraArgs:
+      - '--no-cache-dir'
