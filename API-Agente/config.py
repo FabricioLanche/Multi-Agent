@@ -19,7 +19,7 @@ class Config:
     
     # ===== API CONFIGURATION =====
     GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
-    GEMINI_MODEL = "gemini-2.0-flash-exp"
+    GEMINI_MODEL = "gemini-2.0-flash"
     
     # ===== LÍMITES DE CONSULTA =====
     LIMITE_HISTORIAL = int(os.getenv('LIMITE_HISTORIAL', '10'))
