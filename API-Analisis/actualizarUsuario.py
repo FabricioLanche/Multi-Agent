@@ -30,13 +30,34 @@ def float_to_decimal(obj):
 
 
 def obtener_usuario_por_correo(correo):
-    """Busca usuario por correo"""
-    response = table_usuarios.scan(
-        FilterExpression=Attr('correo').eq(correo),
-        Limit=1
-    )
-    items = response.get('Items', [])
-    return items[0] if items else None
+    """Busca usuario por correo usando scan con paginación"""
+    try:
+        # Primer scan
+        response = table_usuarios.scan(
+            FilterExpression=Attr('correo').eq(correo)
+        )
+        
+        # Revisar items del primer scan
+        items = response.get('Items', [])
+        if items:
+            return items[0]
+        
+        # Si no se encontró, continuar con paginación
+        while 'LastEvaluatedKey' in response:
+            response = table_usuarios.scan(
+                FilterExpression=Attr('correo').eq(correo),
+                ExclusiveStartKey=response['LastEvaluatedKey']
+            )
+            items = response.get('Items', [])
+            if items:
+                return items[0]
+        
+        return None
+    except Exception as e:
+        print(f"❌ Error buscando usuario por correo '{correo}': {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return None
 
 
 def obtener_o_crear_registro(table, usuario_id, datos_nuevos=None):

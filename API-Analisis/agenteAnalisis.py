@@ -2,14 +2,13 @@
 Lambda para análisis de riesgo de deserción con IA
 Endpoint: POST /analisis/usuario
 Analiza datos del estudiante y calcula riesgo de deserción
-Soporta conversación continua usando Gemini Chat
 """
 import json
 import os
 import boto3
 from decimal import Decimal
 from boto3.dynamodb.conditions import Attr
-from google import genai
+import google.generativeai as genai
 
 # Configuración DynamoDB
 dynamodb = boto3.resource('dynamodb')
@@ -20,7 +19,7 @@ table_socioeconomicos = dynamodb.Table(os.getenv('TABLE_DATOS_SOCIOECONOMICOS', 
 
 # Configuración Gemini
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
-client = genai.Client(api_key=GEMINI_API_KEY)
+genai.configure(api_key=GEMINI_API_KEY)
 
 
 def decimal_to_float(obj):
@@ -35,13 +34,34 @@ def decimal_to_float(obj):
 
 
 def obtener_usuario_por_correo(correo):
-    """Busca usuario por correo"""
-    response = table_usuarios.scan(
-        FilterExpression=Attr('correo').eq(correo),
-        Limit=1
-    )
-    items = response.get('Items', [])
-    return items[0] if items else None
+    """Busca usuario por correo usando scan con paginación"""
+    try:
+        # Primer scan
+        response = table_usuarios.scan(
+            FilterExpression=Attr('correo').eq(correo)
+        )
+        
+        # Revisar items del primer scan
+        items = response.get('Items', [])
+        if items:
+            return items[0]
+        
+        # Si no se encontró, continuar con paginación
+        while 'LastEvaluatedKey' in response:
+            response = table_usuarios.scan(
+                FilterExpression=Attr('correo').eq(correo),
+                ExclusiveStartKey=response['LastEvaluatedKey']
+            )
+            items = response.get('Items', [])
+            if items:
+                return items[0]
+        
+        return None
+    except Exception as e:
+        print(f"❌ Error buscando usuario por correo '{correo}': {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return None
 
 
 def obtener_datos_por_usuario_id(table, usuario_id):
@@ -242,8 +262,14 @@ def handler(event, context):
             usuario, datos_acad, datos_emo, datos_socio
         )
         
-        # 3. Crear chat de Gemini
-        chat = client.chats.create(model="gemini-2.0-flash-exp")
+        # 3. Crear modelo de Gemini
+        model = genai.GenerativeModel(
+            model_name='gemini-2.0-flash-exp',
+            generation_config={
+                'temperature': 0.7,
+                'max_output_tokens': 2048,
+            }
+        )
         
         # Enviar contexto del sistema y datos del estudiante
         instruccion_inicial = f"{prompt_sistema}\n\n{contexto_estudiante}\n\nAnaliza estos datos y proporciona tu evaluación en formato JSON."
@@ -253,7 +279,7 @@ def handler(event, context):
             instruccion_inicial += f"\n\nPregunta del analista: {mensaje_usuario}"
         
         # Generar análisis
-        response = chat.send_message(instruccion_inicial)
+        response = model.generate_content(instruccion_inicial)
         respuesta_texto = response.text
         
         # 4. Parsear respuesta JSON
