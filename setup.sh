@@ -255,18 +255,6 @@ deploy_services() {
     echo ""
     echo "════════════ DEPLOY SERVERLESS COMPOSE ════════════"
 
-    log "Limpieza suave (solo __pycache__)..."
-    find API-*/ -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
-
-    if [ ! -d node_modules ]; then
-        warn "Instalando dependencias Node (serverless/plugins)..."
-        if [ -f package-lock.json ]; then
-            npm ci
-        else
-            npm install
-        fi
-    fi
-
     ok "Entorno Node listo"
 
     if ! command -v serverless >/dev/null 2>&1; then
