@@ -30,7 +30,7 @@ provider:
 functions:
   # Consultar agente especializado
   agenteConsultar:
-    handler: handlers.agente_consultar.handler
+    handler: handlers/agente_consultar.agente_consultar_handler
     description: Procesa consultas a los agentes especializados (Mentor, Orientador, Psicólogo)
     events:
       - http:
@@ -40,7 +40,7 @@ functions:
   
   # Agregar al historial
   agregarHistorial:
-    handler: handlers.agregar_historial.handler
+    handler: handlers/agregar_historial.agregar_historial_handler
     description: Agrega una entrada manual al historial de interacciones
     events:
       - http:
@@ -50,7 +50,7 @@ functions:
   
   # Obtener contextos disponibles
   obtenerContextos:
-    handler: handlers.obtener_contextos.handler
+    handler: handlers/obtener_contextos.obtener_contextos_handler
     description: Lista los agentes especializados disponibles
     events:
       - http:
