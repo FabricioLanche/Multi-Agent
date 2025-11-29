@@ -1490,6 +1490,130 @@
 					]
 				},
 				{
+					"name": "Consultar Agente - Psicologo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"correo\": \"carmen.fernandez@gmail.com\",\r\n  \"contexto\": \"Psicologo\",\r\n  \"mensaje\": \"Me he estado sintiendo estresado/ansioso con mis estudios. ¿Podemos hablar sobre lo que estoy pasando?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl_AGENTES}}/agente/consultar",
+							"host": [
+								"{{baseUrl_AGENTES}}"
+							],
+							"path": [
+								"agente",
+								"consultar"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response 200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"correo\": \"carmen.fernandez@gmail.com\",\r\n  \"contexto\": \"Psicologo\",\r\n  \"mensaje\": \"Me he estado sintiendo estresado/ansioso con mis estudios. ¿Podemos hablar sobre lo que estoy pasando?\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl_AGENTES}}/agente/consultar",
+									"host": [
+										"{{baseUrl_AGENTES}}"
+									],
+									"path": [
+										"agente",
+										"consultar"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
+								}
+							],
+							"body": "{\r\n    \"respuesta\": \"Hola Carmen, gracias por compartir esto conmigo. Entiendo que te has estado sintiendo estresada y ansiosa con tus estudios, y quiero que sepas que estoy aquí para escucharte y apoyarte. Es valiente de tu parte reconocerlo y buscar ayuda.\\n\\nCuéntame, ¿qué es lo que te está generando este estrés y ansiedad específicamente? ¿Hay algo en particular que te preocupe o te abrume? No te preocupes por ser perfecta al explicarlo, solo habla desde el corazón. Estoy aquí para escucharte sin juzgar.\\n\\nPor lo que veo en tu información, estás en el ciclo 7 de Ingeniería de Software. Además, noto que tienes 3 cursos reprobados y un avance de malla del 11.6%, lo que podría estar generando presión. También veo que tu asistencia no es muy alta (53.7%). Sin embargo, también veo que dedicas bastante tiempo al estudio (32.9 horas semanales) y que participas en actividades extracurriculares, lo cual es positivo.\\n\\nEs importante recordar que el estrés y la ansiedad son respuestas comunes a la presión académica, especialmente en carreras exigentes como Ingeniería de Software. No estás sola en esto.\\n\\n¿Qué te parece si empezamos por identificar las principales fuentes de tu estrés y ansiedad? A partir de ahí, podemos explorar estrategias para afrontarlo y manejarlo de manera más efectiva.\\n\",\r\n    \"contexto\": \"Psicologo\",\r\n    \"timestamp\": \"2025-11-29T08:00:21.748731\",\r\n    \"usuario\": {\r\n        \"correo\": \"carmen.fernandez@gmail.com\",\r\n        \"id\": \"73f56c3d-4f1b-4453-a47f-5899bf4ef172\"\r\n    }\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Consultar Agente - OrientadorVocacional",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"correo\": \"carmen.fernandez@gmail.com\",\r\n  \"contexto\": \"OrientadorVocacional\",\r\n  \"mensaje\": \"No estoy seguro si la carrera que estudio es la correcta para mí. ¿Podrías ayudarme a orientarme?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl_AGENTES}}/agente/consultar",
+							"host": [
+								"{{baseUrl_AGENTES}}"
+							],
+							"path": [
+								"agente",
+								"consultar"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response 200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"correo\": \"carmen.fernandez@gmail.com\",\r\n  \"contexto\": \"OrientadorVocacional\",\r\n  \"mensaje\": \"No estoy seguro si la carrera que estudio es la correcta para mí. ¿Podrías ayudarme a orientarme?\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl_AGENTES}}/agente/consultar",
+									"host": [
+										"{{baseUrl_AGENTES}}"
+									],
+									"path": [
+										"agente",
+										"consultar"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"respuesta\": \"Hola. Entiendo tu inquietud. Es común tener dudas sobre la elección de carrera, especialmente cuando uno avanza en los estudios. Con gusto te ayudaré a explorar tus opciones y a reflexionar sobre si Ingeniería de Software es el camino correcto para ti.\\n\\nPara empezar, me gustaría entender un poco mejor por qué te sientes inseguro. ¿Hay algo en particular que te haga dudar? ¿Qué aspectos de la carrera te gustan y cuáles no tanto? \\n\\nAdemás, considerando tu promedio de 15.86 y que has tenido algunas dificultades en 3 cursos y has retirado otros 3, ¿sientes que la carrera te está resultando desafiante en exceso o que no estás conectando con los contenidos?\\n\\nTambién me gustaría saber un poco más sobre tus intereses y habilidades. ¿Qué te apasiona hacer en tu tiempo libre? ¿En qué áreas te consideras bueno? ¿Qué tipo de problemas te gusta resolver?\\n\\nCuéntame un poco más sobre esto y así podré ofrecerte una orientación más personalizada.\\n\",\r\n    \"contexto\": \"OrientadorVocacional\",\r\n    \"timestamp\": \"2025-11-29T07:34:09.464613\",\r\n    \"usuario\": {\r\n        \"correo\": \"carmen.fernandez@gmail.com\",\r\n        \"id\": \"73f56c3d-4f1b-4453-a47f-5899bf4ef172\"\r\n    }\r\n}"
+						}
+					]
+				},
+				{
 					"name": "Tooggle de autorización",
 					"request": {
 						"method": "POST",
@@ -1606,7 +1730,430 @@
 		},
 		{
 			"name": "API - ANALISIS",
-			"item": []
+			"item": [
+				{
+					"name": "ListarUsuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl_ANALISIS}}/usuarios",
+							"host": [
+								"{{baseUrl_ANALISIS}}"
+							],
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response 200 ok",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl_ANALISIS}}/usuarios",
+									"host": [
+										"{{baseUrl_ANALISIS}}"
+									],
+									"path": [
+										"usuarios"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "3283"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 29 Nov 2025 09:51:58 GMT"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "706189e0-4791-4a97-bccc-512006267b9c"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "UzNJmHkPIAMEHzA="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-692ac23d-6129ee964d03626737fc4a9f;Parent=067cab2fda49057b;Sampled=0;Lineage=1:5dad12e4:0"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 72af6577499f2f531d3d559f296edbbc.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "LIM50-P3"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "PuauLjgKxoQvcPPa6JlE0stO-3HRawBb6KqYCPdlUtPwmopj0upuCw=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"usuarios\": [\n        {\n            \"correo\": \"ana.martinez@gmail.com\",\n            \"id\": \"674e80c0-3d81-41c1-bd4b-d873cda2ad7c\",\n            \"autorizacion\": false\n        },\n        {\n            \"correo\": \"ana.martinez@utec.edu.pe\",\n            \"id\": \"7481fc5d-e60c-4207-872f-912d271ce449\",\n            \"autorizacion\": false\n        },\n        {\n            \"correo\": \"andres.silva@gmail.com\",\n            \"id\": \"081e26b0-aff5-4551-a5e0-1d863a5ebd53\",\n            \"autorizacion\": true\n        },\n        {\n            \"correo\": \"andres.silva@utec.edu.pe\",\n            \"id\": \"98493735-b6df-48ba-a4e7-d55063c1cc19\",\n            \"autorizacion\": true\n        },\n        {\n            \"correo\": \"camila.rojas@gmail.com\",\n            \"id\": \"adb32e9c-413d-4de0-a2c0-01062ce9afa9\",\n            \"autorizacion\": true\n        },\n        {\n            \"correo\": \"carlos.lopez@gmail.com\",\n            \"id\": \"8a23777e-570a-4686-ad0d-ef0be4108563\",\n            \"autorizacion\": true\n        },\n        {\n            \"correo\": \"carlos.lopez@outlook.com\",\n            \"id\": \"5e4de0b3-a543-4ea3-8d4e-daebcaeadc04\",\n            \"autorizacion\": false\n        },\n        {\n            \"correo\": \"carlos.lopez@utec.edu.pe\",\n            \"id\": \"ade2081c-e7cf-480a-987a-d2e557f5a9f4\",\n            \"autorizacion\": false\n        },\n        {\n            \"correo\": \"carmen.fernandez@gmail.com\",\n            \"id\": \"73f56c3d-4f1b-4453-a47f-5899bf4ef172\",\n            \"autorizacion\": true\n        },\n        {\n            \"correo\": \"carmen.fernandez@utec.edu.pe\",\n            \"id\": \"8ee61589-93f4-4e52-9d2b-1e7164f1cd75\",\n            \"autorizacion\": true\n        },\n        {\n            \"correo\": \"diego.morales@gmail.com\",\n            \"id\": \"a2f43455-14f2-442b-a5ec-b542ad120f82\",\n            \"autorizacion\": true\n        },\n        {\n            \"correo\": \"diego.morales@outlook.com\",\n            \"id\": \"3b9c94d1-f95f-4ff0-940f-b7675b4bed38\",\n            \"autorizacion\": false\n        },\n        {\n            \"correo\": \"fernando.vega@outlook.com\",\n            \"id\": \"ae5959ee-b57c-4607-8edb-879c04e421a6\",\n            \"autorizacion\": true\n        },\n        {\n            \"correo\": \"jose.gonzalez@gmail.com\",\n            \"id\": \"ceca73a7-3fc2-4379-bc26-8a6d25758e84\",\n            \"autorizacion\": false\n        },\n        {\n            \"correo\": \"jose.gonzalez@utec.edu.pe\",\n            \"id\": \"da7c5b38-48f9-4fa8-adc4-368a5325fe2e\",\n            \"autorizacion\": true\n        },\n        {\n            \"correo\": \"laura.sanchez@utec.edu.pe\",\n            \"id\": \"b54a3ca2-96a6-4dbb-8af4-eaeaf43d4cd4\",\n            \"autorizacion\": true\n        },\n        {\n            \"correo\": \"luis.rodriguez@gmail.com\",\n            \"id\": \"d44bdba6-7c23-4b35-a46b-a926f47833e8\",\n            \"autorizacion\": true\n        },\n        {\n            \"correo\": \"luis.rodriguez@utec.edu.pe\",\n            \"id\": \"0daaffff-a821-4013-ba22-e7d7d29c5da5\",\n            \"autorizacion\": false\n        },\n        {\n            \"correo\": \"magali.flores@outlook.com\",\n            \"id\": \"41a1fc6f-3621-4a2a-bdc5-61ca363762a1\",\n            \"autorizacion\": true\n        },\n        {\n            \"correo\": \"maria.garcia@utec.edu.pe\",\n            \"id\": \"a497d4cb-2a7e-4d63-ac9b-14d48bb18fdc\",\n            \"autorizacion\": false\n        },\n        {\n            \"correo\": \"miguel.torres@gmail.com\",\n            \"id\": \"a2925bf4-f608-48fb-832c-3d56ee810bd8\",\n            \"autorizacion\": false\n        },\n        {\n            \"correo\": \"patricia.ruiz@outlook.com\",\n            \"id\": \"d5304631-3e83-41f3-991b-25e708ff7e4c\",\n            \"autorizacion\": true\n        },\n        {\n            \"correo\": \"patricia.ruiz@utec.edu.pe\",\n            \"id\": \"97390cb6-4e20-4814-a2be-b7e910057fa7\",\n            \"autorizacion\": true\n        },\n        {\n            \"correo\": \"pedro.flores@outlook.com\",\n            \"id\": \"332b6807-22ba-4d0c-be8e-6a3716f176c7\",\n            \"autorizacion\": true\n        },\n        {\n            \"correo\": \"roberto.diaz@outlook.com\",\n            \"id\": \"67130e36-33c6-418b-abc2-c81302e0dee5\",\n            \"autorizacion\": true\n        },\n        {\n            \"correo\": \"sofia.castro@gmail.com\",\n            \"id\": \"24ce67ab-371a-40af-a676-36f3cac21cc9\",\n            \"autorizacion\": true\n        },\n        {\n            \"correo\": \"sofia.castro@outlook.com\",\n            \"id\": \"1565172c-2497-4e35-a2c4-7faabe79c428\",\n            \"autorizacion\": true\n        },\n        {\n            \"correo\": \"sofia.castro@utec.edu.pe\",\n            \"id\": \"5e57e2b5-1891-4131-a2be-06dff9987e95\",\n            \"autorizacion\": true\n        },\n        {\n            \"correo\": \"valentina.ortiz@gmail.com\",\n            \"id\": \"5eb899c0-6c09-42c0-b830-bd159bfa81c2\",\n            \"autorizacion\": false\n        },\n        {\n            \"correo\": \"valentina.ortiz@utec.edu.pe\",\n            \"id\": \"04d6ec5e-1dfb-4dae-bc62-68b99c054136\",\n            \"autorizacion\": true\n        }\n    ],\n    \"total\": 30\n}"
+						}
+					]
+				},
+				{
+					"name": "Obtener Usuario",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl_ANALISIS}}/usuario?correo=carmen.fernandez@gmail.com",
+							"host": [
+								"{{baseUrl_ANALISIS}}"
+							],
+							"path": [
+								"usuario"
+							],
+							"query": [
+								{
+									"key": "correo",
+									"value": "carmen.fernandez@gmail.com"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response 200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl_ANALISIS}}/usuario?correo=carmen.fernandez@gmail.com",
+									"host": [
+										"{{baseUrl_ANALISIS}}"
+									],
+									"path": [
+										"usuario"
+									],
+									"query": [
+										{
+											"key": "correo",
+											"value": "carmen.fernandez@gmail.com"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1284"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 29 Nov 2025 10:11:26 GMT"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "38a9adb8-3f05-480b-a386-00421f9d855a"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "UzQACEXnIAMEZpQ="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-692ac6cc-7802c3071460db0f418e391c;Parent=32645aa0570c2acf;Sampled=0;Lineage=1:56e25058:0"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 5412cb5252fe365064e8ffded799091a.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "LIM50-P3"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "RjqvhLy3hsqXprvimP7DtI6uDQoMf6qELjnFBQpJb7Yctp6e3AZNwA=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"usuario\": {\n        \"correo\": \"carmen.fernandez@gmail.com\",\n        \"id\": \"73f56c3d-4f1b-4453-a47f-5899bf4ef172\",\n        \"contrasena\": \"hash_358e9e42de7742b0\",\n        \"autorizacion\": true\n    },\n    \"datos_academicos\": {\n        \"creditos_desaprobados\": 17,\n        \"ciclo_actual\": 7,\n        \"estado_matricula\": \"MATRICULADO\",\n        \"creditos_aprobados\": 186,\n        \"usuarioId\": \"73f56c3d-4f1b-4453-a47f-5899bf4ef172\",\n        \"historial_retirados\": [\n            {\n                \"periodo\": \"2022-I\",\n                \"curso\": \"CUR334\"\n            },\n            {\n                \"periodo\": \"2022-II\",\n                \"curso\": \"CUR426\"\n            },\n            {\n                \"periodo\": \"2017-II\",\n                \"curso\": \"CUR240\"\n            }\n        ],\n        \"asistencia_promedio\": 53.71,\n        \"promedio_ponderado\": 15.86,\n        \"cursos_reprobados\": [\n            \"CUR424\",\n            \"CUR373\",\n            \"CUR341\"\n        ],\n        \"carrera\": \"Ingeniería de Software\",\n        \"avance_malla\": 11.58,\n        \"id\": \"7e9da856-0b2a-4135-b2d6-ab24042bfeb0\"\n    },\n    \"datos_emocionales\": {\n        \"frecuencia_acceso_plataforma\": \"NUNCA\",\n        \"actividades_extracurriculares\": true,\n        \"horas_estudio_estimadas\": 32.9,\n        \"usuarioId\": \"73f56c3d-4f1b-4453-a47f-5899bf4ef172\",\n        \"uso_servicios_tutoria\": \"NUNCA\",\n        \"uso_servicios_psicologia\": \"REGULAR\",\n        \"id\": \"bedea773-5ce8-49c1-845a-e1b277bb3ce5\"\n    },\n    \"datos_socioeconomicos\": {\n        \"situacion_laboral\": \"NO_TRABAJA\",\n        \"dependencia_economica\": false,\n        \"ingreso_estimado\": 1411.36,\n        \"tipo_financiamiento\": \"BECA\",\n        \"usuarioId\": \"73f56c3d-4f1b-4453-a47f-5899bf4ef172\",\n        \"id\": \"605cb01b-3a4d-4d15-b61a-a89ffe7efaa9\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Actualizar Usuario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"correo\": \"carmen.fernandez@gmail.com\",\r\n  \"usuario\": {\r\n    \"autorizacion\": true\r\n  },\r\n  \"datos_academicos\": {\r\n    \"promedio_ponderado\": 14.5,\r\n    \"asistencia_promedio\": 90.0\r\n  },\r\n  \"datos_emocionales\": {\r\n    \"horas_estudio_estimadas\": 20.0\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl_ANALISIS}}/usuario",
+							"host": [
+								"{{baseUrl_ANALISIS}}"
+							],
+							"path": [
+								"usuario"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response 200 OK",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"correo\": \"carmen.fernandez@gmail.com\",\r\n  \"usuario\": {\r\n    \"autorizacion\": true\r\n  },\r\n  \"datos_academicos\": {\r\n    \"promedio_ponderado\": 14.5,\r\n    \"asistencia_promedio\": 90.0\r\n  },\r\n  \"datos_emocionales\": {\r\n    \"horas_estudio_estimadas\": 20.0\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl_ANALISIS}}/usuario",
+									"host": [
+										"{{baseUrl_ANALISIS}}"
+									],
+									"path": [
+										"usuario"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "235"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 29 Nov 2025 10:11:48 GMT"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "fb3c1d5e-ef6e-4360-8f1a-02cb61c340aa"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "UzQDhGmfIAMEQKw="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-692ac6e2-7c4faa335373feb5670f808f;Parent=4ab9561a3d755606;Sampled=0;Lineage=1:afc94f57:0"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 5412cb5252fe365064e8ffded799091a.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "LIM50-P3"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "12AuYUgioyIibYLKw8LqBFzWUtBq2peK_Ozvqt2-nVYTG7Izi_se3w=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Usuario actualizado exitosamente\",\n    \"correo\": \"carmen.fernandez@gmail.com\",\n    \"usuario_id\": \"73f56c3d-4f1b-4453-a47f-5899bf4ef172\",\n    \"tablas_actualizadas\": [\n        \"usuario\",\n        \"datos_academicos\",\n        \"datos_emocionales\"\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Analizar Usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"correo\": \"carmen.fernandez@gmail.com\",\r\n  \"mensaje\": \"¿Qué opinas sobre este estudiante?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl_ANALISIS}}/analisis/usuario",
+							"host": [
+								"{{baseUrl_ANALISIS}}"
+							],
+							"path": [
+								"analisis",
+								"usuario"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Response 200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"correo\": \"carmen.fernandez@gmail.com\",\r\n  \"mensaje\": \"¿Qué opinas sobre este estudiante?\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl_ANALISIS}}/analisis/usuario",
+									"host": [
+										"{{baseUrl_ANALISIS}}"
+									],
+									"path": [
+										"analisis",
+										"usuario"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1780"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 29 Nov 2025 10:12:14 GMT"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "x-amzn-RequestId",
+									"value": "4640d735-d1e8-40e0-adc1-c146985eceff"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "x-amz-apigw-id",
+									"value": "UzQGxEYAoAMEXMg="
+								},
+								{
+									"key": "X-Amzn-Trace-Id",
+									"value": "Root=1-692ac6f7-77e95afd163975d932842ceb;Parent=0c153b13b5375ad0;Sampled=0;Lineage=1:f4f0301b:0"
+								},
+								{
+									"key": "X-Cache",
+									"value": "Miss from cloudfront"
+								},
+								{
+									"key": "Via",
+									"value": "1.1 5412cb5252fe365064e8ffded799091a.cloudfront.net (CloudFront)"
+								},
+								{
+									"key": "X-Amz-Cf-Pop",
+									"value": "LIM50-P3"
+								},
+								{
+									"key": "X-Amz-Cf-Id",
+									"value": "rRP8SED--dycYJVutd8ztt9sHx9YDLwFpYPADRmxU-_ppxIYYOhYxg=="
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"riesgo_desercion\": 52,\n    \"nivel_riesgo\": \"MEDIO\",\n    \"mensaje\": \"Carmen presenta un riesgo medio de deserción. Si bien su promedio ponderado es alto y su asistencia es buena, lo que indica un buen desempeño académico en general, existen varios factores que elevan su riesgo. Particularmente preocupante es su nula interacción con la plataforma virtual del curso y el alto número de créditos desaprobados, junto con un historial de retiros considerable, sugieren posibles dificultades en la gestión de su carga académica o problemas de adaptación. Adicionalmente, aunque no trabaje, el bajo avance de malla curricular podría generar frustración y desmotivación. Es importante abordar estas áreas para asegurar su éxito académico a largo plazo.\",\n    \"factores_riesgo\": [\n        \"Frecuencia de acceso a la plataforma: NUNCA\",\n        \"Créditos desaprobados: 17\",\n        \"Historial de retiros: 3\",\n        \"Avance de malla curricular bajo: 11.6%\"\n    ],\n    \"factores_protectores\": [\n        \"Promedio ponderado: 14.50\",\n        \"Asistencia promedio: 90.0%\",\n        \"Tipo de financiamiento: BECA\",\n        \"Actividades extracurriculares: Sí\",\n        \"No trabaja\"\n    ],\n    \"recomendaciones\": [\n        \"Implementar un plan de apoyo académico enfocado en las materias donde ha tenido dificultades, considerando la posibilidad de tutorías personalizadas.\",\n        \"Fomentar la participación activa en la plataforma virtual a través de estrategias de gamificación o incentivos para aumentar su interacción.\",\n        \"Ofrecer asesoramiento vocacional y orientación para ayudar a Carmen a reafirmar su elección de carrera y establecer metas realistas.\",\n        \"Realizar un seguimiento continuo de su progreso académico y emocional para identificar y abordar cualquier dificultad a tiempo.\"\n    ],\n    \"correo\": \"carmen.fernandez@gmail.com\",\n    \"usuario_id\": \"73f56c3d-4f1b-4453-a47f-5899bf4ef172\"\n}"
+						}
+					]
+				}
+			]
 		}
 	],
 	"event": [
@@ -1640,6 +2187,10 @@
 		},
 		{
 			"key": "baseUrl_AGENTES",
+			"value": ""
+		},
+		{
+			"key": "baseUrl_ANALISIS",
 			"value": ""
 		}
 	]
