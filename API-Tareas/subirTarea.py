@@ -158,21 +158,26 @@ def lambda_handler(event, context):
         # 3d. Análisis con Gemini
         # ===============================
         prompt = """
-        Eres un analizador especializado en extraer texto de imágenes de tareas o documentos.
-        A partir de la imagen dada, extrae TODO el texto visible y devuélvelo 
-        exclusivamente como un JSON válido.
+        Eres un asistente especializado en extraer texto de imágenes de tareas académicas.
+        Analiza la imagen proporcionada y extrae TODO el texto visible.
         
-        Estructura obligatoria:
+        IMPORTANTE: Debes responder ÚNICAMENTE con un objeto JSON válido, sin texto adicional.
+        
+        Formato de respuesta requerido:
         {
-          "texto": "Todo el texto extraído de la imagen"
+          "texto": "Aquí va todo el texto extraído de la imagen"
         }
         
-        Reglas:
-        - Extrae todo el texto visible en la imagen
-        - Preserva saltos de línea importantes con \\n
-        - No agregues explicaciones fuera del JSON
-        - Si no hay texto legible, devuelve "texto": ""
-        - Mantén la estructura y formato del texto original en lo posible
+        Instrucciones:
+        - Extrae todo el texto legible en español
+        - Preserva saltos de línea importantes usando \\n
+        - Mantén el formato y estructura del texto original
+        - Si hay listas, tablas o estructuras especiales, intenta mantenerlas
+        - Si no hay texto legible, devuelve: {"texto": ""}
+        - NO agregues explicaciones, comentarios o texto fuera del JSON
+        - NO uses bloques de código markdown (```), solo el JSON puro
+        
+        Recuerda: SOLO el objeto JSON, nada más.
         """
         
         response = client.models.generate_content(
@@ -260,8 +265,6 @@ def lambda_handler(event, context):
         # ===============================
         return _response(200, {
             "message": "Tarea procesada y guardada exitosamente",
-            "tarea_id": tarea_id,
-            "imagen_url": imagen_url,
             "data": item
         })
         

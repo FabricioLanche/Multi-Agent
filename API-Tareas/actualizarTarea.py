@@ -1,9 +1,14 @@
 import os
 import json
-import boto3
 import base64
+import boto3
+import time
+import uuid
+from io import BytesIO
 from botocore.exceptions import ClientError
 from decimal import Decimal
+import cgi
+import re
 
 def convert_decimal(obj):
     if isinstance(obj, Decimal):
@@ -18,9 +23,38 @@ def convert_decimal(obj):
     return obj
 
 dynamodb = boto3.resource('dynamodb')
+s3 = boto3.client('s3')
 TABLE_TAREAS = os.environ.get('TABLE_TAREAS', 'Tareas')
 TABLE_USUARIOS = os.environ.get('TABLE_USUARIOS', 'Usuarios')
+S3_BUCKET = os.environ.get('S3_BUCKET_TAREAS')
 table_tareas = dynamodb.Table(TABLE_TAREAS)
+
+# ===============================
+# Inicializar cliente Gemini
+# ===============================
+try:
+    from google import genai
+    from google.genai import types
+    _IMPORT_ERROR = None
+except Exception as e:
+    genai = None
+    types = None
+    _IMPORT_ERROR = str(e)
+
+GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
+client = None
+_INIT_ERROR = None
+
+if genai is not None and GEMINI_API_KEY:
+    try:
+        client = genai.Client(api_key=GEMINI_API_KEY)
+    except Exception as e:
+        _INIT_ERROR = str(e)
+else:
+    if genai is None:
+        _INIT_ERROR = f"Dependencia faltante: {_IMPORT_ERROR}"
+    elif not GEMINI_API_KEY:
+        _INIT_ERROR = "GEMINI_API_KEY no configurada en el entorno"
 
 def _response(status_code, body):
     return {
@@ -31,19 +65,6 @@ def _response(status_code, body):
         },
         "body": json.dumps(body, ensure_ascii=False)
     }
-
-def decode_jwt_payload(token):
-    """Decodifica el payload de un JWT sin verificar firma"""
-    try:
-        parts = token.split('.')
-        if len(parts) != 3:
-            return None
-        payload = parts[1]
-        padding = '=' * (4 - len(payload) % 4)
-        decoded = base64.urlsafe_b64decode(payload + padding).decode('utf-8')
-        return json.loads(decoded)
-    except Exception:
-        return None
 
 def get_user_id_from_email(correo):
     """Obtiene el ID del usuario desde DynamoDB usando su correo"""
@@ -63,15 +84,10 @@ def get_user_id_from_email(correo):
         print(f"Error al obtener usuario: {e}")
         return None
 
-def get_user_id(event):
-    """Extrae el correo del body y obtiene el ID del usuario"""
-    try:
-        body = json.loads(event.get('body', '{}'))
-        correo = body.get('correo')
-        if correo:
-            return get_user_id_from_email(correo)
-    except:
-        pass
+def get_email_from_request(fs):
+    """Extrae el correo del usuario desde el multipart form"""
+    if 'correo' in fs:
+        return fs['correo'].value
     return None
 
 def lambda_handler(event, context):
@@ -99,7 +115,7 @@ def lambda_handler(event, context):
         if not tarea_id:
             return _response(400, {"message": "tarea_id es requerido"})
         
-        # Verificar que la tarea existe
+        # Verificar que la tarea existe y pertenece al usuario
         try:
             response = table_tareas.get_item(
                 Key={
@@ -113,31 +129,122 @@ def lambda_handler(event, context):
             
             current_item = response['Item']
             
-            # Preparar atributos a actualizar
-            update_expression = []
-            expression_attribute_values = {}
-            expression_attribute_names = {}
+            # ===============================
+            # Análisis con Gemini
+            # ===============================
+            prompt = """
+            Eres un asistente especializado en extraer texto de imágenes de tareas académicas.
+            Analiza la imagen proporcionada y extrae TODO el texto visible.
             
-            # Campos permitidos para actualizar
-            allowed_fields = ['texto', 'imagenUrl']
+            IMPORTANTE: Debes responder ÚNICAMENTE con un objeto JSON válido, sin texto adicional.
             
-            for field in allowed_fields:
-                if field in body:
-                    update_expression.append(f"#{field} = :{field}")
-                    expression_attribute_names[f"#{field}"] = field
-                    expression_attribute_values[f":{field}"] = body[field]
+            Formato de respuesta requerido:
+            {
+              "texto": "Aquí va todo el texto extraído de la imagen"
+            }
             
-            if not update_expression:
-                return _response(400, {"message": "No hay campos para actualizar"})
+            Instrucciones:
+            - Extrae todo el texto legible en español
+            - Preserva saltos de línea importantes usando \\n
+            - Mantén el formato y estructura del texto original
+            - Si hay listas, tablas o estructuras especiales, intenta mantenerlas
+            - Si no hay texto legible, devuelve: {"texto": ""}
+            - NO agregues explicaciones, comentarios o texto fuera del JSON
+            - NO uses bloques de código markdown (```), solo el JSON puro
             
+            Recuerda: SOLO el objeto JSON, nada más.
+            """
+            
+            response_gemini = client.models.generate_content(
+                model="gemini-2.0-flash",
+                contents=[
+                    types.Part.from_bytes(data=image_bytes, mime_type="image/jpeg"),
+                    prompt
+                ]
+            )
+            
+            # Extracción robusta de JSON
+            raw_text = ""
+            if hasattr(response_gemini, 'text') and response_gemini.text:
+                raw_text = response_gemini.text
+            else:
+                raw_text = str(response_gemini)
+            
+            def _extract_json_candidate(text):
+                if not text: return None
+                t = text.strip()
+                t = re.sub(r"^```(?:json)?\s*", "", t, flags=re.IGNORECASE)
+                t = re.sub(r"\s*```$", "", t, flags=re.IGNORECASE)
+                start = t.find('{')
+                end = t.rfind('}')
+                if start != -1 and end != -1 and end > start:
+                    return t[start:end+1].strip()
+                return t
+            
+            candidate = _extract_json_candidate(raw_text)
+            
+            try:
+                data = json.loads(candidate)
+            except Exception:
+                return _response(500, {
+                    "message": "Error al parsear respuesta de Gemini",
+                    "raw": raw_text
+                })
+            
+            # ===============================
+            # Eliminar imagen antigua de S3 si existe
+            # ===============================
+            if S3_BUCKET and 'imagenUrl' in current_item and current_item['imagenUrl']:
+                try:
+                    old_s3_key = f"tareas/{usuario_id}/{tarea_id}.jpg"
+                    s3.delete_object(Bucket=S3_BUCKET, Key=old_s3_key)
+                    print(f"🗑️ Imagen antigua eliminada: {old_s3_key}")
+                except Exception as s3_error:
+                    print(f"⚠️ Error al eliminar imagen antigua de S3: {s3_error}")
+            
+            # ===============================
+            # Subir nueva imagen a S3
+            # ===============================
+            imagen_url = None
+            s3_key = f"tareas/{usuario_id}/{tarea_id}.jpg"
+            
+            if S3_BUCKET:
+                try:
+                    s3.put_object(
+                        Bucket=S3_BUCKET,
+                        Key=s3_key,
+                        Body=image_bytes,
+                        ContentType='image/jpeg'
+                    )
+                    imagen_url = s3.generate_presigned_url(
+                        ClientMethod='get_object',
+                        Params={'Bucket': S3_BUCKET, 'Key': s3_key},
+                        ExpiresIn=86400  # 24h
+                    )
+                    print(f"✅ Nueva imagen subida y URL firmada generada: {imagen_url}")
+                except Exception as s3_error:
+                    print(f"❌ Error al subir a S3 o generar URL firmada: {s3_error}")
+            else:
+                print("⚠️ S3_BUCKET no configurado, saltando subida de imagen")
+            
+            # ===============================
             # Actualizar en DynamoDB
+            # ===============================
+            update_expression = "SET texto = :texto"
+            expression_attribute_values = {
+                ':texto': data.get('texto', '')
+            }
+            
+            if imagen_url:
+                update_expression += ", imagenUrl = :imagenUrl"
+                expression_attribute_values[':imagenUrl'] = imagen_url
+            
             table_tareas.update_item(
                 Key={
                     'usuarioId': usuario_id,
                     'id': tarea_id
                 },
-                UpdateExpression="SET " + ", ".join(update_expression),
-                ExpressionAttributeNames=expression_attribute_names,
+                UpdateExpression=update_expression,
                 ExpressionAttributeValues=expression_attribute_values
             )
             
