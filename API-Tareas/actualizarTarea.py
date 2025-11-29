@@ -24,9 +24,11 @@ def convert_decimal(obj):
 
 dynamodb = boto3.resource('dynamodb')
 s3 = boto3.client('s3')
+
 TABLE_TAREAS = os.environ.get('TABLE_TAREAS', 'Tareas')
 TABLE_USUARIOS = os.environ.get('TABLE_USUARIOS', 'Usuarios')
 S3_BUCKET = os.environ.get('S3_BUCKET_TAREAS')
+
 table_tareas = dynamodb.Table(TABLE_TAREAS)
 
 # ===============================
@@ -140,18 +142,18 @@ def lambda_handler(event, context):
         if not tarea_id:
             return _response(400, {"message": "El campo 'id' no puede estar vacío"})
         
-        # Extraer imagen
-        if 'imagen' not in fs:
-            return _response(400, {"message": "El campo 'imagen' es requerido"})
+        # Extraer imagen (campo "file")
+        if 'file' not in fs:
+            return _response(400, {"message": "El campo 'file' es requerido"})
         
-        imagen_file = fs['imagen']
-        if not imagen_file.file:
-            return _response(400, {"message": "No se pudo leer la imagen"})
+        file_field = fs['file']
+        if not file_field.file:
+            return _response(400, {"message": "No se pudo leer el archivo"})
         
         # Leer bytes de la imagen
-        image_bytes = imagen_file.file.read()
+        image_bytes = file_field.file.read()
         if not image_bytes:
-            return _response(400, {"message": "La imagen está vacía"})
+            return _response(400, {"message": "El archivo está vacío"})
         
         # Obtener usuario_id desde DynamoDB
         usuario_id = get_user_id_from_email(correo)
@@ -321,3 +323,10 @@ def lambda_handler(event, context):
         import traceback
         print(f"Error completo: {traceback.format_exc()}")
         return _response(500, {"message": str(e)})
+
+# ===============================
+# Handler para AWS Lambda
+# ===============================
+def actualizarTarea(event, context):
+    """Handler principal que Lambda invocará"""
+    return lambda_handler(event, context)
