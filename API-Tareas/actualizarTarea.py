@@ -18,8 +18,8 @@ def convert_decimal(obj):
     return obj
 
 dynamodb = boto3.resource('dynamodb')
-TABLE_RECETAS = os.environ.get('TABLE_RECETAS', 'Recetas')
-table_recetas = dynamodb.Table(TABLE_RECETAS)
+TABLE_TAREAS = os.environ.get('TABLE_TAREAS', 'Tareas')
+table_tareas = dynamodb.Table(TABLE_TAREAS)
 
 def _response(status_code, body):
     return {
@@ -44,8 +44,8 @@ def decode_jwt_payload(token):
     except Exception:
         return None
 
-def get_user_email(event):
-    """Extrae el email del usuario desde el token"""
+def get_user_id(event):
+    """Extrae el ID del usuario desde el token"""
     headers = {k.lower(): v for k, v in (event.get('headers') or {}).items()}
     auth_header = headers.get('authorization')
     
@@ -53,23 +53,23 @@ def get_user_email(event):
         token = auth_header.split(" ")[1]
         payload = decode_jwt_payload(token)
         if payload:
-            return payload.get('email') or payload.get('username')
+            return payload.get('sub') or payload.get('id') or payload.get('user_id')
     return None
 
 def lambda_handler(event, context):
     try:
         # Autenticación
-        user_email = get_user_email(event)
-        if not user_email:
+        usuario_id = get_user_id(event)
+        if not usuario_id:
             return _response(401, {"message": "No autorizado. Token faltante o inválido."})
         
-        # Obtener receta_id de pathParameters
-        receta_id = None
+        # Obtener tarea_id de pathParameters
+        tarea_id = None
         if event.get('pathParameters'):
-            receta_id = event['pathParameters'].get('id')
+            tarea_id = event['pathParameters'].get('id')
         
-        if not receta_id:
-            return _response(400, {"message": "receta_id es requerido"})
+        if not tarea_id:
+            return _response(400, {"message": "tarea_id es requerido"})
         
         # Parsear body
         try:
@@ -77,17 +77,17 @@ def lambda_handler(event, context):
         except:
             return _response(400, {"message": "Body JSON inválido"})
         
-        # Verificar que la receta existe
+        # Verificar que la tarea existe
         try:
-            response = table_recetas.get_item(
+            response = table_tareas.get_item(
                 Key={
-                    'correo': user_email,
-                    'receta_id': receta_id
+                    'usuarioId': usuario_id,
+                    'id': tarea_id
                 }
             )
             
             if 'Item' not in response:
-                return _response(404, {"message": "Receta no encontrada"})
+                return _response(404, {"message": "Tarea no encontrada"})
             
             current_item = response['Item']
             
@@ -97,7 +97,7 @@ def lambda_handler(event, context):
             expression_attribute_names = {}
             
             # Campos permitidos para actualizar
-            allowed_fields = ['paciente', 'institucion', 'recetas']
+            allowed_fields = ['texto', 'imagenUrl']
             
             for field in allowed_fields:
                 if field in body:
@@ -109,10 +109,10 @@ def lambda_handler(event, context):
                 return _response(400, {"message": "No hay campos para actualizar"})
             
             # Actualizar en DynamoDB
-            table_recetas.update_item(
+            table_tareas.update_item(
                 Key={
-                    'correo': user_email,
-                    'receta_id': receta_id
+                    'usuarioId': usuario_id,
+                    'id': tarea_id
                 },
                 UpdateExpression="SET " + ", ".join(update_expression),
                 ExpressionAttributeNames=expression_attribute_names,
@@ -120,25 +120,25 @@ def lambda_handler(event, context):
             )
             
             # Obtener item actualizado
-            updated_response = table_recetas.get_item(
+            updated_response = table_tareas.get_item(
                 Key={
-                    'correo': user_email,
-                    'receta_id': receta_id
+                    'usuarioId': usuario_id,
+                    'id': tarea_id
                 }
             )
             
             item = convert_decimal(updated_response['Item'])
 
             return _response(200, {
-                "message": "Receta actualizada exitosamente",
+                "message": "Tarea actualizada exitosamente",
                 "data": item
             })
             
         except ClientError as e:
-            return _response(500, {"message": f"Error al actualizar receta: {str(e)}"})
+            return _response(500, {"message": f"Error al actualizar tarea: {str(e)}"})
     
     except Exception as e:
         return _response(500, {"message": str(e)})
 
-def actualizarReceta(event, context):
+def actualizarTarea(event, context):
     return lambda_handler(event, context)

@@ -6,9 +6,9 @@ from botocore.exceptions import ClientError
 
 dynamodb = boto3.resource('dynamodb')
 s3 = boto3.client('s3')
-TABLE_RECETAS = os.environ.get('TABLE_RECETAS', 'Recetas')
-S3_BUCKET = os.environ.get('S3_BUCKET_RECETAS')
-table_recetas = dynamodb.Table(TABLE_RECETAS)
+TABLE_TAREAS = os.environ.get('TABLE_TAREAS', 'Tareas')
+S3_BUCKET = os.environ.get('S3_BUCKET_TAREAS')
+table_tareas = dynamodb.Table(TABLE_TAREAS)
 
 def _response(status_code, body):
     return {
@@ -33,8 +33,8 @@ def decode_jwt_payload(token):
     except Exception:
         return None
 
-def get_user_email(event):
-    """Extrae el email del usuario desde el token"""
+def get_user_id(event):
+    """Extrae el ID del usuario desde el token"""
     headers = {k.lower(): v for k, v in (event.get('headers') or {}).items()}
     auth_header = headers.get('authorization')
     
@@ -42,66 +42,66 @@ def get_user_email(event):
         token = auth_header.split(" ")[1]
         payload = decode_jwt_payload(token)
         if payload:
-            return payload.get('email') or payload.get('username')
+            return payload.get('sub') or payload.get('id') or payload.get('user_id')
     return None
 
 def lambda_handler(event, context):
     try:
         # Autenticación
-        user_email = get_user_email(event)
-        if not user_email:
+        usuario_id = get_user_id(event)
+        if not usuario_id:
             return _response(401, {"message": "No autorizado. Token faltante o inválido."})
         
-        # Obtener receta_id de pathParameters
-        receta_id = None
+        # Obtener tarea_id de pathParameters
+        tarea_id = None
         if event.get('pathParameters'):
-            receta_id = event['pathParameters'].get('id')
+            tarea_id = event['pathParameters'].get('id')
         
-        if not receta_id:
-            return _response(400, {"message": "receta_id es requerido"})
+        if not tarea_id:
+            return _response(400, {"message": "tarea_id es requerido"})
         
         # Eliminar de DynamoDB
         try:
-            # Primero obtener la receta para saber si tiene imagen en S3
-            response = table_recetas.get_item(
+            # Primero obtener la tarea para saber si tiene imagen en S3
+            response = table_tareas.get_item(
                 Key={
-                    'correo': user_email,
-                    'receta_id': receta_id
+                    'usuarioId': usuario_id,
+                    'id': tarea_id
                 }
             )
             
             if 'Item' not in response:
-                return _response(404, {"message": "Receta no encontrada"})
+                return _response(404, {"message": "Tarea no encontrada"})
             
             item = response['Item']
             
             # Eliminar imagen de S3 si existe
-            if S3_BUCKET and 'url_receta' in item and item['url_receta']:
+            if S3_BUCKET and 'imagenUrl' in item and item['imagenUrl']:
                 try:
                     # Extraer key del S3 desde la URL
-                    s3_key = f"recetas/{user_email}/{receta_id}.jpg"
+                    s3_key = f"tareas/{usuario_id}/{tarea_id}.jpg"
                     s3.delete_object(Bucket=S3_BUCKET, Key=s3_key)
                 except Exception as s3_error:
                     print(f"Error al eliminar imagen de S3: {s3_error}")
             
             # Eliminar de DynamoDB
-            table_recetas.delete_item(
+            table_tareas.delete_item(
                 Key={
-                    'correo': user_email,
-                    'receta_id': receta_id
+                    'usuarioId': usuario_id,
+                    'id': tarea_id
                 }
             )
             
             return _response(200, {
-                "message": "Receta eliminada exitosamente",
-                "receta_id": receta_id
+                "message": "Tarea eliminada exitosamente",
+                "tarea_id": tarea_id
             })
             
         except ClientError as e:
-            return _response(500, {"message": f"Error al eliminar receta: {str(e)}"})
+            return _response(500, {"message": f"Error al eliminar tarea: {str(e)}"})
     
     except Exception as e:
         return _response(500, {"message": str(e)})
 
-def eliminarReceta(event, context):
+def eliminarTarea(event, context):
     return lambda_handler(event, context)

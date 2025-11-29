@@ -18,8 +18,8 @@ def convert_decimal(obj):
     return obj
 
 dynamodb = boto3.resource('dynamodb')
-TABLE_RECETAS = os.environ.get('TABLE_RECETAS', 'Recetas')
-table_recetas = dynamodb.Table(TABLE_RECETAS)
+TABLE_TAREAS = os.environ.get('TABLE_TAREAS', 'Tareas')
+table_tareas = dynamodb.Table(TABLE_TAREAS)
 
 def _response(status_code, body):
     return {
@@ -44,8 +44,8 @@ def decode_jwt_payload(token):
     except Exception:
         return None
 
-def get_user_email(event):
-    """Extrae el email del usuario desde el token"""
+def get_user_id(event):
+    """Extrae el ID del usuario desde el token"""
     headers = {k.lower(): v for k, v in (event.get('headers') or {}).items()}
     auth_header = headers.get('authorization')
     
@@ -53,50 +53,50 @@ def get_user_email(event):
         token = auth_header.split(" ")[1]
         payload = decode_jwt_payload(token)
         if payload:
-            return payload.get('email') or payload.get('username')
+            return payload.get('sub') or payload.get('id') or payload.get('user_id')
     return None
 
 def lambda_handler(event, context):
     try:
         # Autenticación
-        user_email = get_user_email(event)
-        if not user_email:
+        usuario_id = get_user_id(event)
+        if not usuario_id:
             return _response(401, {"message": "No autorizado. Token faltante o inválido."})
         
-        # Obtener receta_id de pathParameters o queryStringParameters
-        receta_id = None
+        # Obtener tarea_id de pathParameters o queryStringParameters
+        tarea_id = None
         if event.get('pathParameters'):
-            receta_id = event['pathParameters'].get('id')
+            tarea_id = event['pathParameters'].get('id')
         elif event.get('queryStringParameters'):
-            receta_id = event['queryStringParameters'].get('receta_id')
+            tarea_id = event['queryStringParameters'].get('tarea_id')
         
-        if not receta_id:
-            return _response(400, {"message": "receta_id es requerido"})
+        if not tarea_id:
+            return _response(400, {"message": "tarea_id es requerido"})
         
-        # Obtener la receta de DynamoDB
+        # Obtener la tarea de DynamoDB
         try:
-            response = table_recetas.get_item(
+            response = table_tareas.get_item(
                 Key={
-                    'correo': user_email,
-                    'receta_id': receta_id
+                    'usuarioId': usuario_id,
+                    'id': tarea_id
                 }
             )
             
             if 'Item' not in response:
-                return _response(404, {"message": "Receta no encontrada"})
+                return _response(404, {"message": "Tarea no encontrada"})
             
             item = convert_decimal(response['Item'])
 
             return _response(200, {
-                "message": "Receta obtenida exitosamente",
+                "message": "Tarea obtenida exitosamente",
                 "data": item
             })
             
         except ClientError as e:
-            return _response(500, {"message": f"Error al obtener receta: {str(e)}"})
+            return _response(500, {"message": f"Error al obtener tarea: {str(e)}"})
     
     except Exception as e:
         return _response(500, {"message": str(e)})
 
-def obtenerReceta(event, context):
+def obtenerTarea(event, context):
     return lambda_handler(event, context)

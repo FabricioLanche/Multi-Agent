@@ -1,4 +1,4 @@
-service: api-recetas
+service: api-tareas
 
 provider:
   name: aws
@@ -10,8 +10,8 @@ provider:
 
   environment:
     GEMINI_API_KEY: ${env:GEMINI_API_KEY}
-    TABLE_RECETAS: ${env:TABLE_RECETAS}
-    S3_BUCKET_RECETAS: recetas-medicas-data-${env:AWS_ACCOUNT_ID}
+    TABLE_TAREAS: ${env:TABLE_TAREAS}
+    S3_BUCKET_TAREAS: ${env:S3_BUCKET_TAREAS}
 
   iamRoleStatements:
     # DynamoDB permisos
@@ -24,23 +24,23 @@ provider:
         - dynamodb:Query
         - dynamodb:Scan
       Resource:
-        - "arn:aws:dynamodb:us-east-1:${env:AWS_ACCOUNT_ID}:table/${env:TABLE_RECETAS}"
+        - "arn:aws:dynamodb:us-east-1:${env:AWS_ACCOUNT_ID}:table/${env:TABLE_TAREAS}"
 
-    # S3 permisos para subir y leer recetas
+    # S3 permisos para subir y leer tareas
     - Effect: Allow
       Action:
         - s3:PutObject
         - s3:GetObject
         - s3:DeleteObject
       Resource:
-        - "arn:aws:s3:::recetas-medicas-data-${env:AWS_ACCOUNT_ID}/*"
+        - "arn:aws:s3:::${env:S3_BUCKET_TAREAS}/*"
 
     # Permitir generar URL firmada (GetObject)
     - Effect: Allow
       Action:
         - s3:GetObject
       Resource:
-        - "arn:aws:s3:::recetas-medicas-data-${env:AWS_ACCOUNT_ID}/*"
+        - "arn:aws:s3:::${env:S3_BUCKET_TAREAS}/*"
 
   apiGateway:
     binaryMediaTypes:
@@ -48,43 +48,43 @@ provider:
       - 'image/*'
 
 functions:
-  subirReceta:
-    handler: subirReceta.subirReceta
+  subirTarea:
+    handler: subirTarea.subirTarea
     events:
       - http:
-          path: recetas
+          path: tareas
           method: post
           cors: true
   
-  listarRecetas:
-    handler: listarRecetas.listarRecetas
+  listarTareas:
+    handler: listarTareas.listarTareas
     events:
       - http:
-          path: recetas
+          path: tareas
           method: get
           cors: true
   
-  obtenerReceta:
-    handler: obtenerReceta.obtenerReceta
+  obtenerTarea:
+    handler: obtenerTarea.obtenerTarea
     events:
       - http:
-          path: recetas/{id}
+          path: tareas/{id}
           method: get
           cors: true
   
-  actualizarReceta:
-    handler: actualizarReceta.actualizarReceta
+  actualizarTarea:
+    handler: actualizarTarea.actualizarTarea
     events:
       - http:
-          path: recetas/{id}
+          path: tareas/{id}
           method: put
           cors: true
   
-  eliminarReceta:
-    handler: eliminarReceta.eliminarReceta
+  eliminarTarea:
+    handler: eliminarTarea.eliminarTarea
     events:
       - http:
-          path: recetas/{id}
+          path: tareas/{id}
           method: delete
           cors: true
 
