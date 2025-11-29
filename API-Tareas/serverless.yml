@@ -13,34 +13,8 @@ provider:
     TABLE_TAREAS: ${env:TABLE_TAREAS}
     S3_BUCKET_TAREAS: ${env:S3_BUCKET_TAREAS}
 
-  iamRoleStatements:
-    # DynamoDB permisos
-    - Effect: Allow
-      Action:
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-        - dynamodb:Query
-        - dynamodb:Scan
-      Resource:
-        - "arn:aws:dynamodb:us-east-1:${env:AWS_ACCOUNT_ID}:table/${env:TABLE_TAREAS}"
-
-    # S3 permisos para subir y leer tareas
-    - Effect: Allow
-      Action:
-        - s3:PutObject
-        - s3:GetObject
-        - s3:DeleteObject
-      Resource:
-        - "arn:aws:s3:::${env:S3_BUCKET_TAREAS}/*"
-
-    # Permitir generar URL firmada (GetObject)
-    - Effect: Allow
-      Action:
-        - s3:GetObject
-      Resource:
-        - "arn:aws:s3:::${env:S3_BUCKET_TAREAS}/*"
+  iam:
+    role: arn:aws:iam::${env:AWS_ACCOUNT_ID}:role/LabRole
 
   apiGateway:
     binaryMediaTypes:
