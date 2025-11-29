@@ -3,120 +3,211 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # =====================================================
-#   🚀 TECSUP HCKT – DEPLOY MANAGER (Optimized v3)
-#   - Crea bucket S3 para tareas
-#   - Crea tablas DynamoDB
-#   - Pobla tablas (DataPoblator.py / populate_tables.py)
+#   🚀 TECSUP HCKT – DEPLOY MANAGER (Bucket robust creation)
 # =====================================================
 
 export NODE_OPTIONS="--max-old-space-size=8192"
 
-# ===== COLORS =====
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-CYAN='\033[0;36m'
-NC='\033[0m'
+# Colors...
+RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'
+BLUE='\033[0;34m'; CYAN='\033[0;36m'; NC='\033[0m'
+log(){ echo -e "${BLUE}[$(date +'%H:%M:%S')]${NC} $1"; }
+ok(){ echo -e "${GREEN}[$(date +'%H:%M:%S')] ✅ $1${NC}"; }
+err(){ echo -e "${RED}[$(date +'%H:%M:%S')] ❌ $1${NC}"; }
+warn(){ echo -e "${YELLOW}[$(date +'%H:%M:%S')] ⚠️  $1${NC}"; }
+info(){ echo -e "${CYAN}[$(date +'%H:%M:%S')] ℹ️  $1${NC}"; }
 
-log()  { echo -e "${BLUE}[$(date +'%H:%M:%S')]${NC} $1"; }
-ok()   { echo -e "${GREEN}[$(date +'%H:%M:%S')] ✅ $1${NC}"; }
-err()  { echo -e "${RED}[$(date +'%H:%M:%S')] ❌ $1${NC}"; }
-warn() { echo -e "${YELLOW}[$(date +'%H:%M:%S')] ⚠️  $1${NC}"; }
-info() { echo -e "${CYAN}[$(date +'%H:%M:%S')] ℹ️  $1${NC}"; }
-
-# =====================================================
-# BANNER
-# =====================================================
-echo ""
-echo "═══════════════════════════════════════════════"
-echo "         🏥 TECSUP HCKT – DEPLOY MANAGER        "
-echo "═══════════════════════════════════════════════"
-echo ""
-
-# Resolve script directory (so relative paths work)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
-# =====================================================
-# CHECK .env
-# =====================================================
-if [ ! -f .env ]; then
-    err "No existe .env"
-    info "Copia .env.example → .env y configúralo"
-    exit 1
-fi
+# Load .env
+if [ ! -f .env ]; then err ".env no encontrado"; exit 1; fi
 # shellcheck disable=SC1090
 source .env
-ok ".env cargado correctamente"
+ok ".env cargado"
 
-# =====================================================
-# VALIDATE ENV (ajustado a tu .env)
-# =====================================================
-validate_env() {
-    log "Validando variables de entorno..."
-    REQUIRED_VARS=(
-        "GEMINI_API_KEY"
-        "TABLE_USUARIOS"
-        "TABLE_TAREAS"
-        "TABLE_HISTORIAL"
-        "TABLE_DATOS_SOCIOECONOMICOS"
-        "TABLE_DATOS_EMOCIONALES"
-        "TABLE_DATOS_ACADEMICOS"
-    )
-    MISSING=()
-
-    for v in "${REQUIRED_VARS[@]}"; do
-        if [ -z "${!v:-}" ]; then
-            MISSING+=("$v")
-        fi
-    done
-
-    if [ ${#MISSING[@]} -gt 0 ]; then
-        err "Faltan variables de entorno requeridas:"
-        for m in "${MISSING[@]}"; do echo " - $m"; done
-        exit 1
+# Helper: update or add key in .env
+update_env_var() {
+    local key="$1"
+    local val="$2"
+    # If line exists replace, else append
+    if grep -q "^${key}=" .env; then
+        # create backup and replace
+        sed -i.bak "/^${key}=/d" .env || true
     fi
+    echo "${key}=${val}" >> .env
+    # reload into current shell
+    # shellcheck disable=SC1090
+    source .env
+    ok ".env actualizado: ${key}=${val}"
+}
 
-    ok "Variables obligatorias encontradas"
+# Helper: short uuid hex (8 chars)
+short_uuid() {
+    if command -v python3 >/dev/null 2>&1; then
+        python3 - <<'PY' 2>/dev/null
+import uuid,sys
+print(uuid.uuid4().hex[:8])
+PY
+    elif command -v uuidgen >/dev/null 2>&1; then
+        uuidgen | tr -d '-' | cut -c1-8
+    else
+        # fallback timestamp-random
+        date +%s%N | sha1sum | cut -c1-8
+    fi
+}
+
+# Install requirements helper (kept as in previous)
+install_python_requirements() {
+    local req_dir="$1"
+    if [ ! -d "$req_dir" ]; then warn "Dir no existe: $req_dir"; return 0; fi
+    local req_file="$req_dir/requirements.txt"
+    if [ ! -f "$req_file" ]; then warn "No requirements.txt en $req_dir"; return 0; fi
+    local PY=python3
+    if ! command -v "$PY" >/dev/null 2>&1; then PY=python; fi
+    log "Instalando dependencias en $req_dir..."
+    "$PY" -m pip install --upgrade pip setuptools wheel --quiet
+    "$PY" -m pip install -r "$req_file" --quiet
+    ok "Dependencies instaladas para $req_dir"
 }
 
 # =====================================================
-# CONFIGURE AWS ACCOUNT ID (no sobrescribe S3_BUCKET_TAREAS si ya existe)
+# Robust setup_bucket: try create, if name taken generate suffix and retry,
+# on success update .env automatically and call Python configurator
 # =====================================================
-configure_aws_account() {
-    if [ -z "${AWS_ACCOUNT_ID:-}" ]; then
-        warn "AWS_ACCOUNT_ID no configurado → obteniendo con aws cli…"
-        if ! command -v aws >/dev/null 2>&1; then
-            err "aws cli no instalado o no en PATH"
-            exit 1
-        fi
-        AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text || true)
+setup_bucket() {
+    echo ""
+    echo "════════════ SETUP BUCKET S3 (robusto) ════════════"
 
-        if [ -z "$AWS_ACCOUNT_ID" ]; then
-            err "No se pudo obtener AWS_ACCOUNT_ID. Verifica credenciales/configuración de AWS CLI"
-            exit 1
-        fi
-
-        if ! grep -q '^AWS_ACCOUNT_ID=' .env; then
-            echo "AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID" >> .env
-        fi
-        ok "AWS_ACCOUNT_ID configurado: $AWS_ACCOUNT_ID"
-    else
-        ok "AWS_ACCOUNT_ID: $AWS_ACCOUNT_ID"
+    # Ensure requirements (so Python script has dotenv/boto3)
+    if [ -d "DataGenerator" ]; then
+        install_python_requirements "DataGenerator"
     fi
 
-    # Si S3_BUCKET_TAREAS NO está definido, creamos uno por defecto con account id
-    if [ -z "${S3_BUCKET_TAREAS:-}" ]; then
-        DEFAULT_BUCKET="tareas-imagenes-${AWS_ACCOUNT_ID}"
-        warn "S3_BUCKET_TAREAS no definido → estableciendo por defecto: $DEFAULT_BUCKET"
-        sed -i.bak '/^S3_BUCKET_TAREAS=/d' .env || true
-        echo "S3_BUCKET_TAREAS=$DEFAULT_BUCKET" >> .env
-        # shellcheck disable=SC1090
-        source .env
-        ok "S3_BUCKET_TAREAS añadido a .env: $DEFAULT_BUCKET"
+    # Determine desired bucket name
+    if [ -n "${S3_BUCKET_TAREAS:-}" ]; then
+        desired_bucket="$S3_BUCKET_TAREAS"
     else
-        ok "S3_BUCKET_TAREAS: $S3_BUCKET_TAREAS"
+        # Determine AWS_ACCOUNT_ID if not present
+        if [ -z "${AWS_ACCOUNT_ID:-}" ]; then
+            if ! command -v aws >/dev/null 2>&1; then
+                err "AWS_ACCOUNT_ID indefinido y aws cli no disponible"
+                exit 1
+            fi
+            AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+            update_env_var "AWS_ACCOUNT_ID" "$AWS_ACCOUNT_ID"
+        fi
+        desired_bucket="tareas-imagenes-${AWS_ACCOUNT_ID}"
+    fi
+
+    # Try create using aws cli if available (preferred)
+    created_bucket=""
+    if command -v aws >/dev/null 2>&1; then
+        attempt_bucket="$desired_bucket"
+        max_attempts=3
+        attempt=1
+        while [ $attempt -le $max_attempts ]; do
+            log "Intentando crear bucket: ${attempt_bucket} (intento ${attempt}/${max_attempts})"
+            # create depending on region
+            if [ "${AWS_REGION:-us-east-1}" = "us-east-1" ]; then
+                set +e
+                out=$(aws s3api create-bucket --bucket "${attempt_bucket}" 2>&1)
+                rc=$?
+                set -e
+            else
+                set +e
+                out=$(aws s3api create-bucket --bucket "${attempt_bucket}" --create-bucket-configuration LocationConstraint="${AWS_REGION}" 2>&1)
+                rc=$?
+                set -e
+            fi
+
+            if [ $rc -eq 0 ]; then
+                ok "Bucket creado: ${attempt_bucket}"
+                created_bucket="${attempt_bucket}"
+                break
+            else
+                # inspect error
+                if echo "$out" | grep -qi "BucketAlreadyOwnedByYou"; then
+                    warn "Bucket ${attempt_bucket} ya existe y es tuyo → se usará"
+                    created_bucket="${attempt_bucket}"
+                    break
+                elif echo "$out" | grep -qi "BucketAlreadyExists"; then
+                    warn "Bucket ${attempt_bucket} ya existe (otra cuenta). Intentando sufijo..."
+                    suffix=$(short_uuid)
+                    attempt_bucket="${desired_bucket}-${suffix}"
+                    attempt=$((attempt+1))
+                    continue
+                else
+                    err "Error creando bucket '${attempt_bucket}': ${out}"
+                    # No retry for unexpected errors
+                    break
+                fi
+            fi
+        done
+    else
+        warn "aws cli no disponible: intentar crear bucket usando script Python"
+    fi
+
+    # If we didn't create a bucket via aws cli, try via Python configurator (it will attempt to create as well)
+    if [ -z "$created_bucket" ]; then
+        # Export S3_BUCKET_TAREAS to desired_bucket before calling python script
+        export S3_BUCKET_TAREAS="$desired_bucket"
+        log "Llamando a script Python para crear/configurar bucket: S3_BUCKET_TAREAS=${S3_BUCKET_TAREAS}"
+        if [ -f "DataGenerator/create_s3_bucket_for_tareas.py" ]; then
+            python3 DataGenerator/create_s3_bucket_for_tareas.py create-bucket || {
+                warn "Python script create_s3_bucket_for_tareas.py no pudo crear el bucket '${desired_bucket}'"
+                # try with suffix
+                suffix=$(short_uuid)
+                alt_bucket="${desired_bucket}-${suffix}"
+                export S3_BUCKET_TAREAS="$alt_bucket"
+                log "Reintentando con bucket alternativo: ${alt_bucket}"
+                python3 DataGenerator/create_s3_bucket_for_tareas.py create-bucket || {
+                    err "Falló creación del bucket alternativo (${alt_bucket}) con Python"
+                    return 1
+                }
+                created_bucket="${alt_bucket}"
+            }
+            # If python script succeeded, S3_BUCKET_TAREAS env is already set; use it
+            if [ -z "${created_bucket}" ]; then
+                created_bucket="${S3_BUCKET_TAREAS:-$desired_bucket}"
+            fi
+        elif [ -f "DataGenerator/CreateBucket.py" ]; then
+            python3 DataGenerator/CreateBucket.py create-bucket || {
+                warn "Python script CreateBucket.py no pudo crear el bucket '${desired_bucket}'"
+                suffix=$(short_uuid)
+                alt_bucket="${desired_bucket}-${suffix}"
+                export S3_BUCKET_TAREAS="$alt_bucket"
+                log "Reintentando con bucket alternativo: ${alt_bucket}"
+                python3 DataGenerator/CreateBucket.py create-bucket || {
+                    err "Falló creación del bucket alternativo (${alt_bucket}) con Python"
+                    return 1
+                }
+                created_bucket="${alt_bucket}"
+            }
+            if [ -z "${created_bucket}" ]; then
+                created_bucket="${S3_BUCKET_TAREAS:-$desired_bucket}"
+            fi
+        else
+            err "No se encontró ningún script Python para configuración de bucket en DataGenerator/"
+            return 1
+        fi
+    fi
+
+    # If we have a created_bucket, persist to .env (overwrite existing S3_BUCKET_TAREAS)
+    if [ -n "${created_bucket}" ]; then
+        update_env_var "S3_BUCKET_TAREAS" "${created_bucket}"
+        export S3_BUCKET_TAREAS="${created_bucket}"
+        ok "Bucket final a usar: ${created_bucket}"
+        # Run configurator python script to ensure policies/CORS/etc are set (idempotent)
+        if [ -f "DataGenerator/create_s3_bucket_for_tareas.py" ]; then
+            python3 DataGenerator/create_s3_bucket_for_tareas.py create-bucket || warn "Advertencia: Python configurador falló (pero bucket creado)"
+        elif [ -f "DataGenerator/CreateBucket.py" ]; then
+            python3 DataGenerator/CreateBucket.py create-bucket || warn "Advertencia: Python configurador falló (pero bucket creado)"
+        fi
+        return 0
+    else
+        err "No se pudo crear ni determinar un bucket S3 válido"
+        return 1
     fi
 }
 
