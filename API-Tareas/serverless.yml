@@ -50,7 +50,7 @@ functions:
     handler: actualizarTarea.actualizarTarea
     events:
       - http:
-          path: tareas/{id}
+          path: tareas
           method: put
           cors: true
   
