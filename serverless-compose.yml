@@ -8,16 +8,16 @@ stage: ${opt:stage, 'dev'}
 
 services:
   api-tareas:
-    path: API-TAREAS/
+    path: API-Tareas/
     params:
       stage: ${self:stage}
 
   # api-agente:
-  #   path: API-AGENTE/
+  #   path: API-Agente/
   #   params:
   #     stage: ${self:stage}
 
   # api-analisis:
-  #   path: API-ANALISIS/
+  #   path: API-Analisis/
   #   params:
   #     stage: ${self:stage}
