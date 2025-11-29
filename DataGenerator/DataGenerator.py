@@ -108,50 +108,56 @@ def generar_historial(usuarios: List[Dict[str, Any]], max_por_usuario: int = 4) 
 
 
 def generar_datos_socioeconomicos(usuarios: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """
+    Genera exactamente un registro socioeconómico por usuario (uno a uno).
+    Todos los registros incluyen los campos requeridos por el esquema.
+    """
     datos = []
     for u in usuarios:
-        # 85% de usuarios tienen registro socioeconómico
-        if random.random() < 0.85:
-            ingreso = round(random.uniform(0, 5000), 2)
-            d = {
-                "id": _new_uuid(),
-                "usuarioId": u["id"],
-                "tipo_financiamiento": random.choice(TIPOS_FINANCIAMIENTO),
-                "situacion_laboral": random.choice(SITUACIONES_LABORALES),
-                "ingreso_estimado": ingreso,
-                "dependencia_economica": random.choice([True, False])
-            }
-            datos.append(d)
+        ingreso = round(random.uniform(0, 5000), 2)
+        d = {
+            "id": _new_uuid(),
+            "usuarioId": u["id"],
+            "tipo_financiamiento": random.choice(TIPOS_FINANCIAMIENTO),
+            "situacion_laboral": random.choice(SITUACIONES_LABORALES),
+            "ingreso_estimado": ingreso,
+            "dependencia_economica": random.choice([True, False])
+        }
+        datos.append(d)
     return datos
 
 
 def generar_datos_emocionales(usuarios: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """
+    Genera exactamente un registro emocional por usuario (uno a uno).
+    Incluye los campos requeridos; otros campos también se generan.
+    """
     datos = []
     for u in usuarios:
-        # 80% de probabilidad
-        if random.random() < 0.8:
-            d = {
-                "id": _new_uuid(),
-                "usuarioId": u["id"],
-                "frecuencia_acceso_plataforma": random.choice(FRECUENCIAS_ACCESO),
-                "horas_estudio_estimadas": round(random.uniform(0, 40), 1),
-                "uso_servicios_tutoria": random.choice(USO_SERVICIOS),
-                "uso_servicios_psicologia": random.choice(USO_SERVICIOS),
-                "actividades_extracurriculares": random.choice([True, False])
-            }
-            datos.append(d)
+        d = {
+            "id": _new_uuid(),
+            "usuarioId": u["id"],
+            "frecuencia_acceso_plataforma": random.choice(FRECUENCIAS_ACCESO),
+            "horas_estudio_estimadas": round(random.uniform(0, 40), 1),
+            "uso_servicios_tutoria": random.choice(USO_SERVICIOS),
+            "uso_servicios_psicologia": random.choice(USO_SERVICIOS),
+            "actividades_extracurriculares": random.choice([True, False])
+        }
+        datos.append(d)
     return datos
 
 
 def generar_datos_academicos(usuarios: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """
+    Genera exactamente un registro académico por usuario (uno a uno).
+    Asegura presencia de campos requeridos: id, usuarioId, carrera, ciclo_actual.
+    """
     datos = []
     for u in usuarios:
-        # Todos los usuarios tendrán un registro académico básico
         promedio = round(random.uniform(10.0, 20.0), 2)
         creditos_aprobados = random.randint(0, 240)
         creditos_desaprobados = random.randint(0, 30)
         historial_retirados = []
-        # 20% de probabilidad de tener retiros
         if random.random() < 0.2:
             num_retiros = random.randint(1, 3)
             for _ in range(num_retiros):

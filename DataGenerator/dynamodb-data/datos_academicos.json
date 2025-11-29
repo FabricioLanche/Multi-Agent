@@ -1,448 +1,535 @@
 [
   {
-    "id": "b65162df-359c-48a7-8aaf-8ceb80f529ea",
-    "usuarioId": "58931b77-38bb-427d-be3e-e44fb9cf6dc2",
-    "carrera": "Ingeniería Civil",
-    "ciclo_actual": 8,
+    "id": "7e9da856-0b2a-4135-b2d6-ab24042bfeb0",
+    "usuarioId": "73f56c3d-4f1b-4453-a47f-5899bf4ef172",
+    "carrera": "Ingeniería de Software",
+    "ciclo_actual": 7,
     "estado_matricula": "MATRICULADO",
-    "creditos_aprobados": 32,
-    "creditos_desaprobados": 16,
-    "promedio_ponderado": 19.25,
-    "historial_retirados": [],
-    "avance_malla": 51.77,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 68.46
-  },
-  {
-    "id": "0890ec9d-8161-4de4-be23-29133af27d1f",
-    "usuarioId": "1fcee0ab-e0a9-4c2b-bd3f-3cfe8eafa51d",
-    "carrera": "Psicología",
-    "ciclo_actual": 5,
-    "estado_matricula": "RETIRADO",
-    "creditos_aprobados": 111,
-    "creditos_desaprobados": 3,
-    "promedio_ponderado": 12.31,
-    "historial_retirados": [],
-    "avance_malla": 97.79,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 77.12
-  },
-  {
-    "id": "dc822fe6-fd4a-4801-9054-247b51bc133f",
-    "usuarioId": "a0c06a21-57da-4577-b59d-97e94d2f20b8",
-    "carrera": "Arquitectura",
-    "ciclo_actual": 9,
-    "estado_matricula": "EGRESADO",
-    "creditos_aprobados": 211,
-    "creditos_desaprobados": 3,
-    "promedio_ponderado": 14.34,
-    "historial_retirados": [],
-    "avance_malla": 86.06,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 93.57
-  },
-  {
-    "id": "a9fa76c1-0dc5-4a00-8b31-dcc51e1136ba",
-    "usuarioId": "947d8506-9f0f-4f99-9c45-a49ad25a181d",
-    "carrera": "Ingeniería Civil",
-    "ciclo_actual": 5,
-    "estado_matricula": "EGRESADO",
-    "creditos_aprobados": 156,
-    "creditos_desaprobados": 11,
-    "promedio_ponderado": 13.12,
-    "historial_retirados": [],
-    "avance_malla": 34.53,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 94.69
-  },
-  {
-    "id": "cd8f116e-246a-470f-b96b-9f09c6a68718",
-    "usuarioId": "4a8ebe49-fca0-43fd-ba27-978ee6273ec8",
-    "carrera": "Administración",
-    "ciclo_actual": 9,
-    "estado_matricula": "SUSPENDIDO",
-    "creditos_aprobados": 43,
+    "creditos_aprobados": 186,
     "creditos_desaprobados": 17,
-    "promedio_ponderado": 19.79,
-    "historial_retirados": [],
-    "avance_malla": 44.04,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 76.62
-  },
-  {
-    "id": "eec513b4-349c-4e95-9e72-a663907afe55",
-    "usuarioId": "679fe297-323f-4840-bda1-236a926d1a96",
-    "carrera": "Psicología",
-    "ciclo_actual": 7,
-    "estado_matricula": "SUSPENDIDO",
-    "creditos_aprobados": 64,
-    "creditos_desaprobados": 12,
-    "promedio_ponderado": 12.82,
-    "historial_retirados": [],
-    "avance_malla": 13.08,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 59.17
-  },
-  {
-    "id": "360b048e-727c-4e7b-aacb-a871f3edb4ba",
-    "usuarioId": "bf8429e7-b26d-493b-af84-11aac485d8be",
-    "carrera": "Economía",
-    "ciclo_actual": 6,
-    "estado_matricula": "INACTIVO",
-    "creditos_aprobados": 107,
-    "creditos_desaprobados": 26,
-    "promedio_ponderado": 12.57,
-    "historial_retirados": [],
-    "avance_malla": 20.39,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 64.32
-  },
-  {
-    "id": "599c65a4-148e-4625-b382-5ee2550cad7b",
-    "usuarioId": "fe7e9b69-5f9e-4088-a431-5916564b1dc9",
-    "carrera": "Psicología",
-    "ciclo_actual": 10,
-    "estado_matricula": "SUSPENDIDO",
-    "creditos_aprobados": 99,
-    "creditos_desaprobados": 2,
-    "promedio_ponderado": 14.14,
-    "historial_retirados": [],
-    "avance_malla": 86.39,
-    "cursos_reprobados": [
-      "CUR493",
-      "CUR477",
-      "CUR271",
-      "CUR290"
-    ],
-    "asistencia_promedio": 93.83
-  },
-  {
-    "id": "c62d8139-b797-4bec-be1f-05f21eaef603",
-    "usuarioId": "fffd4034-1d40-4011-8d45-f8f356a6ad38",
-    "carrera": "Administración",
-    "ciclo_actual": 4,
-    "estado_matricula": "SUSPENDIDO",
-    "creditos_aprobados": 230,
-    "creditos_desaprobados": 16,
-    "promedio_ponderado": 12.22,
-    "historial_retirados": [],
-    "avance_malla": 70.66,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 54.4
-  },
-  {
-    "id": "f81520ac-4ae6-4c6e-9040-528282e4df50",
-    "usuarioId": "8424088a-e93d-41f4-88cb-7017f47f0dc2",
-    "carrera": "Administración",
-    "ciclo_actual": 5,
-    "estado_matricula": "EGRESADO",
-    "creditos_aprobados": 13,
-    "creditos_desaprobados": 6,
-    "promedio_ponderado": 14.6,
-    "historial_retirados": [],
-    "avance_malla": 50.14,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 86.25
-  },
-  {
-    "id": "74ef790a-a2ae-45df-aee6-d73aa31aa473",
-    "usuarioId": "8a8a588b-f1c3-4e72-8dab-e0b5cc76e72f",
-    "carrera": "Arquitectura",
-    "ciclo_actual": 7,
-    "estado_matricula": "EGRESADO",
-    "creditos_aprobados": 171,
-    "creditos_desaprobados": 7,
-    "promedio_ponderado": 13.18,
-    "historial_retirados": [],
-    "avance_malla": 54.77,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 91.1
-  },
-  {
-    "id": "4cad2140-7b40-4920-9cd7-1608a8d1a780",
-    "usuarioId": "3201b0ad-45f6-4970-9631-0851569c6eca",
-    "carrera": "Ingeniería Civil",
-    "ciclo_actual": 7,
-    "estado_matricula": "INACTIVO",
-    "creditos_aprobados": 165,
-    "creditos_desaprobados": 30,
-    "promedio_ponderado": 11.18,
-    "historial_retirados": [],
-    "avance_malla": 40.42,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 75.26
-  },
-  {
-    "id": "9440580e-0375-497b-8b65-eede2a566b48",
-    "usuarioId": "8126d790-601d-4db4-bb6d-9d7971098a1b",
-    "carrera": "Arquitectura",
-    "ciclo_actual": 5,
-    "estado_matricula": "EGRESADO",
-    "creditos_aprobados": 25,
-    "creditos_desaprobados": 22,
-    "promedio_ponderado": 15.71,
-    "historial_retirados": [],
-    "avance_malla": 52.31,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 83.74
-  },
-  {
-    "id": "2e450535-a2b2-4cae-9cc5-12d7f10ed4dc",
-    "usuarioId": "b6ea0f92-6250-4f2b-ab7d-31842b646f5d",
-    "carrera": "Administración",
-    "ciclo_actual": 5,
-    "estado_matricula": "SUSPENDIDO",
-    "creditos_aprobados": 33,
-    "creditos_desaprobados": 22,
-    "promedio_ponderado": 19.28,
-    "historial_retirados": [],
-    "avance_malla": 25.41,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 83.01
-  },
-  {
-    "id": "3d0b983f-64a7-4ec2-ac87-378341b46762",
-    "usuarioId": "0281b583-988c-437b-ae1f-207c8dfd8654",
-    "carrera": "Ingeniería de Software",
-    "ciclo_actual": 7,
-    "estado_matricula": "EGRESADO",
-    "creditos_aprobados": 118,
-    "creditos_desaprobados": 27,
-    "promedio_ponderado": 11.52,
-    "historial_retirados": [],
-    "avance_malla": 91.84,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 50.34
-  },
-  {
-    "id": "c61598d3-1607-4c66-b503-597135222007",
-    "usuarioId": "a03495c9-8b2a-4c22-80ce-4a3e44299dc8",
-    "carrera": "Administración",
-    "ciclo_actual": 8,
-    "estado_matricula": "EGRESADO",
-    "creditos_aprobados": 34,
-    "creditos_desaprobados": 12,
-    "promedio_ponderado": 12.63,
-    "historial_retirados": [],
-    "avance_malla": 60.01,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 88.77
-  },
-  {
-    "id": "d994dca3-29fb-4032-a97e-6267bf0a14bd",
-    "usuarioId": "8ed8dfce-4f81-4b90-b021-38fe7b9370e0",
-    "carrera": "Administración",
-    "ciclo_actual": 4,
-    "estado_matricula": "MATRICULADO",
-    "creditos_aprobados": 100,
-    "creditos_desaprobados": 20,
-    "promedio_ponderado": 17.83,
-    "historial_retirados": [],
-    "avance_malla": 29.01,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 88.78
-  },
-  {
-    "id": "fc9f635d-d423-4e7b-a744-6b5614c9baec",
-    "usuarioId": "9eeccad3-aa30-41e8-99d2-dc26a0356afd",
-    "carrera": "Psicología",
-    "ciclo_actual": 2,
-    "estado_matricula": "SUSPENDIDO",
-    "creditos_aprobados": 190,
-    "creditos_desaprobados": 25,
-    "promedio_ponderado": 11.54,
-    "historial_retirados": [],
-    "avance_malla": 83.8,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 64.65
-  },
-  {
-    "id": "6d914669-a7b5-4689-b18b-1aabe81e6680",
-    "usuarioId": "01499e50-5382-4c63-b18d-06c679511872",
-    "carrera": "Ingeniería de Software",
-    "ciclo_actual": 11,
-    "estado_matricula": "EGRESADO",
-    "creditos_aprobados": 209,
-    "creditos_desaprobados": 6,
-    "promedio_ponderado": 17.98,
+    "promedio_ponderado": 15.86,
     "historial_retirados": [
       {
-        "curso": "CUR208",
-        "periodo": "2016-I"
+        "curso": "CUR334",
+        "periodo": "2022-I"
       },
       {
-        "curso": "CUR264",
-        "periodo": "2019-II"
+        "curso": "CUR426",
+        "periodo": "2022-II"
+      },
+      {
+        "curso": "CUR240",
+        "periodo": "2017-II"
       }
     ],
-    "avance_malla": 90.47,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 84.98
-  },
-  {
-    "id": "53a3ce1e-218a-4260-a4f7-d6a5b86b6d07",
-    "usuarioId": "f1e38222-21d7-4493-9681-2d7015ecfbb1",
-    "carrera": "Psicología",
-    "ciclo_actual": 6,
-    "estado_matricula": "SUSPENDIDO",
-    "creditos_aprobados": 156,
-    "creditos_desaprobados": 16,
-    "promedio_ponderado": 17.87,
-    "historial_retirados": [],
-    "avance_malla": 14.47,
+    "avance_malla": 11.58,
     "cursos_reprobados": [
-      "CUR434",
-      "CUR248",
-      "CUR217"
-    ],
-    "asistencia_promedio": 55.61
-  },
-  {
-    "id": "953e4257-d273-4594-8ff2-89b2941a03d9",
-    "usuarioId": "cf848ac5-1d9b-4d18-8972-f0e2cc6d7fb9",
-    "carrera": "Ingeniería de Software",
-    "ciclo_actual": 5,
-    "estado_matricula": "SUSPENDIDO",
-    "creditos_aprobados": 110,
-    "creditos_desaprobados": 2,
-    "promedio_ponderado": 14.21,
-    "historial_retirados": [],
-    "avance_malla": 32.82,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 91.16
-  },
-  {
-    "id": "6ac3c5bd-3fed-4a7e-bee7-181cb5e79d10",
-    "usuarioId": "8582030d-efb8-4caa-8b67-c685149253e7",
-    "carrera": "Administración",
-    "ciclo_actual": 3,
-    "estado_matricula": "SUSPENDIDO",
-    "creditos_aprobados": 2,
-    "creditos_desaprobados": 8,
-    "promedio_ponderado": 13.94,
-    "historial_retirados": [],
-    "avance_malla": 50.73,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 75.75
-  },
-  {
-    "id": "8f5ac027-4338-4529-8056-b54bd3e7028f",
-    "usuarioId": "0e6934e3-9241-4fd6-bb68-d660039a88b0",
-    "carrera": "Ingeniería Civil",
-    "ciclo_actual": 6,
-    "estado_matricula": "EGRESADO",
-    "creditos_aprobados": 127,
-    "creditos_desaprobados": 10,
-    "promedio_ponderado": 14.09,
-    "historial_retirados": [],
-    "avance_malla": 5.44,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 89.93
-  },
-  {
-    "id": "70ce9ec2-883d-4ae7-a773-808f045d9d3d",
-    "usuarioId": "d6c33f62-e640-4687-8885-149d4a4c9f70",
-    "carrera": "Economía",
-    "ciclo_actual": 6,
-    "estado_matricula": "EGRESADO",
-    "creditos_aprobados": 48,
-    "creditos_desaprobados": 21,
-    "promedio_ponderado": 19.29,
-    "historial_retirados": [],
-    "avance_malla": 2.41,
-    "cursos_reprobados": [
-      "CUR444",
-      "CUR350"
-    ],
-    "asistencia_promedio": 84.21
-  },
-  {
-    "id": "c21804fc-f00a-4ea3-96b2-a005ccf0a3ae",
-    "usuarioId": "0cdbdb54-61c3-4ddc-bfdd-b397f16faa76",
-    "carrera": "Arquitectura",
-    "ciclo_actual": 6,
-    "estado_matricula": "RETIRADO",
-    "creditos_aprobados": 200,
-    "creditos_desaprobados": 17,
-    "promedio_ponderado": 19.95,
-    "historial_retirados": [],
-    "avance_malla": 92.28,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 96.37
-  },
-  {
-    "id": "83c6f7c4-ae37-44c2-9192-0a81215dea03",
-    "usuarioId": "cc9c588a-481e-4129-abb4-c171878e7b62",
-    "carrera": "Psicología",
-    "ciclo_actual": 5,
-    "estado_matricula": "EGRESADO",
-    "creditos_aprobados": 210,
-    "creditos_desaprobados": 15,
-    "promedio_ponderado": 11.09,
-    "historial_retirados": [],
-    "avance_malla": 72.09,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 73.63
-  },
-  {
-    "id": "87d54608-e93e-40e2-84fe-b0f2a75614cb",
-    "usuarioId": "d412bff9-9a63-44a0-b7d8-aa042c58a1c1",
-    "carrera": "Arquitectura",
-    "ciclo_actual": 3,
-    "estado_matricula": "RETIRADO",
-    "creditos_aprobados": 226,
-    "creditos_desaprobados": 17,
-    "promedio_ponderado": 13.2,
-    "historial_retirados": [],
-    "avance_malla": 45.5,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 82.08
-  },
-  {
-    "id": "8a606a40-fc67-4a00-abc9-ae309b7bfc6a",
-    "usuarioId": "a7d5b1f4-cc9a-4128-9abe-e83090c9c4e7",
-    "carrera": "Ingeniería Civil",
-    "ciclo_actual": 12,
-    "estado_matricula": "RETIRADO",
-    "creditos_aprobados": 164,
-    "creditos_desaprobados": 25,
-    "promedio_ponderado": 15.98,
-    "historial_retirados": [],
-    "avance_malla": 31.71,
-    "cursos_reprobados": [],
-    "asistencia_promedio": 74.41
-  },
-  {
-    "id": "86f8e7f8-2cb3-439d-9dbb-616b1eed8e1b",
-    "usuarioId": "71903b6c-2b88-4555-8b7f-5c1ad0715786",
-    "carrera": "Arquitectura",
-    "ciclo_actual": 7,
-    "estado_matricula": "INACTIVO",
-    "creditos_aprobados": 200,
-    "creditos_desaprobados": 26,
-    "promedio_ponderado": 13.51,
-    "historial_retirados": [],
-    "avance_malla": 24.53,
-    "cursos_reprobados": [
-      "CUR293",
-      "CUR148",
-      "CUR337",
+      "CUR424",
+      "CUR373",
       "CUR341"
     ],
-    "asistencia_promedio": 90.09
+    "asistencia_promedio": 53.71
   },
   {
-    "id": "ff41910d-6149-44de-8347-fa408009b49f",
-    "usuarioId": "b91670c0-5584-412a-bf62-23b3dfae488a",
+    "id": "f7a1c4fe-a289-4824-b88f-c54bacc30fde",
+    "usuarioId": "ade2081c-e7cf-480a-987a-d2e557f5a9f4",
+    "carrera": "Arquitectura",
+    "ciclo_actual": 4,
+    "estado_matricula": "SUSPENDIDO",
+    "creditos_aprobados": 45,
+    "creditos_desaprobados": 0,
+    "promedio_ponderado": 17.75,
+    "historial_retirados": [],
+    "avance_malla": 3.11,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 70.76
+  },
+  {
+    "id": "d571e0ba-868e-42f1-a79a-1e6d7c88cae1",
+    "usuarioId": "ae5959ee-b57c-4607-8edb-879c04e421a6",
     "carrera": "Ingeniería Civil",
+    "ciclo_actual": 11,
+    "estado_matricula": "SUSPENDIDO",
+    "creditos_aprobados": 224,
+    "creditos_desaprobados": 3,
+    "promedio_ponderado": 15.02,
+    "historial_retirados": [
+      {
+        "curso": "CUR453",
+        "periodo": "2020-I"
+      },
+      {
+        "curso": "CUR477",
+        "periodo": "2020-I"
+      }
+    ],
+    "avance_malla": 12.69,
+    "cursos_reprobados": [
+      "CUR200",
+      "CUR150",
+      "CUR182",
+      "CUR356"
+    ],
+    "asistencia_promedio": 66.12
+  },
+  {
+    "id": "1a546bf4-098d-4be0-8bfd-ef8ad001c396",
+    "usuarioId": "41a1fc6f-3621-4a2a-bdc5-61ca363762a1",
+    "carrera": "Administración",
+    "ciclo_actual": 1,
+    "estado_matricula": "INACTIVO",
+    "creditos_aprobados": 183,
+    "creditos_desaprobados": 15,
+    "promedio_ponderado": 15.86,
+    "historial_retirados": [
+      {
+        "curso": "CUR411",
+        "periodo": "2020-I"
+      }
+    ],
+    "avance_malla": 13.29,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 86.32
+  },
+  {
+    "id": "b46aebfa-2332-4d1e-8873-bd1a065cdcb7",
+    "usuarioId": "b54a3ca2-96a6-4dbb-8af4-eaeaf43d4cd4",
+    "carrera": "Economía",
+    "ciclo_actual": 9,
+    "estado_matricula": "INACTIVO",
+    "creditos_aprobados": 132,
+    "creditos_desaprobados": 25,
+    "promedio_ponderado": 19.53,
+    "historial_retirados": [
+      {
+        "curso": "CUR199",
+        "periodo": "2017-I"
+      },
+      {
+        "curso": "CUR447",
+        "periodo": "2024-I"
+      }
+    ],
+    "avance_malla": 67.59,
+    "cursos_reprobados": [
+      "CUR102"
+    ],
+    "asistencia_promedio": 92.67
+  },
+  {
+    "id": "c61e5116-9f9e-4c55-ab3b-6f3aae5e98d6",
+    "usuarioId": "5e4de0b3-a543-4ea3-8d4e-daebcaeadc04",
+    "carrera": "Ingeniería Civil",
+    "ciclo_actual": 9,
+    "estado_matricula": "MATRICULADO",
+    "creditos_aprobados": 53,
+    "creditos_desaprobados": 30,
+    "promedio_ponderado": 19.0,
+    "historial_retirados": [],
+    "avance_malla": 44.03,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 81.57
+  },
+  {
+    "id": "07ee4e3e-46ac-4273-9091-471202bc0dc4",
+    "usuarioId": "674e80c0-3d81-41c1-bd4b-d873cda2ad7c",
+    "carrera": "Psicología",
+    "ciclo_actual": 9,
+    "estado_matricula": "INACTIVO",
+    "creditos_aprobados": 20,
+    "creditos_desaprobados": 6,
+    "promedio_ponderado": 13.21,
+    "historial_retirados": [],
+    "avance_malla": 99.32,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 97.05
+  },
+  {
+    "id": "e7f7563f-89dc-46cb-af49-2a65c6997c24",
+    "usuarioId": "a497d4cb-2a7e-4d63-ac9b-14d48bb18fdc",
+    "carrera": "Economía",
+    "ciclo_actual": 5,
+    "estado_matricula": "MATRICULADO",
+    "creditos_aprobados": 131,
+    "creditos_desaprobados": 12,
+    "promedio_ponderado": 10.2,
+    "historial_retirados": [],
+    "avance_malla": 48.39,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 58.88
+  },
+  {
+    "id": "c2519b8b-cd91-461e-9885-7bcdd3e967c8",
+    "usuarioId": "67130e36-33c6-418b-abc2-c81302e0dee5",
+    "carrera": "Arquitectura",
+    "ciclo_actual": 7,
+    "estado_matricula": "RETIRADO",
+    "creditos_aprobados": 170,
+    "creditos_desaprobados": 18,
+    "promedio_ponderado": 19.39,
+    "historial_retirados": [],
+    "avance_malla": 67.9,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 58.29
+  },
+  {
+    "id": "06e8517e-ddf3-4bf0-96b9-162b7b519a50",
+    "usuarioId": "a2f43455-14f2-442b-a5ec-b542ad120f82",
+    "carrera": "Administración",
+    "ciclo_actual": 6,
+    "estado_matricula": "RETIRADO",
+    "creditos_aprobados": 185,
+    "creditos_desaprobados": 13,
+    "promedio_ponderado": 15.78,
+    "historial_retirados": [],
+    "avance_malla": 98.32,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 67.9
+  },
+  {
+    "id": "7d8dbacb-70d7-410a-8768-4802ed58dbd3",
+    "usuarioId": "adb32e9c-413d-4de0-a2c0-01062ce9afa9",
+    "carrera": "Ingeniería Civil",
+    "ciclo_actual": 7,
+    "estado_matricula": "EGRESADO",
+    "creditos_aprobados": 158,
+    "creditos_desaprobados": 7,
+    "promedio_ponderado": 11.94,
+    "historial_retirados": [
+      {
+        "curso": "CUR380",
+        "periodo": "2015-I"
+      }
+    ],
+    "avance_malla": 46.8,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 58.83
+  },
+  {
+    "id": "c6ca718e-eaf5-431b-b80c-be1e662d0530",
+    "usuarioId": "332b6807-22ba-4d0c-be8e-6a3716f176c7",
+    "carrera": "Economía",
+    "ciclo_actual": 9,
+    "estado_matricula": "RETIRADO",
+    "creditos_aprobados": 197,
+    "creditos_desaprobados": 24,
+    "promedio_ponderado": 14.86,
+    "historial_retirados": [],
+    "avance_malla": 43.1,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 91.08
+  },
+  {
+    "id": "3c900726-eb93-4839-bbc4-7473c752a356",
+    "usuarioId": "24ce67ab-371a-40af-a676-36f3cac21cc9",
+    "carrera": "Ingeniería de Software",
+    "ciclo_actual": 9,
+    "estado_matricula": "INACTIVO",
+    "creditos_aprobados": 154,
+    "creditos_desaprobados": 4,
+    "promedio_ponderado": 14.8,
+    "historial_retirados": [],
+    "avance_malla": 19.46,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 59.52
+  },
+  {
+    "id": "0439b158-71ed-4d68-9c7d-a6d6d0716213",
+    "usuarioId": "5e57e2b5-1891-4131-a2be-06dff9987e95",
+    "carrera": "Economía",
+    "ciclo_actual": 5,
+    "estado_matricula": "EGRESADO",
+    "creditos_aprobados": 160,
+    "creditos_desaprobados": 28,
+    "promedio_ponderado": 15.13,
+    "historial_retirados": [],
+    "avance_malla": 41.2,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 76.35
+  },
+  {
+    "id": "32173f45-67bb-4b32-9c45-2b6fa0ad4e51",
+    "usuarioId": "8a23777e-570a-4686-ad0d-ef0be4108563",
+    "carrera": "Ingeniería Civil",
+    "ciclo_actual": 5,
+    "estado_matricula": "SUSPENDIDO",
+    "creditos_aprobados": 43,
+    "creditos_desaprobados": 27,
+    "promedio_ponderado": 17.66,
+    "historial_retirados": [],
+    "avance_malla": 70.44,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 86.4
+  },
+  {
+    "id": "7d9e42f5-01e2-4d58-99ab-a81b3418fa3b",
+    "usuarioId": "d44bdba6-7c23-4b35-a46b-a926f47833e8",
+    "carrera": "Ingeniería de Software",
+    "ciclo_actual": 11,
+    "estado_matricula": "INACTIVO",
+    "creditos_aprobados": 217,
+    "creditos_desaprobados": 25,
+    "promedio_ponderado": 16.97,
+    "historial_retirados": [
+      {
+        "curso": "CUR461",
+        "periodo": "2020-I"
+      },
+      {
+        "curso": "CUR117",
+        "periodo": "2022-II"
+      }
+    ],
+    "avance_malla": 34.32,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 74.08
+  },
+  {
+    "id": "97ac19ff-3bd8-4d8e-8bb3-e87f7b470b9e",
+    "usuarioId": "ceca73a7-3fc2-4379-bc26-8a6d25758e84",
+    "carrera": "Arquitectura",
+    "ciclo_actual": 5,
+    "estado_matricula": "RETIRADO",
+    "creditos_aprobados": 57,
+    "creditos_desaprobados": 6,
+    "promedio_ponderado": 18.64,
+    "historial_retirados": [],
+    "avance_malla": 4.61,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 62.93
+  },
+  {
+    "id": "1eb9cd45-0110-43a4-9162-eb6c54bd7491",
+    "usuarioId": "5eb899c0-6c09-42c0-b830-bd159bfa81c2",
+    "carrera": "Administración",
+    "ciclo_actual": 2,
+    "estado_matricula": "EGRESADO",
+    "creditos_aprobados": 68,
+    "creditos_desaprobados": 7,
+    "promedio_ponderado": 11.28,
+    "historial_retirados": [],
+    "avance_malla": 55.87,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 98.26
+  },
+  {
+    "id": "3e522e6e-b9f6-4fbd-9607-7b158dda6c48",
+    "usuarioId": "8ee61589-93f4-4e52-9d2b-1e7164f1cd75",
+    "carrera": "Arquitectura",
+    "ciclo_actual": 3,
+    "estado_matricula": "MATRICULADO",
+    "creditos_aprobados": 120,
+    "creditos_desaprobados": 13,
+    "promedio_ponderado": 14.41,
+    "historial_retirados": [
+      {
+        "curso": "CUR286",
+        "periodo": "2019-II"
+      },
+      {
+        "curso": "CUR445",
+        "periodo": "2018-II"
+      },
+      {
+        "curso": "CUR237",
+        "periodo": "2021-I"
+      }
+    ],
+    "avance_malla": 26.1,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 85.63
+  },
+  {
+    "id": "16cbf078-1aca-4597-b416-d1bcee2118b1",
+    "usuarioId": "3b9c94d1-f95f-4ff0-940f-b7675b4bed38",
+    "carrera": "Ingeniería de Software",
+    "ciclo_actual": 2,
+    "estado_matricula": "EGRESADO",
+    "creditos_aprobados": 79,
+    "creditos_desaprobados": 4,
+    "promedio_ponderado": 15.25,
+    "historial_retirados": [],
+    "avance_malla": 69.15,
+    "cursos_reprobados": [
+      "CUR174",
+      "CUR450",
+      "CUR336"
+    ],
+    "asistencia_promedio": 75.58
+  },
+  {
+    "id": "c23a40ed-c190-4ac8-8222-efc29418178d",
+    "usuarioId": "da7c5b38-48f9-4fa8-adc4-368a5325fe2e",
+    "carrera": "Psicología",
+    "ciclo_actual": 9,
+    "estado_matricula": "SUSPENDIDO",
+    "creditos_aprobados": 119,
+    "creditos_desaprobados": 2,
+    "promedio_ponderado": 19.82,
+    "historial_retirados": [],
+    "avance_malla": 9.33,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 66.88
+  },
+  {
+    "id": "871b1bdd-49a2-4109-8f2c-80f0f53f502e",
+    "usuarioId": "a2925bf4-f608-48fb-832c-3d56ee810bd8",
+    "carrera": "Administración",
+    "ciclo_actual": 9,
+    "estado_matricula": "RETIRADO",
+    "creditos_aprobados": 32,
+    "creditos_desaprobados": 3,
+    "promedio_ponderado": 11.89,
+    "historial_retirados": [],
+    "avance_malla": 65.47,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 68.2
+  },
+  {
+    "id": "893f5daa-a422-4faf-b882-882a8caa6c4b",
+    "usuarioId": "081e26b0-aff5-4551-a5e0-1d863a5ebd53",
+    "carrera": "Administración",
+    "ciclo_actual": 8,
+    "estado_matricula": "RETIRADO",
+    "creditos_aprobados": 3,
+    "creditos_desaprobados": 21,
+    "promedio_ponderado": 11.25,
+    "historial_retirados": [
+      {
+        "curso": "CUR451",
+        "periodo": "2022-I"
+      },
+      {
+        "curso": "CUR450",
+        "periodo": "2025-I"
+      }
+    ],
+    "avance_malla": 90.93,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 67.64
+  },
+  {
+    "id": "142dae36-7767-4710-a7c0-c167ddd9e1bc",
+    "usuarioId": "0daaffff-a821-4013-ba22-e7d7d29c5da5",
+    "carrera": "Arquitectura",
+    "ciclo_actual": 6,
+    "estado_matricula": "INACTIVO",
+    "creditos_aprobados": 57,
+    "creditos_desaprobados": 19,
+    "promedio_ponderado": 17.4,
+    "historial_retirados": [
+      {
+        "curso": "CUR247",
+        "periodo": "2018-II"
+      },
+      {
+        "curso": "CUR184",
+        "periodo": "2023-I"
+      },
+      {
+        "curso": "CUR166",
+        "periodo": "2018-II"
+      }
+    ],
+    "avance_malla": 8.78,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 97.83
+  },
+  {
+    "id": "8ffb51f7-68eb-472b-b59b-555a748d8aa6",
+    "usuarioId": "1565172c-2497-4e35-a2c4-7faabe79c428",
+    "carrera": "Ingeniería de Software",
+    "ciclo_actual": 8,
+    "estado_matricula": "SUSPENDIDO",
+    "creditos_aprobados": 99,
+    "creditos_desaprobados": 7,
+    "promedio_ponderado": 15.33,
+    "historial_retirados": [
+      {
+        "curso": "CUR376",
+        "periodo": "2024-II"
+      }
+    ],
+    "avance_malla": 18.3,
+    "cursos_reprobados": [
+      "CUR336",
+      "CUR107",
+      "CUR428",
+      "CUR194"
+    ],
+    "asistencia_promedio": 80.65
+  },
+  {
+    "id": "3d37d7df-661f-446f-a3f2-3e27bdcaa35a",
+    "usuarioId": "d5304631-3e83-41f3-991b-25e708ff7e4c",
+    "carrera": "Psicología",
+    "ciclo_actual": 3,
+    "estado_matricula": "RETIRADO",
+    "creditos_aprobados": 37,
+    "creditos_desaprobados": 2,
+    "promedio_ponderado": 15.77,
+    "historial_retirados": [],
+    "avance_malla": 57.98,
+    "cursos_reprobados": [
+      "CUR306",
+      "CUR422"
+    ],
+    "asistencia_promedio": 92.86
+  },
+  {
+    "id": "7e9f8cd0-1b1f-4b80-a4f5-4d5844671dfa",
+    "usuarioId": "97390cb6-4e20-4814-a2be-b7e910057fa7",
+    "carrera": "Arquitectura",
+    "ciclo_actual": 1,
+    "estado_matricula": "SUSPENDIDO",
+    "creditos_aprobados": 140,
+    "creditos_desaprobados": 2,
+    "promedio_ponderado": 14.8,
+    "historial_retirados": [],
+    "avance_malla": 36.6,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 84.26
+  },
+  {
+    "id": "39186eb4-046c-4c9d-ab92-f0369e37a3ba",
+    "usuarioId": "98493735-b6df-48ba-a4e7-d55063c1cc19",
+    "carrera": "Ingeniería Civil",
+    "ciclo_actual": 11,
+    "estado_matricula": "MATRICULADO",
+    "creditos_aprobados": 189,
+    "creditos_desaprobados": 17,
+    "promedio_ponderado": 12.38,
+    "historial_retirados": [],
+    "avance_malla": 82.84,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 71.86
+  },
+  {
+    "id": "397c45e0-27f1-4257-bd5a-ae8f4b0aceb3",
+    "usuarioId": "04d6ec5e-1dfb-4dae-bc62-68b99c054136",
+    "carrera": "Ingeniería de Software",
     "ciclo_actual": 2,
     "estado_matricula": "SUSPENDIDO",
-    "creditos_aprobados": 90,
-    "creditos_desaprobados": 13,
-    "promedio_ponderado": 16.99,
+    "creditos_aprobados": 133,
+    "creditos_desaprobados": 11,
+    "promedio_ponderado": 19.4,
     "historial_retirados": [],
-    "avance_malla": 60.43,
+    "avance_malla": 51.09,
     "cursos_reprobados": [],
-    "asistencia_promedio": 99.22
+    "asistencia_promedio": 63.2
+  },
+  {
+    "id": "7cf5327c-1523-4bcf-9699-4e6eadd9f3db",
+    "usuarioId": "7481fc5d-e60c-4207-872f-912d271ce449",
+    "carrera": "Administración",
+    "ciclo_actual": 6,
+    "estado_matricula": "SUSPENDIDO",
+    "creditos_aprobados": 77,
+    "creditos_desaprobados": 14,
+    "promedio_ponderado": 12.03,
+    "historial_retirados": [],
+    "avance_malla": 47.44,
+    "cursos_reprobados": [],
+    "asistencia_promedio": 52.17
   }
 ]
