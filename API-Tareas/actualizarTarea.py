@@ -92,28 +92,71 @@ def get_email_from_request(fs):
 
 def lambda_handler(event, context):
     try:
-        # Parsear body
-        try:
-            body = json.loads(event.get('body', '{}'))
-        except:
-            return _response(400, {"message": "Body JSON inválido"})
+        # ===============================
+        # Parsear multipart/form-data
+        # ===============================
+        content_type = event.get('headers', {}).get('content-type', '') or \
+                       event.get('headers', {}).get('Content-Type', '')
         
-        # Validar correo
-        correo = body.get('correo')
+        if 'multipart/form-data' not in content_type:
+            return _response(400, {"message": "Se requiere multipart/form-data"})
+        
+        # Decodificar body
+        body_encoded = event.get('body', '')
+        if event.get('isBase64Encoded', False):
+            body_bytes = base64.b64decode(body_encoded)
+        else:
+            body_bytes = body_encoded.encode('utf-8') if isinstance(body_encoded, str) else body_encoded
+        
+        # Parsear multipart
+        environ = {
+            'REQUEST_METHOD': 'POST',
+            'CONTENT_TYPE': content_type,
+            'CONTENT_LENGTH': len(body_bytes)
+        }
+        
+        headers = {
+            'content-type': content_type,
+            'content-length': str(len(body_bytes))
+        }
+        
+        fs = cgi.FieldStorage(
+            fp=BytesIO(body_bytes),
+            environ=environ,
+            headers=headers,
+            keep_blank_values=True
+        )
+        
+        # Extraer correo
+        correo = get_email_from_request(fs)
         if not correo:
             return _response(400, {"message": "El campo 'correo' es requerido"})
+        
+        # Extraer tarea_id del multipart
+        if 'id' not in fs:
+            return _response(400, {"message": "El campo 'id' es requerido"})
+        
+        tarea_id = fs['id'].value
+        if not tarea_id:
+            return _response(400, {"message": "El campo 'id' no puede estar vacío"})
+        
+        # Extraer imagen
+        if 'imagen' not in fs:
+            return _response(400, {"message": "El campo 'imagen' es requerido"})
+        
+        imagen_file = fs['imagen']
+        if not imagen_file.file:
+            return _response(400, {"message": "No se pudo leer la imagen"})
+        
+        # Leer bytes de la imagen
+        image_bytes = imagen_file.file.read()
+        if not image_bytes:
+            return _response(400, {"message": "La imagen está vacía"})
         
         # Obtener usuario_id desde DynamoDB
         usuario_id = get_user_id_from_email(correo)
         if not usuario_id:
             return _response(404, {"message": "Usuario no encontrado con ese correo"})
-        # Obtener tarea_id de pathParameters
-        tarea_id = None
-        if event.get('pathParameters'):
-            tarea_id = event['pathParameters'].get('id')
-        
-        if not tarea_id:
-            return _response(400, {"message": "tarea_id es requerido"})
         
         # Verificar que la tarea existe y pertenece al usuario
         try:
@@ -128,6 +171,15 @@ def lambda_handler(event, context):
                 return _response(404, {"message": "Tarea no encontrada"})
             
             current_item = response['Item']
+            
+            # ===============================
+            # Verificar disponibilidad de Gemini
+            # ===============================
+            if not client:
+                return _response(500, {
+                    "message": "Gemini no disponible",
+                    "error": _INIT_ERROR
+                })
             
             # ===============================
             # Análisis con Gemini
@@ -257,7 +309,6 @@ def lambda_handler(event, context):
             )
             
             item = convert_decimal(updated_response['Item'])
-
             return _response(200, {
                 "message": "Tarea actualizada exitosamente",
                 "data": item
@@ -267,7 +318,6 @@ def lambda_handler(event, context):
             return _response(500, {"message": f"Error al actualizar tarea: {str(e)}"})
     
     except Exception as e:
+        import traceback
+        print(f"Error completo: {traceback.format_exc()}")
         return _response(500, {"message": str(e)})
-
-def actualizarTarea(event, context):
-    return lambda_handler(event, context)
